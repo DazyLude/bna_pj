@@ -9,9 +9,11 @@ enum {
 
 
 # _ = private variable
-var _current_level : Node;
-var _modal_component : Node;
-var _hud : HUD;
+var _current_level : Node = null;
+var _modal_component : Node = null;
+var _hud : HUD = null;
+
+var paused : bool = false;
 
 
 func _ready() -> void:
@@ -32,6 +34,7 @@ func _ready() -> void:
 
 func load_level(level_id : int) -> void :
 	var level_resource : PackedScene;
+	paused = false;
 	match level_id:
 		_:
 			level_resource = preload("res://scenes/levels/test_level.tscn");

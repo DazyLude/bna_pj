@@ -20,6 +20,14 @@ offset_right = 111.0
 offset_bottom = 56.0
 text = "no level"
 
+[node name="ActiveCharacter" type="Label" parent="."]
+layout_mode = 0
+offset_left = 45.0
+offset_top = 71.0
+offset_right = 143.0
+offset_bottom = 98.0
+text = "no character"
+
 [node name="PauseButton" type="Button" parent="."]
 layout_mode = 1
 anchors_preset = 1

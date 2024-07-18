@@ -37,6 +37,7 @@ theme_override_font_sizes/font_size = 24
 text = "exit to the menu"
 
 [node name="Title" type="Label" parent="."]
+layout_mode = 0
 offset_left = 524.0
 offset_top = 135.0
 offset_right = 709.0
