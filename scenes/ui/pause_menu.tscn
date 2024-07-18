@@ -1,0 +1,45 @@
+[gd_scene load_steps=2 format=3 uid="uid://hxjkdjl5lxga"]
+
+[ext_resource type="Script" path="res://scenes/ui/pause_menu.gd" id="1_2lsar"]
+
+[node name="PauseMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_2lsar")
+
+[node name="ButtonsVBox" type="VBoxContainer" parent="."]
+custom_minimum_size = Vector2(150, 90)
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -102.0
+offset_top = 246.0
+offset_right = 48.0
+offset_bottom = 416.0
+grow_horizontal = 2
+theme_override_constants/separation = 10
+
+[node name="ResumeButton" type="Button" parent="ButtonsVBox"]
+custom_minimum_size = Vector2(120, 50)
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "resume"
+
+[node name="ExitButton" type="Button" parent="ButtonsVBox"]
+custom_minimum_size = Vector2(120, 50)
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "exit to the menu"
+
+[node name="Title" type="Label" parent="."]
+offset_left = 524.0
+offset_top = 135.0
+offset_right = 709.0
+offset_bottom = 218.0
+theme_override_font_sizes/font_size = 60
+text = "pause"

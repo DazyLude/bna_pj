@@ -11,12 +11,17 @@ enum {
 # _ = private variable
 var _current_level : Node;
 var _modal_component : Node;
+var _hud : HUD;
 
 
 func _ready() -> void:
+	var hud_pckd := preload("res://scenes/ui/hud.tscn");
+	_hud = hud_pckd.instantiate();
+	add_ui_component(_hud);
+	
 	var main_menu_pckd := preload("res://scenes/menus/main_menu.tscn");
-	var main_menu = main_menu_pckd.instantiate();
-	display_modal_component(main_menu);
+	display_modal_component(main_menu_pckd.instantiate());
+	
 
 
 # these methods are avaialable in all children nodes using:
@@ -32,11 +37,13 @@ func load_level(level_id : int) -> void :
 			level_resource = preload("res://scenes/levels/test_level.tscn");
 	
 	if _current_level != null:
+		_hud.disconnect_from_level(_current_level);
 		$GameContainer.remove_child(_current_level);
 		_current_level.queue_free();
 		_current_level = null;
 	
 	_current_level = level_resource.instantiate();
+	_hud.connect_to_level(_current_level);
 	$GameContainer.add_child(_current_level);
 
 
