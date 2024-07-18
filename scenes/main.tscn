@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://bxfjd7dvdi88k"]
+
+[ext_resource type="Script" path="res://scenes/Main.gd" id="1_0m8em"]
+[ext_resource type="Script" path="res://scenes/GameContainer.gd" id="2_4p3do"]
+
+[node name="Main" type="Node"]
+script = ExtResource("1_0m8em")
+
+[node name="UIContainer" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="GameContainer" type="Node" parent="."]
+script = ExtResource("2_4p3do")
