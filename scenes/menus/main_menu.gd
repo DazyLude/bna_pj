@@ -12,6 +12,7 @@ func _ready() -> void:
 	($ButtonsVBox/LoadLevelButton as BaseButton).button_up.connect(_open_level_select);
 	($ButtonsVBox/DisplayHelpButton as BaseButton).button_up.connect(_open_help);
 	_main_ref = get_tree().root.get_node("Main") as MainScene;
+	_main_ref.unload_level();
 
 
 func _start_game() -> void:

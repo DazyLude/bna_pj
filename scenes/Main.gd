@@ -39,15 +39,19 @@ func load_level(level_id : int) -> void :
 		_:
 			level_resource = preload("res://scenes/levels/test_level.tscn");
 	
+	unload_level();
+	
+	_current_level = level_resource.instantiate();
+	_hud.connect_to_level(_current_level.get_node("GameLevel"));
+	$GameContainer.add_child(_current_level);
+
+
+func unload_level() -> void :
 	if _current_level != null:
 		_hud.disconnect_from_level(_current_level.get_node("GameLevel"));
 		$GameContainer.remove_child(_current_level);
 		_current_level.queue_free();
 		_current_level = null;
-	
-	_current_level = level_resource.instantiate();
-	_hud.connect_to_level(_current_level.get_node("GameLevel"));
-	$GameContainer.add_child(_current_level);
 
 
 func add_ui_component(component: Control) -> void :
