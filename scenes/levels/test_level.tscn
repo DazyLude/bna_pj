@@ -14,40 +14,41 @@ level_objects = [NodePath("LevelObject"), NodePath("LevelObject2"), NodePath("Le
 [node name="LevelObject" type="Node2D" parent="GameLevel"]
 script = ExtResource("2_6gw10")
 starting_coords = Vector2i(4, 4)
-tags = {
-"ALTA": null
-}
+tags = Array[int]([1, 3])
 custom_sprite = ExtResource("3_et26o")
 
 [node name="LevelObject2" type="Node2D" parent="GameLevel"]
 script = ExtResource("2_6gw10")
 starting_coords = Vector2i(5, 5)
-tags = {
-"ARYA": null
-}
+tags = Array[int]([2, 4])
 custom_sprite = ExtResource("4_v2itv")
 
 [node name="LevelObject3" type="Node2D" parent="GameLevel"]
 script = ExtResource("2_6gw10")
 starting_coords = Vector2i(3, 6)
+tags = Array[int]([4])
 margin_from_bottom = 2.0
 
 [node name="LevelObject4" type="Node2D" parent="GameLevel"]
 script = ExtResource("2_6gw10")
 starting_coords = Vector2i(4, 6)
+tags = Array[int]([4])
 margin_from_bottom = 5.0
 
 [node name="LevelObject5" type="Node2D" parent="GameLevel"]
 script = ExtResource("2_6gw10")
 starting_coords = Vector2i(5, 6)
+tags = Array[int]([4])
 margin_from_bottom = 3.0
 
 [node name="LevelObject6" type="Node2D" parent="GameLevel"]
 script = ExtResource("2_6gw10")
 starting_coords = Vector2i(6, 6)
+tags = Array[int]([4])
 margin_from_bottom = -5.0
 
 [node name="LevelObject7" type="Node2D" parent="GameLevel"]
 script = ExtResource("2_6gw10")
 starting_coords = Vector2i(7, 6)
+tags = Array[int]([4])
 margin_from_bottom = 0.0

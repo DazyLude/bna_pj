@@ -8,6 +8,11 @@ enum CHARACTER_ID {
 	ARYA,
 }
 
+enum _DIRECTION {
+	UP, DOWN, LEFT, RIGHT
+}
+
+
 # coordinate system
 const origin := Vector2(0., 0.);
 const cell_size := Vector2(70., 70.);
@@ -15,16 +20,6 @@ const cell_size := Vector2(70., 70.);
 
 func coords2position(coords: Vector2i) -> Vector2:
 	return cell_size * Vector2(coords) + origin;
-
-
-# character system
-signal changed_selected_character(CHARACTER_ID);
-var selected_character : CHARACTER_ID = CHARACTER_ID.ARYA:
-	set(new_value):
-		changed_selected_character.emit(new_value);
-		selected_character = new_value;
-	get:
-		return selected_character;
 
 
 #region level data
@@ -35,16 +30,16 @@ var _level_terrain_set : TileSet = preload("res://assets/terrain.tres");
 var _objects_that_matter : Dictionary = {};
 
 
-func get_objects_by_tag(tag: String) -> Array[LevelObject]:
+func get_objects_by_tag(tag: LevelObject.TAGS) -> Array:
 	var result : Array[LevelObject] = [];
 	for coords in _objects_that_matter.keys():
 		for obj in _objects_that_matter[coords]:
-			if (obj as LevelObject).tags.has("tag"):
+			if (obj as LevelObject).has_tag(tag):
 				result.push_back(obj);
 	return result;
 
 
-func get_objects_by_coords(coords: Vector2i) -> Array[LevelObject]:
+func get_objects_by_coords(coords: Vector2i) -> Array:
 	return _objects_that_matter.get(coords, []);
 
 
@@ -57,13 +52,119 @@ func get_coords_of_an_object(object: LevelObject) -> Vector2i:
 	return Vector2i(0, 0);
 
 
-func add_level_object(coords: Vector2i, object: LevelObject) -> void:
-	pass;
+func add_object(coords: Vector2i, object: LevelObject) -> void:
+	if _objects_that_matter.has(coords):
+		_objects_that_matter[coords].push_back(object);
+	else:
+		_objects_that_matter[coords] = [object];
 
 
-func remove_level_object(object: LevelObject, coords: Vector2i) -> void:
-	pass;
+func remove_object(coords: Vector2i, object: LevelObject) -> void:
+	(_objects_that_matter[coords] as Array[LevelObject]).erase(object);
+	if _objects_that_matter[coords].size() == 0:
+		_objects_that_matter.erase(coords);
+
+
+func move_object(move: MoveDTO) -> void:
+	move.object.move_to(coords2position(move.to));
+	remove_object(move.from, move.object);
+	add_object(move.to, move.object);
 #endregion
+
+
+#region character system
+signal changed_selected_character(CHARACTER_ID);
+var selected_character : CHARACTER_ID = CHARACTER_ID.ARYA:
+	set(new_value):
+		changed_selected_character.emit(new_value);
+		selected_character = new_value;
+	get:
+		return selected_character;
+
+
+func move_character(direction: _DIRECTION) -> void:
+	match selected_character:
+		CHARACTER_ID.ARYA:
+			for arya in get_objects_by_tag(LevelObject.TAGS.ARYA):
+				try_move(arya, direction);
+		CHARACTER_ID.ALTA:
+			for arya in get_objects_by_tag(LevelObject.TAGS.ALTA):
+				try_move(arya, direction);
+#endregion
+
+
+#region movement processing
+class MoveDTO extends RefCounted:
+	var object : LevelObject = null;
+	var from := Vector2i(0, 0);
+	var to := Vector2i(0, 0);
+	
+	
+	func _init(object: LevelObject, from: Vector2i, to: Vector2i) -> void:
+		self.object = object;
+		self.from = from;
+		self.to = to;
+
+
+class MovementData extends RefCounted:
+	var is_executable : bool = false;
+	var objects_moved : Array[MoveDTO] = [];
+	
+	func _init(who, from, to):
+		is_executable = true;
+		objects_moved = [MoveDTO.new(who, from, to)];
+	
+	
+	func dont() -> MovementData:
+		objects_moved.clear();
+		is_executable = false;
+		return self;
+	
+	
+	func add(another: MovementData) -> MovementData:
+		if !(another.is_executable && self.is_executable):
+			return dont();
+		else:
+			another.objects_moved.append_array(self.objects_moved);
+			return another;
+
+
+func check_move(object: LevelObject, from: Vector2i, to: Vector2i) -> MovementData:
+	var object_at_destination := get_objects_by_coords(to);
+	# check if can move
+	# todo!
+	return MovementData.new(object, from, to);
+
+
+func execute_move(move: MovementData) -> void:
+	if !move.is_executable:
+		return;
+	
+	for moveDTO in move.objects_moved:
+		move_object(moveDTO);
+
+
+func try_move(object: LevelObject, direction: _DIRECTION):
+	var from := get_coords_of_an_object(object);
+	var delta : Vector2i;
+	match direction:
+		_DIRECTION.UP:
+			delta = Vector2i(0, -1);
+		_DIRECTION.DOWN:
+			delta = Vector2i(0, 1);
+		_DIRECTION.LEFT:
+			delta = Vector2i(-1, 0);
+		_DIRECTION.RIGHT:
+			delta = Vector2i(1, 0);
+	var to = from + delta;
+	
+	var move := check_move(object, from, to);
+	if move.is_executable:
+		execute_move(move);
+	else:
+		object.nudge(to);
+#endregion
+
 
 # meta 
 @export var level_name := "test level";
@@ -85,10 +186,20 @@ func _cycle_character() -> void:
 func _ready() -> void:
 	for obj in level_objects:
 		obj.place_on_level(coords2position(obj.starting_coords), self);
+		if !obj.has_tag(LevelObject.TAGS.DECORATION):
+			add_object(obj.starting_coords, obj);
 
 
 func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("change_character"):
 		_cycle_character();
+	if Input.is_action_just_pressed("move_down"):
+		move_character(_DIRECTION.DOWN);
+	if Input.is_action_just_pressed("move_up"):
+		move_character(_DIRECTION.UP);
+	if Input.is_action_just_pressed("move_left"):
+		move_character(_DIRECTION.LEFT);
+	if Input.is_action_just_pressed("move_right"):
+		move_character(_DIRECTION.RIGHT);
 
 
