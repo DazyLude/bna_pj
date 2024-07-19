@@ -14,7 +14,7 @@ func _ready() -> void:
 func connect_to_level(level_node: GameLevel) -> void:
 	($LevelName as Label).text = level_node.level_name;
 	
-	_selected_character_update(level_node.selected_character)
+	_selected_character_update(level_node.selected_character);
 	level_node.changed_selected_character.connect(_selected_character_update);
 
 

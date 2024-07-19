@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://6xwg0xdrtmc7"
-path="res://.godot/imported/level_icon.svg-3027d579f36b180d0cc6246b5fdc028e.ctex"
+uid="uid://cke8b8lbmqq66"
+path="res://.godot/imported/alta.png-93e5173e869b69824886fd120513a591.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://scripts/level_icon.svg"
-dest_files=["res://.godot/imported/level_icon.svg-3027d579f36b180d0cc6246b5fdc028e.ctex"]
+source_file="res://assets/alta.png"
+dest_files=["res://.godot/imported/alta.png-93e5173e869b69824886fd120513a591.ctex"]
 
 [params]
 
@@ -32,6 +32,3 @@ process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
 detect_3d/compress_to=1
-svg/scale=1.0
-editor/scale_with_editor_scale=false
-editor/convert_colors_with_editor_theme=false

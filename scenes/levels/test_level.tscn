@@ -1,6 +1,53 @@
-[gd_scene load_steps=2 format=3 uid="uid://bnhk3efdvdvq7"]
+[gd_scene load_steps=5 format=3 uid="uid://hk04eygeoc0x"]
 
-[ext_resource type="Script" path="res://scripts/level.gd" id="1_503mw"]
+[ext_resource type="Script" path="res://scripts/level.gd" id="1_hfp44"]
+[ext_resource type="Script" path="res://scripts/level_object.gd" id="2_6gw10"]
+[ext_resource type="Texture2D" uid="uid://cke8b8lbmqq66" path="res://assets/alta.png" id="3_et26o"]
+[ext_resource type="Texture2D" uid="uid://eed80vah42lo" path="res://assets/gyaru.png" id="4_v2itv"]
 
-[node name="TestLevel" type="Node2D"]
-script = ExtResource("1_503mw")
+[node name="TestLevel2" type="Node2D"]
+
+[node name="GameLevel" type="Node2D" parent="." node_paths=PackedStringArray("level_objects")]
+script = ExtResource("1_hfp44")
+level_objects = [NodePath("LevelObject"), NodePath("LevelObject2"), NodePath("LevelObject3"), NodePath("LevelObject4"), NodePath("LevelObject5"), NodePath("LevelObject6"), NodePath("LevelObject7")]
+
+[node name="LevelObject" type="Node2D" parent="GameLevel"]
+script = ExtResource("2_6gw10")
+starting_coords = Vector2i(4, 4)
+tags = {
+"ALTA": null
+}
+custom_sprite = ExtResource("3_et26o")
+
+[node name="LevelObject2" type="Node2D" parent="GameLevel"]
+script = ExtResource("2_6gw10")
+starting_coords = Vector2i(5, 5)
+tags = {
+"ARYA": null
+}
+custom_sprite = ExtResource("4_v2itv")
+
+[node name="LevelObject3" type="Node2D" parent="GameLevel"]
+script = ExtResource("2_6gw10")
+starting_coords = Vector2i(3, 6)
+margin_from_bottom = 2.0
+
+[node name="LevelObject4" type="Node2D" parent="GameLevel"]
+script = ExtResource("2_6gw10")
+starting_coords = Vector2i(4, 6)
+margin_from_bottom = 5.0
+
+[node name="LevelObject5" type="Node2D" parent="GameLevel"]
+script = ExtResource("2_6gw10")
+starting_coords = Vector2i(5, 6)
+margin_from_bottom = 3.0
+
+[node name="LevelObject6" type="Node2D" parent="GameLevel"]
+script = ExtResource("2_6gw10")
+starting_coords = Vector2i(6, 6)
+margin_from_bottom = -5.0
+
+[node name="LevelObject7" type="Node2D" parent="GameLevel"]
+script = ExtResource("2_6gw10")
+starting_coords = Vector2i(7, 6)
+margin_from_bottom = 0.0

@@ -1,0 +1,7 @@
+[gd_resource type="TileSet" format=3 uid="uid://bdwegq3k2nkl4"]
+
+[resource]
+tile_size = Vector2i(70, 70)
+terrain_set_0/mode = 0
+terrain_set_0/terrain_0/name = "Terrain 0"
+terrain_set_0/terrain_0/color = Color(0.501961, 0.345098, 0.25098, 1)
