@@ -14,25 +14,25 @@ level_objects = [NodePath("LevelObject"), NodePath("LevelObject2"), NodePath("Le
 [node name="LevelObject" type="Node2D" parent="GameLevel"]
 script = ExtResource("2_6gw10")
 starting_coords = Vector2i(4, 4)
-tags = Array[int]([1, 3])
+tags = Array[int]([1, 3, 5])
 custom_sprite = ExtResource("3_et26o")
 
 [node name="LevelObject2" type="Node2D" parent="GameLevel"]
 script = ExtResource("2_6gw10")
 starting_coords = Vector2i(5, 5)
-tags = Array[int]([2, 4])
+tags = Array[int]([2, 3, 5])
 custom_sprite = ExtResource("4_v2itv")
 
 [node name="LevelObject3" type="Node2D" parent="GameLevel"]
 script = ExtResource("2_6gw10")
 starting_coords = Vector2i(3, 6)
-tags = Array[int]([4])
+tags = Array[int]([3])
 margin_from_bottom = 2.0
 
 [node name="LevelObject4" type="Node2D" parent="GameLevel"]
 script = ExtResource("2_6gw10")
 starting_coords = Vector2i(4, 6)
-tags = Array[int]([4])
+tags = Array[int]([3, 6])
 margin_from_bottom = 5.0
 
 [node name="LevelObject5" type="Node2D" parent="GameLevel"]

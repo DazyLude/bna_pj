@@ -12,8 +12,7 @@ enum {
 var _current_level : Node = null;
 var _modal_component : Node = null;
 var _hud : HUD = null;
-
-var paused : bool = false;
+var paused : bool = true;
 
 
 func _ready() -> void:

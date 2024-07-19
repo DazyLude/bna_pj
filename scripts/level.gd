@@ -15,7 +15,7 @@ enum _DIRECTION {
 
 # coordinate system
 const origin := Vector2(0., 0.);
-const cell_size := Vector2(70., 70.);
+const cell_size := Vector2(64., 64.);
 
 
 func coords2position(coords: Vector2i) -> Vector2:
@@ -109,10 +109,15 @@ class MoveDTO extends RefCounted:
 class MovementData extends RefCounted:
 	var is_executable : bool = false;
 	var objects_moved : Array[MoveDTO] = [];
+	var weight : int = 1;
 	
-	func _init(who, from, to):
+	func _init(who : LevelObject, from : Vector2i, to : Vector2i) -> void:
 		is_executable = true;
 		objects_moved = [MoveDTO.new(who, from, to)];
+		if who.has_tag(LevelObject.TAGS.LIGHT):
+			weight -= 1;
+		if who.has_tag(LevelObject.TAGS.HEAVY):
+			weight += 1;
 	
 	
 	func dont() -> MovementData:
@@ -121,19 +126,31 @@ class MovementData extends RefCounted:
 		return self;
 	
 	
-	func add(another: MovementData) -> MovementData:
-		if !(another.is_executable && self.is_executable):
-			return dont();
-		else:
-			another.objects_moved.append_array(self.objects_moved);
-			return another;
+	func add(another: MovementData) -> void:
+		self.is_executable = self.is_executable && another.is_executable;
+		self.objects_moved.append_array(another.objects_moved);
+		self.weight += another.weight;
 
 
 func check_move(object: LevelObject, from: Vector2i, to: Vector2i) -> MovementData:
-	var object_at_destination := get_objects_by_coords(to);
-	# check if can move
-	# todo!
-	return MovementData.new(object, from, to);
+	var movement = MovementData.new(object, from, to);
+	for obj in get_objects_by_coords(to):
+		# check tags of objects in the cell we're trying to move
+		obj = obj as LevelObject;
+		if obj.has_tag(LevelObject.TAGS.STOP):
+			# stop movement
+			movement.is_executable = false;
+			break;
+		if obj.has_tag(LevelObject.TAGS.PUSH):
+			# try to move object as well
+			var obj_movement = check_move(obj, to, to * 2 - from);
+			movement.add(obj_movement);
+	
+	# if the movement stack is too heavy, don't move at all
+	if movement.weight > 1:
+		movement.is_executable = false;
+	
+	return movement;
 
 
 func execute_move(move: MovementData) -> void:
@@ -162,7 +179,7 @@ func try_move(object: LevelObject, direction: _DIRECTION):
 	if move.is_executable:
 		execute_move(move);
 	else:
-		object.nudge(to);
+		object.nudge(coords2position(to));
 #endregion
 
 
@@ -184,6 +201,7 @@ func _cycle_character() -> void:
 
 
 func _ready() -> void:
+	y_sort_enabled = true;
 	for obj in level_objects:
 		obj.place_on_level(coords2position(obj.starting_coords), self);
 		if !obj.has_tag(LevelObject.TAGS.DECORATION):
@@ -191,6 +209,9 @@ func _ready() -> void:
 
 
 func _process(_delta: float) -> void:
+	if _main_ref.paused:
+		return;
+	
 	if Input.is_action_just_pressed("change_character"):
 		_cycle_character();
 	if Input.is_action_just_pressed("move_down"):

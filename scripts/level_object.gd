@@ -9,6 +9,8 @@ enum TAGS {
 	ARYA,
 	PUSH,
 	STOP,
+	LIGHT,
+	HEAVY,
 }
 
 
@@ -53,9 +55,10 @@ var _movement_progress : float = 1.;
 var _movement_mode = _STOP; 
 
 
+
 func place_on_level(starting_position: Vector2, level: GameLevel) -> void:
 	position = starting_position;
-	z_index = position.y - margin_from_bottom;
+	
 	_starting_position = starting_position;
 	_desired_position = starting_position;
 	var diff =  level.cell_size - _sprite.get_rect().size;
@@ -90,8 +93,7 @@ func _process(delta: float) -> void:
 				_MOVE:
 					position = _starting_position.lerp(_desired_position, smoothstep(0., 1., _movement_progress));
 				_NUDGE:
-					position = _starting_position.lerp(_desired_position, sin(_movement_progress * PI));
-			z_index = position.y - margin_from_bottom;
+					position = _starting_position.lerp(_desired_position, sin(_movement_progress * PI) / 10.);
 		else:
 			_movement_mode = _STOP;
 
