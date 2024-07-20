@@ -85,7 +85,6 @@ func place_on_level(starting_position: Vector2, level: GameLevel) -> void:
 
 
 func move_to(new_position: Vector2) -> void:
-	print((new_position - position).normalized())
 	var new_direction = Direction.from_vec(new_position - position);
 	if new_direction.num != Direction.NONE || !new_direction.equals(direction):
 		direction = new_direction;
