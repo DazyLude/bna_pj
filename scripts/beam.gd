@@ -24,12 +24,11 @@ func _get_beam_color(type : TYPE) -> Color:
 
 enum {
 	_STOP,
-	_EXPAND,
 	_SLIDE,
 }
 
 
-const _movement_speed_multiplier : float = 10.; # 1/ms
+const _movement_speed_multiplier : float = 100.; # 1/ms
 var _movement_progress : float = 1.;
 var _movement_mode = _STOP; 
 
@@ -37,15 +36,36 @@ var _start := Vector2(0., 0.);
 var _desired_start := Vector2(0., 0.);
 var _end := Vector2(0., 0.);
 var _desired_end := Vector2(0., 0.);
-var _beam_size:
+
+var _beam_size : Vector2:
 	get:
-		return _end - _start + _level_ref.cell_size;
-var _desired_beam_size:
+		return (_end - _start).abs() + _level_ref.cell_size;
+
+var _beam_position : Vector2:
 	get:
-		return _desired_end - _desired_start + _level_ref.cell_size;
+		match _emitter_ref.direction.num:
+			Direction.UP, Direction.LEFT:
+				return _end - _start;
+			_:
+				return Vector2(0., 0.);
+
+var _desired_beam_size : Vector2:
+	get:
+		return (_desired_end - _desired_start).abs() + _level_ref.cell_size;
+
+var _desired_beam_position : Vector2:
+	get:
+		match _emitter_ref.direction.num:
+			Direction.UP, Direction.LEFT:
+				return _desired_end - _desired_start;
+			_:
+				return Vector2(0., 0.);
+
 
 var start := Vector2i(0, 0);
 var end := Vector2i(0, 0);
+
+
 var _level_ref : GameLevel = null;
 var _emitter_ref : LevelObject = null;
 var _beam_body_ref : ColorRect = null;
@@ -69,11 +89,6 @@ func _ready() -> void:
 	add_child(beam_body)
 
 
-func expand(new_start: Vector2, new_end: Vector2) -> void:
-	_setup_movement(new_start, new_end);
-	_movement_mode = _EXPAND;
-
-
 func slide(new_start: Vector2, new_end: Vector2) -> void:
 	_setup_movement(new_start, new_end);
 	_movement_mode = _SLIDE;
@@ -94,11 +109,9 @@ func _process(delta: float) -> void:
 		if _movement_progress < 1.:
 			_movement_progress = minf(_movement_progress + delta * _movement_speed_multiplier, 1.);
 			match _movement_mode:
-				_EXPAND:
-					position = _start.lerp(_desired_start, smoothstep(0., 1., _movement_progress));
-					_beam_body_ref.size = _beam_size.lerp(_desired_beam_size, smoothstep(0., 1., _movement_progress));
 				_SLIDE:
-					position = _start.lerp(_desired_start, smoothstep(0., 1., _movement_progress));
+					position = _start.lerp(_desired_start, smoothstep(0.49, 0.51, _movement_progress));
+					_beam_body_ref.position = _beam_position.lerp(_desired_beam_position, smoothstep(0.49, 0.51, _movement_progress));
 					_beam_body_ref.size = _beam_size.lerp(_desired_beam_size, smoothstep(0.49, 0.51, _movement_progress));
 		else:
 			_movement_mode = _STOP;

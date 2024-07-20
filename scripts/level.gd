@@ -214,9 +214,6 @@ func update_beams() -> void:
 
 func update_beam(beam: Beam, new_beam: Beam) -> void:
 	beam.slide(new_beam.start, new_beam.end);
-	#if beam.start != new_beam.start && beam.end != new_beam.end:
-	#else:
-		#beam.expand(new_beam.start, new_beam.end);
 #endregion
 
 
