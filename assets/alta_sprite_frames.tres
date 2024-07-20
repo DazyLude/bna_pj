@@ -1,0 +1,14 @@
+[gd_resource type="SpriteFrames" load_steps=2 format=3 uid="uid://bmfok0br1t4xe"]
+
+[ext_resource type="Texture2D" uid="uid://cke8b8lbmqq66" path="res://assets/alta.png" id="1_hmnvv"]
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_hmnvv")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 5.0
+}]

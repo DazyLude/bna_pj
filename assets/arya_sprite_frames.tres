@@ -1,0 +1,14 @@
+[gd_resource type="SpriteFrames" load_steps=2 format=3 uid="uid://bcfwe3pfjb7sb"]
+
+[ext_resource type="Texture2D" uid="uid://eed80vah42lo" path="res://assets/gyaru.png" id="1_4jp35"]
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_4jp35")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 5.0
+}]
