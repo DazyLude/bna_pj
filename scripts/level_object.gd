@@ -81,7 +81,6 @@ var _movement_progress : float = 1.;
 var _movement_mode = _STOP; 
 
 
-
 func place_on_level(starting_position: Vector2, level: GameLevel) -> void:
 	position = starting_position;
 	
@@ -149,6 +148,11 @@ func _not_being_beamed_on(beam: Beam) -> void:
 	pass;
 
 
-func _turn_tick() -> void:
+func _light_tick() -> bool:
+	# overload this to add light interactivity
+	return false;
+
+
+func _turn_tick():
 	# overload this to add time interactivity
-	pass;
+	return false;

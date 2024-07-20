@@ -89,6 +89,14 @@ func move_character(direction_num: int) -> void:
 				try_move(arya, direction);
 	update_beams();
 	beam_on();
+	if tick_light():
+		var recursion_depth = 0;
+		update_beams();
+		beam_on();
+		while recursion_depth < 10 && tick_light():
+			update_beams();
+			beam_on();
+			recursion_depth += 1;
 	tick_turn();
 #endregion
 
@@ -255,6 +263,14 @@ func update_beams() -> void:
 
 func update_beam(beam: Beam, new_beam: Beam) -> void:
 	beam.slide(new_beam.start, new_beam.end);
+
+
+func tick_light() -> bool:
+	var beam_update_required := false;
+	for sensor in beam_sensitive.keys() as Array[LevelObject]:
+		if sensor._light_tick():
+			beam_update_required = true;
+	return beam_update_required;
 #endregion
 
 
