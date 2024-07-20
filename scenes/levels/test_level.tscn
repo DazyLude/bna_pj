@@ -1,5 +1,6 @@
 [gd_scene load_steps=8 format=3 uid="uid://hk04eygeoc0x"]
 
+
 [ext_resource type="Script" path="res://scripts/level.gd" id="1_hfp44"]
 [ext_resource type="Script" path="res://scripts/level_object.gd" id="2_6gw10"]
 [ext_resource type="Texture2D" uid="uid://cke8b8lbmqq66" path="res://assets/alta.png" id="3_et26o"]
@@ -8,10 +9,12 @@
 [ext_resource type="Script" path="res://scripts/level_objects/shadow_generator.gd" id="6_fy6h1"]
 [ext_resource type="Script" path="res://scripts/level_objects/prism.gd" id="7_2pjbt"]
 
+
 [node name="TestLevel2" type="Node2D"]
 
 [node name="GameLevel" type="Node2D" parent="." node_paths=PackedStringArray("level_objects")]
 script = ExtResource("1_hfp44")
+
 level_objects = [NodePath("LevelObject"), NodePath("LevelObject2"), NodePath("LevelObject3"), NodePath("LevelObject4"), NodePath("LevelObject5"), NodePath("LevelObject6"), NodePath("LevelObject7"), NodePath("ShadowGenerator"), NodePath("Prism")]
 
 [node name="LevelObject" type="Node2D" parent="GameLevel"]
@@ -45,11 +48,6 @@ emitter_type = 1
 starting_coords = Vector2i(5, 6)
 tags = Array[int]([3, 9, 7])
 margin_from_bottom = 3.0
-
-[node name="ShadowGenerator" type="Node2D" parent="GameLevel"]
-script = ExtResource("6_fy6h1")
-_direction = 2
-starting_coords = Vector2i(10, 10)
 
 [node name="LevelObject6" type="Node2D" parent="GameLevel"]
 script = ExtResource("2_6gw10")
