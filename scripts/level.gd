@@ -87,6 +87,7 @@ func move_character(direction_num: int) -> void:
 		CHARACTER_ID.ALTA:
 			for arya in get_objects_by_tag(LevelObject.TAGS.ALTA):
 				try_move(arya, direction);
+	update_beams();
 #endregion
 
 
@@ -172,11 +173,10 @@ func try_move(object: LevelObject, direction: Direction):
 
 
 #region light processing
-var beam_emitters : Dictionary = {};
 var beams : Dictionary = {};
 
 
-func calculate_new_beam(emitter: LevelObject, from: Vector2i) -> void:
+func calculate_new_beam(emitter: LevelObject, from: Vector2i) -> Beam:
 	var end = from;
 	var delta : Vector2i = emitter.direction.vec;
 	var length := 1;
@@ -188,16 +188,35 @@ func calculate_new_beam(emitter: LevelObject, from: Vector2i) -> void:
 				break;
 		end = potential_end;
 		length += 1;
-	
-	print(from, end)
-	var mr_beam = Beam.new(from, end, emitter, self);
-	beams[emitter] = mr_beam;
-	add_child(mr_beam);
+	return Beam.new(from, end, emitter, self);
+
+
+func render_beam(beam: Beam) -> void:
+	add_child(beam);
 
 
 func generate_beams() -> void:
-	for emitter in beam_emitters.keys():
-		calculate_new_beam(emitter, get_coords_of_an_object(emitter));
+	for emitter in beams.keys():
+		if (emitter as LevelObject).emitter_type != Beam.TYPE.NONE:
+			var beam = calculate_new_beam(emitter, get_coords_of_an_object(emitter));
+			beams[emitter] = beam;
+			render_beam(beam);
+
+
+func update_beams() -> void:
+	for emitter in beams.keys():
+		var emitter_coords = get_coords_of_an_object(emitter);
+		var beam : Beam = beams[emitter];
+		var new_beam = calculate_new_beam(emitter, emitter_coords)
+		if beam.start != new_beam.start || beam.end != new_beam.end:
+			update_beam(beam, new_beam);
+
+
+func update_beam(beam: Beam, new_beam: Beam) -> void:
+	beam.slide(new_beam.start, new_beam.end);
+	#if beam.start != new_beam.start && beam.end != new_beam.end:
+	#else:
+		#beam.expand(new_beam.start, new_beam.end);
 #endregion
 
 
@@ -229,7 +248,7 @@ func _ready() -> void:
 		if !obj.has_tag(LevelObject.TAGS.DECORATION):
 			add_object(obj.starting_coords, obj);
 		if obj.has_tag(LevelObject.TAGS.BEAM_EMITTER):
-			beam_emitters[obj] = null;
+			beams[obj] = null;
 	generate_beams();
 
 
