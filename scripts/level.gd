@@ -88,6 +88,8 @@ func move_character(direction_num: int) -> void:
 			for arya in get_objects_by_tag(LevelObject.TAGS.ALTA):
 				try_move(arya, direction);
 	update_beams();
+	beam_on();
+	tick_turn();
 #endregion
 
 
@@ -98,10 +100,10 @@ class MoveDTO extends RefCounted:
 	var to := Vector2i(0, 0);
 	
 	
-	func _init(object: LevelObject, from: Vector2i, to: Vector2i) -> void:
-		self.object = object;
-		self.from = from;
-		self.to = to;
+	func _init(_object: LevelObject, _from: Vector2i, _to: Vector2i) -> void:
+		self.object = _object;
+		self.from = _from;
+		self.to = _to;
 
 
 class MovementData extends RefCounted:
@@ -174,21 +176,26 @@ func try_move(object: LevelObject, direction: Direction):
 
 #region light processing
 var beams : Dictionary = {};
+var beam_sensitive : Dictionary = {};
 
-
-func calculate_new_beam(emitter: LevelObject, from: Vector2i) -> Beam:
+func calculate_beams(emitter: LevelObject, from: Vector2i) -> Dictionary:
 	var end = from;
-	var delta : Vector2i = emitter.direction.vec;
-	var length := 1;
-	while length <= Beam.MAX_LENGTH:
-		var potential_end = end + delta;
-		for obj in get_objects_by_coords(potential_end) as Array[LevelObject]:
-			if obj.has_tag(LevelObject.TAGS.BEAM_STOPPER):
-				length = Beam.MAX_LENGTH;
-				break;
-		end = potential_end;
-		length += 1;
-	return Beam.new(from, end, emitter, self);
+	var n_beams := {};
+	for direction in emitter._get_emission_directions() as Array[Direction]:
+		var type = emitter._get_emission_type(direction.num);
+		if type == Beam.TYPE.NONE:
+			continue;
+		var delta : Vector2i = direction.vec;
+		var length := 1;
+		while length <= Beam.MAX_LENGTH:
+			var potential_end = end + delta;
+			for obj in get_objects_by_coords(potential_end) as Array[LevelObject]:
+				if obj.has_tag(LevelObject.TAGS.BEAM_STOPPER):
+					length = Beam.MAX_LENGTH;
+			end = potential_end;
+			length += 1;
+		n_beams[direction.num] = Beam.new(from, end, direction, type, self);
+	return n_beams;
 
 
 func render_beam(beam: Beam) -> void:
@@ -196,20 +203,54 @@ func render_beam(beam: Beam) -> void:
 
 
 func generate_beams() -> void:
-	for emitter in beams.keys():
-		if (emitter as LevelObject).emitter_type != Beam.TYPE.NONE:
-			var beam = calculate_new_beam(emitter, get_coords_of_an_object(emitter));
-			beams[emitter] = beam;
+	for emitter in beams.keys() as Array[LevelObject]:
+		var _beams = calculate_beams(emitter, get_coords_of_an_object(emitter));
+		beams[emitter] = _beams;
+		for beam in _beams.values():
 			render_beam(beam);
+
+
+func beam_on() -> void:
+	for sensor in beam_sensitive.keys() as Array[LevelObject]:
+		var coords = get_coords_of_an_object(sensor);
+		for beams_per_emitter in beams.values():
+			if beams_per_emitter == null:
+				continue;
+			for beam in beams_per_emitter.values() as Array[Beam]:
+				if beam.are_coords_lit(coords):
+					sensor._got_beamed_on(beam);
+				else:
+					sensor._not_being_beamed_on(beam);
 
 
 func update_beams() -> void:
 	for emitter in beams.keys():
 		var emitter_coords = get_coords_of_an_object(emitter);
-		var beam : Beam = beams[emitter];
-		var new_beam = calculate_new_beam(emitter, emitter_coords)
-		if beam.start != new_beam.start || beam.end != new_beam.end:
-			update_beam(beam, new_beam);
+		var _beams : Dictionary = beams[emitter];
+		var new_beams := calculate_beams(emitter, emitter_coords);
+		var merged := {};
+		merged.merge(_beams);
+		merged.merge(new_beams);
+		for beam_direction in merged.keys():
+			# compare calculated beams for each relevant direction
+			match [_beams.get(beam_direction, null), new_beams.get(beam_direction, null)]:
+				[null, null]:
+					continue;
+				# new beam appeared
+				[null, var new_beam]:
+					beams[emitter][beam_direction] = new_beam;
+					render_beam(new_beam);
+				# beam dissapeared
+				[var beam, null]:
+					beams[emitter].erase(beam_direction);
+					for sensor in beam_sensitive.keys() as Array[LevelObject]:
+						sensor._not_being_beamed_on(beam);
+					remove_child(beam);
+					beam.queue_free();
+				# beam existed in this direction
+				[var beam, var new_beam]:
+					if beam.start != new_beam.start || beam.end != new_beam.end:
+						update_beam(beam, new_beam);
 
 
 func update_beam(beam: Beam, new_beam: Beam) -> void:
@@ -218,6 +259,11 @@ func update_beam(beam: Beam, new_beam: Beam) -> void:
 
 
 #region reactions processing
+var transients := {};
+
+func tick_turn() -> void:
+	for transient in transients.keys() as Array[LevelObject]:
+		transient._turn_tick();
 #endregion
 
 
@@ -245,8 +291,13 @@ func _ready() -> void:
 		if !obj.has_tag(LevelObject.TAGS.DECORATION):
 			add_object(obj.starting_coords, obj);
 		if obj.has_tag(LevelObject.TAGS.BEAM_EMITTER):
-			beams[obj] = null;
+			beams[obj] = {};
+		if obj.has_tag(LevelObject.TAGS.BEAM_SENSITIVE):
+			beam_sensitive[obj] = null;
+		if obj.has_tag(LevelObject.TAGS.TRANSIENT):
+			transients[obj] = null;
 	generate_beams();
+	beam_on();
 
 
 func _process(_delta: float) -> void:
