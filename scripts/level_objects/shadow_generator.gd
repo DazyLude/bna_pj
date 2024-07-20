@@ -2,16 +2,49 @@ extends LevelObject
 class_name ShadowGenerator
 
 
+var shadowing : Dictionary = {};
+var beamed_on_by : Dictionary = {};
+
+func _get_emission_directions() -> Array:
+	var result := []
+	for dir_num in shadowing.keys():
+		result.push_back(Direction.from_num(dir_num));
+	return result;
+
+
 func _init() -> void:
-	tags.append(TAGS.BEAM_SENSITIVE);
-	tags.append(TAGS.BEAM_EMITTER);
-	tags.append(TAGS.BEAM_STOPPER);
+	tags.push_back(TAGS.BEAM_SENSITIVE);
+	tags.push_back(TAGS.TRANSIENT);
+	tags.push_back(TAGS.BEAM_EMITTER);
+	tags.push_back(TAGS.BEAM_STOPPER);
+	tags.push_back(TAGS.PUSH);
 	emitter_type = Beam.TYPE.NONE;
+
+
+func _turn_tick() -> void:
+	shadowing.clear();
+	
+	for beam in beamed_on_by.keys() as Array[Beam]:
+		if beam.btype == beam.TYPE.LIGHT:
+			shadowing[beam.direction.num] = null;
+	
+	if shadowing.has(Direction.UP) && shadowing.has(Direction.DOWN):
+		shadowing.erase(Direction.UP);
+		shadowing.erase(Direction.DOWN);
+	
+	if shadowing.has(Direction.LEFT) && shadowing.has(Direction.RIGHT):
+		shadowing.erase(Direction.LEFT);
+		shadowing.erase(Direction.RIGHT);
+	
+	if shadowing.size() != 0:
+		emitter_type = Beam.TYPE.SHADOW;
+	else:
+		emitter_type = Beam.TYPE.NONE;
 
 
 func _got_beamed_on(beam: Beam) -> void:
-	emitter_type = Beam.TYPE.SHADOW;
+	beamed_on_by[beam] = null;
 
 
-func _stopped_being_beamed_on() -> void:
-	emitter_type = Beam.TYPE.NONE;
+func _not_being_beamed_on(beam: Beam) -> void:
+	beamed_on_by.erase(beam);

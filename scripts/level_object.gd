@@ -14,6 +14,7 @@ enum TAGS {
 	BEAM_SENSITIVE, #7
 	BEAM_STOPPER, #8
 	BEAM_EMITTER, #9
+	TRANSIENT, #10
 }
 
 
@@ -24,9 +25,12 @@ var direction := Direction.new()
 	set(new_v):
 		direction.num = new_v;
 
-
 func _get_emission_directions() -> Array :
 	return [direction];
+
+@export var emitter_type : Beam.TYPE = Beam.TYPE.NONE;
+func _get_emission_type(direction: int) -> Beam.TYPE:
+	return emitter_type;
 
 
 @export var starting_coords := Vector2i(0, 0);
@@ -38,7 +42,6 @@ func _get_emission_directions() -> Array :
 # or just write a GDExtention kekw 
 # can be rewritten as a bitmap, it is supported by the GDScript
 @export var tags : Array[TAGS] = [];
-@export var emitter_type : Beam.TYPE = Beam.TYPE.NONE;
 @export var custom_sprite : Texture2D = null;
 @export var margin_from_bottom : float = 10.;
 var _sprite : Sprite2D = null;
@@ -137,12 +140,12 @@ func _ready() -> void:
 
 
 func _got_beamed_on(beam: Beam) -> void:
-	# overload this to add beam interactivity
+	# overload this to add light interactivity
 	pass;
 
 
-func _stopped_being_beamed_on() -> void:
-	# overload this to add beam interactivity
+func _not_being_beamed_on(beam: Beam) -> void:
+	# overload this to add light interactivity
 	pass;
 
 
