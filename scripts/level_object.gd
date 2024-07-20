@@ -25,6 +25,10 @@ var direction := Direction.new()
 		direction.num = new_v;
 
 
+func _get_emission_directions() -> Array :
+	return [direction];
+
+
 @export var starting_coords := Vector2i(0, 0);
 # can be rewritten as a bitmask for performance boost, but I don't know how to export it to the editor
 # exporting could be done by setting an array, as it is already done,
@@ -108,6 +112,7 @@ func has_tag(tag: TAGS) -> bool:
 
 
 func _process(delta: float) -> void:
+	#overload this to do custom movement animations for an object
 	if _movement_mode != _STOP:
 		if _movement_progress < 1.:
 			_movement_progress = minf(_movement_progress + delta * _movement_speed_multiplier, 1.);
@@ -129,3 +134,18 @@ func _ready() -> void:
 	sprite.centered = false;
 	_sprite = sprite;
 	add_child(_sprite);
+
+
+func _got_beamed_on(beam: Beam) -> void:
+	# overload this to add beam interactivity
+	pass;
+
+
+func _stopped_being_beamed_on() -> void:
+	# overload this to add beam interactivity
+	pass;
+
+
+func _turn_tick() -> void:
+	# overload this to add time interactivity
+	pass;
