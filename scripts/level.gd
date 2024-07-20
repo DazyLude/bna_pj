@@ -8,10 +8,6 @@ enum CHARACTER_ID {
 	ARYA,
 }
 
-enum _DIRECTION {
-	UP, DOWN, LEFT, RIGHT
-}
-
 
 # coordinate system
 const origin := Vector2(0., 0.);
@@ -22,9 +18,9 @@ func coords2position(coords: Vector2i) -> Vector2:
 	return cell_size * Vector2(coords) + origin;
 
 
-#region level data
+#region level data system
 @export var level_objects : Array[LevelObject] = [];
-var _level_terrain := TileMap.new(); 
+@export var level_terrain : TileMap = null; 
 var _level_terrain_set : TileSet = preload("res://assets/terrain.tres");
 # { coords: [object in this cell, object in this cell... ] }
 var _objects_that_matter : Dictionary = {};
@@ -82,7 +78,8 @@ var selected_character : CHARACTER_ID = CHARACTER_ID.ARYA:
 		return selected_character;
 
 
-func move_character(direction: _DIRECTION) -> void:
+func move_character(direction_num: int) -> void:
+	var direction := Direction.from_num(direction_num);
 	match selected_character:
 		CHARACTER_ID.ARYA:
 			for arya in get_objects_by_tag(LevelObject.TAGS.ARYA):
@@ -161,18 +158,9 @@ func execute_move(move: MovementData) -> void:
 		move_object(moveDTO);
 
 
-func try_move(object: LevelObject, direction: _DIRECTION):
+func try_move(object: LevelObject, direction: Direction):
 	var from := get_coords_of_an_object(object);
-	var delta : Vector2i;
-	match direction:
-		_DIRECTION.UP:
-			delta = Vector2i(0, -1);
-		_DIRECTION.DOWN:
-			delta = Vector2i(0, 1);
-		_DIRECTION.LEFT:
-			delta = Vector2i(-1, 0);
-		_DIRECTION.RIGHT:
-			delta = Vector2i(1, 0);
+	var delta : Vector2i = direction.vec;
 	var to = from + delta;
 	
 	var move := check_move(object, from, to);
@@ -180,6 +168,40 @@ func try_move(object: LevelObject, direction: _DIRECTION):
 		execute_move(move);
 	else:
 		object.nudge(coords2position(to));
+#endregion
+
+
+#region light processing
+var beam_emitters : Dictionary = {};
+var beams : Dictionary = {};
+
+
+func calculate_new_beam(emitter: LevelObject, from: Vector2i) -> void:
+	var end = from;
+	var delta : Vector2i = emitter.direction.vec;
+	var length := 1;
+	while length <= Beam.MAX_LENGTH:
+		var potential_end = end + delta;
+		for obj in get_objects_by_coords(potential_end) as Array[LevelObject]:
+			if obj.has_tag(LevelObject.TAGS.BEAM_STOPPER):
+				length = Beam.MAX_LENGTH;
+				break;
+		end = potential_end;
+		length += 1;
+	
+	print(from, end)
+	var mr_beam = Beam.new(from, end, emitter, self);
+	beams[emitter] = mr_beam;
+	add_child(mr_beam);
+
+
+func generate_beams() -> void:
+	for emitter in beam_emitters.keys():
+		calculate_new_beam(emitter, get_coords_of_an_object(emitter));
+#endregion
+
+
+#region reactions processing
 #endregion
 
 
@@ -206,6 +228,9 @@ func _ready() -> void:
 		obj.place_on_level(coords2position(obj.starting_coords), self);
 		if !obj.has_tag(LevelObject.TAGS.DECORATION):
 			add_object(obj.starting_coords, obj);
+		if obj.has_tag(LevelObject.TAGS.BEAM_EMITTER):
+			beam_emitters[obj] = null;
+	generate_beams();
 
 
 func _process(_delta: float) -> void:
@@ -215,12 +240,12 @@ func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("change_character"):
 		_cycle_character();
 	if Input.is_action_just_pressed("move_down"):
-		move_character(_DIRECTION.DOWN);
+		move_character(Direction.DOWN);
 	if Input.is_action_just_pressed("move_up"):
-		move_character(_DIRECTION.UP);
+		move_character(Direction.UP);
 	if Input.is_action_just_pressed("move_left"):
-		move_character(_DIRECTION.LEFT);
+		move_character(Direction.LEFT);
 	if Input.is_action_just_pressed("move_right"):
-		move_character(_DIRECTION.RIGHT);
+		move_character(Direction.RIGHT);
 
 

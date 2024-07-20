@@ -4,18 +4,37 @@ class_name LevelObject
 
 
 enum TAGS {
-	DECORATION,
-	ALTA,
-	ARYA,
-	PUSH,
-	STOP,
-	LIGHT,
-	HEAVY,
+	DECORATION, #0
+	ALTA, #1
+	ARYA, #2
+	PUSH, #3
+	STOP, #4
+	LIGHT, #5
+	HEAVY, #6
+	BEAM_SENSITIVE, #7
+	BEAM_STOPPER, #8
+	BEAM_EMITTER, #9
 }
 
 
+var direction := Direction.new()
+@export_enum("UP", "DOWN", "LEFT", "RIGHT") var _direction : int :
+	get:
+		return direction.num;
+	set(new_v):
+		direction.num = new_v;
+
+
 @export var starting_coords := Vector2i(0, 0);
+# can be rewritten as a bitmask for performance boost, but I don't know how to export it to the editor
+# exporting could be done by setting an array, as it is already done,
+# but using setters and getters; we can generate array by working with an actual stored bitmask.
+# 
+# However, a bitmask has to be implemented first :)
+# or just write a GDExtention kekw 
+# can be rewritten as a bitmap, it is supported by the GDScript
 @export var tags : Array[TAGS] = [];
+@export var emitter_type : Beam.TYPE = Beam.TYPE.NONE;
 @export var custom_sprite : Texture2D = null;
 @export var margin_from_bottom : float = 10.;
 var _sprite : Sprite2D = null;

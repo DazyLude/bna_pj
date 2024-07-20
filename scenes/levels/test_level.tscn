@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://hk04eygeoc0x"]
+[gd_scene load_steps=6 format=3 uid="uid://hk04eygeoc0x"]
 
 [ext_resource type="Script" path="res://scripts/level.gd" id="1_hfp44"]
 [ext_resource type="Script" path="res://scripts/level_object.gd" id="2_6gw10"]
 [ext_resource type="Texture2D" uid="uid://cke8b8lbmqq66" path="res://assets/alta.png" id="3_et26o"]
 [ext_resource type="Texture2D" uid="uid://eed80vah42lo" path="res://assets/gyaru.png" id="4_v2itv"]
+[ext_resource type="TileSet" uid="uid://bdwegq3k2nkl4" path="res://assets/terrain.tres" id="5_bfddy"]
 
 [node name="TestLevel2" type="Node2D"]
 
@@ -37,8 +38,10 @@ margin_from_bottom = 5.0
 
 [node name="LevelObject5" type="Node2D" parent="GameLevel"]
 script = ExtResource("2_6gw10")
+_direction = 1
 starting_coords = Vector2i(5, 6)
-tags = Array[int]([4])
+tags = Array[int]([4, 9])
+emitter_type = 2
 margin_from_bottom = 3.0
 
 [node name="LevelObject6" type="Node2D" parent="GameLevel"]
@@ -52,3 +55,7 @@ script = ExtResource("2_6gw10")
 starting_coords = Vector2i(7, 6)
 tags = Array[int]([4])
 margin_from_bottom = 0.0
+
+[node name="TileMap" type="TileMap" parent="GameLevel"]
+tile_set = ExtResource("5_bfddy")
+format = 2
