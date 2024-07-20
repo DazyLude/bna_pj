@@ -14,14 +14,13 @@ func _get_emission_directions() -> Array:
 
 func _init() -> void:
 	tags.push_back(TAGS.BEAM_SENSITIVE);
-	tags.push_back(TAGS.TRANSIENT);
 	tags.push_back(TAGS.BEAM_EMITTER);
 	tags.push_back(TAGS.BEAM_STOPPER);
 	tags.push_back(TAGS.PUSH);
 	emitter_type = Beam.TYPE.NONE;
 
 
-func _turn_tick() -> void:
+func _light_tick() -> bool:
 	shadowing.clear();
 	
 	for beam in beamed_on_by.keys() as Array[Beam]:
@@ -36,10 +35,16 @@ func _turn_tick() -> void:
 		shadowing.erase(Direction.LEFT);
 		shadowing.erase(Direction.RIGHT);
 	
+	var important_change = false;
+	
 	if shadowing.size() != 0:
+		important_change = emitter_type != Beam.TYPE.SHADOW;
 		emitter_type = Beam.TYPE.SHADOW;
 	else:
+		important_change = emitter_type != Beam.TYPE.NONE;
 		emitter_type = Beam.TYPE.NONE;
+	
+	return important_change;
 
 
 func _got_beamed_on(beam: Beam) -> void:

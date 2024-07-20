@@ -1,24 +1,33 @@
-[gd_scene load_steps=6 format=3 uid="uid://hk04eygeoc0x"]
+[gd_scene load_steps=8 format=3 uid="uid://hk04eygeoc0x"]
+
 
 [ext_resource type="Script" path="res://scripts/level.gd" id="1_hfp44"]
 [ext_resource type="Script" path="res://scripts/level_object.gd" id="2_6gw10"]
-[ext_resource type="Script" path="res://scripts/level_objects/alta_object.gd" id="2_jyts1"]
-[ext_resource type="Script" path="res://scripts/level_objects/arya_object.gd" id="3_y0kph"]
+[ext_resource type="Texture2D" uid="uid://cke8b8lbmqq66" path="res://assets/alta.png" id="3_et26o"]
+[ext_resource type="Texture2D" uid="uid://eed80vah42lo" path="res://assets/gyaru.png" id="4_v2itv"]
 [ext_resource type="TileSet" uid="uid://bdwegq3k2nkl4" path="res://assets/terrain.tres" id="5_bfddy"]
+[ext_resource type="Script" path="res://scripts/level_objects/shadow_generator.gd" id="6_fy6h1"]
+[ext_resource type="Script" path="res://scripts/level_objects/prism.gd" id="7_2pjbt"]
+
 
 [node name="TestLevel2" type="Node2D"]
 
 [node name="GameLevel" type="Node2D" parent="." node_paths=PackedStringArray("level_objects")]
 script = ExtResource("1_hfp44")
-level_objects = [NodePath("AltaObject"), NodePath("AryaObject"), NodePath("LevelObject3"), NodePath("LevelObject4"), NodePath("LevelObject5"), NodePath("LevelObject6"), NodePath("LevelObject7")]
 
-[node name="AltaObject" type="Node2D" parent="GameLevel"]
-script = ExtResource("2_jyts1")
+level_objects = [NodePath("LevelObject"), NodePath("LevelObject2"), NodePath("LevelObject3"), NodePath("LevelObject4"), NodePath("LevelObject5"), NodePath("LevelObject6"), NodePath("LevelObject7"), NodePath("ShadowGenerator"), NodePath("Prism")]
+
+[node name="LevelObject" type="Node2D" parent="GameLevel"]
+script = ExtResource("2_6gw10")
 starting_coords = Vector2i(4, 4)
+tags = Array[int]([1, 3, 5])
+custom_sprite = ExtResource("3_et26o")
 
-[node name="AryaObject" type="Node2D" parent="GameLevel"]
-script = ExtResource("3_y0kph")
+[node name="LevelObject2" type="Node2D" parent="GameLevel"]
+script = ExtResource("2_6gw10")
 starting_coords = Vector2i(5, 5)
+tags = Array[int]([2, 3, 5])
+custom_sprite = ExtResource("4_v2itv")
 
 [node name="LevelObject3" type="Node2D" parent="GameLevel"]
 script = ExtResource("2_6gw10")
@@ -55,3 +64,7 @@ margin_from_bottom = 0.0
 [node name="TileMap" type="TileMap" parent="GameLevel"]
 tile_set = ExtResource("5_bfddy")
 format = 2
+
+[node name="Prism" type="Node2D" parent="GameLevel"]
+script = ExtResource("7_2pjbt")
+starting_coords = Vector2i(3, 3)
