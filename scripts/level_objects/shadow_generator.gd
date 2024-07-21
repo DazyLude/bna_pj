@@ -35,16 +35,16 @@ func _light_tick() -> bool:
 		shadowing.erase(Direction.LEFT);
 		shadowing.erase(Direction.RIGHT);
 	
-	var important_change = false;
+	var changes = false;
 	
 	if shadowing.size() != 0:
-		important_change = emitter_type != Beam.TYPE.SHADOW;
+		changes = emitter_type != Beam.TYPE.SHADOW;
 		emitter_type = Beam.TYPE.SHADOW;
 	else:
-		important_change = emitter_type != Beam.TYPE.NONE;
+		changes = emitter_type != Beam.TYPE.NONE;
 		emitter_type = Beam.TYPE.NONE;
 	
-	return important_change;
+	return changes;
 
 
 func _got_beamed_on(beam: Beam) -> void:

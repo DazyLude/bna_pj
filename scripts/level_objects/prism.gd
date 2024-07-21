@@ -33,15 +33,15 @@ func _not_being_beamed_on(beam: Beam) -> void:
 
 func _light_tick() -> bool:
 	reflecting.clear();
-	var changes = false;
 	for beam in beamed_on_by.keys() as Array[Beam]:
 		match [beam.btype, beam.direction.num]:
-			[var t, var d] when t != Beam.TYPE.SHADOW && d == vertical_direction:
+			[var t, var d] when t == Beam.TYPE.LIGHT && d == vertical_direction:
 				reflecting[horizontal_direction] = null;
-			[var t, var d] when t != Beam.TYPE.SHADOW && d == horizontal_direction:
+			[var t, var d] when t == Beam.TYPE.LIGHT && d == horizontal_direction:
 				reflecting[vertical_direction] = null;
 	
 	
+	var changes = false;
 	if reflecting.size() != 0:
 		changes = emitter_type != Beam.TYPE.LIGHT;
 		emitter_type = Beam.TYPE.LIGHT;

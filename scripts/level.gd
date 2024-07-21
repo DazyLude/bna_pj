@@ -1,4 +1,4 @@
-#@icon("res://assets/level_icon.svg")
+@icon("res://assets/level_icon.svg")
 extends Node2D
 class_name GameLevel
 
@@ -21,7 +21,7 @@ func coords2position(coords: Vector2i) -> Vector2:
 #region level data system
 @export var level_objects : Array[LevelObject] = [];
 @export var level_terrain : TileMap = null; 
-var _level_terrain_set : TileSet = preload("res://assets/terrain.tres");
+var _level_terrain_set : TileSet = preload("res://assets/terrain/terrain.tres");
 # { coords: [object in this cell, object in this cell... ] }
 var _objects_that_matter : Dictionary = {};
 
@@ -87,6 +87,7 @@ func move_character(direction_num: int) -> void:
 		CHARACTER_ID.ALTA:
 			for arya in get_objects_by_tag(LevelObject.TAGS.ALTA):
 				try_move(arya, direction);
+	
 	update_beams();
 	beam_on();
 	if tick_light():
@@ -97,6 +98,7 @@ func move_character(direction_num: int) -> void:
 			update_beams();
 			beam_on();
 			recursion_depth += 1;
+	
 	tick_turn();
 #endregion
 

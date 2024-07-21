@@ -13,7 +13,7 @@ func _init():
 func _ready():
 	animated_sprite.position = self._starting_position;
 	animated_sprite.centered = false;
-	animated_sprite.sprite_frames = load("res://assets/arya_sprite_frames.tres");
+	animated_sprite.sprite_frames = load("res://assets/animations/arya_sprite_frames.tres");
 	
 	add_child(animated_sprite);
 

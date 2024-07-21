@@ -1,4 +1,4 @@
-@icon("res://assets/box_icon.svg")
+@icon("res://assets/icons/box_icon.svg")
 extends Node2D
 class_name LevelObject
 

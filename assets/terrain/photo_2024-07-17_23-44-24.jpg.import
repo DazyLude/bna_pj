@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://6xwg0xdrtmc7"
-path="res://.godot/imported/level_icon.svg-72b5fde374273780c01d986221172171.ctex"
+uid="uid://net57c1v0oqr"
+path="res://.godot/imported/photo_2024-07-17_23-44-24.jpg-4504e627c70cf5cde0fc7e084b78318f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/level_icon.svg"
-dest_files=["res://.godot/imported/level_icon.svg-72b5fde374273780c01d986221172171.ctex"]
+source_file="res://assets/terrain/photo_2024-07-17_23-44-24.jpg"
+dest_files=["res://.godot/imported/photo_2024-07-17_23-44-24.jpg-4504e627c70cf5cde0fc7e084b78318f.ctex"]
 
 [params]
 
@@ -32,6 +32,3 @@ process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
 detect_3d/compress_to=1
-svg/scale=1.0
-editor/scale_with_editor_scale=false
-editor/convert_colors_with_editor_theme=false
