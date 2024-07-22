@@ -1,8 +1,8 @@
+@tool
 extends LevelObject
 class_name Prism
 
 
-var beamed_on_by : Dictionary = {};
 var reflecting : Dictionary = {};
 @export var horizontal_direction : int = 1;
 @export var vertical_direction : int = 0;
@@ -23,14 +23,6 @@ func _init() -> void:
 	emitter_type = Beam.TYPE.NONE;
 
 
-func _got_beamed_on(beam: Beam) -> void:
-	beamed_on_by[beam] = null;
-
-
-func _not_being_beamed_on(beam: Beam) -> void:
-	beamed_on_by.erase(beam);
-
-
 func _light_tick() -> bool:
 	reflecting.clear();
 	for beam in beamed_on_by.keys() as Array[Beam]:
@@ -49,6 +41,7 @@ func _light_tick() -> bool:
 		changes = emitter_type != Beam.TYPE.NONE;
 		emitter_type = Beam.TYPE.NONE;
 	
+	super._light_tick();
 	return changes;
 
 

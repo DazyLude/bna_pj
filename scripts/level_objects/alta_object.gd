@@ -1,3 +1,4 @@
+@tool
 extends LevelObject
 class_name AltaObject
 

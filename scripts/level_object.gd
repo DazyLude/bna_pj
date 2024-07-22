@@ -1,3 +1,4 @@
+@tool
 @icon("res://assets/icons/box_icon.svg")
 extends Node2D
 class_name LevelObject
@@ -138,18 +139,15 @@ func _ready() -> void:
 	add_child(_sprite);
 
 
+var beamed_on_by : Dictionary = {};
+
 func _got_beamed_on(beam: Beam) -> void:
 	# overload this to add light interactivity
-	pass;
-
-
-func _not_being_beamed_on(beam: Beam) -> void:
-	# overload this to add light interactivity
-	pass;
-
+	beamed_on_by[beam] = null;
 
 func _light_tick() -> bool:
 	# overload this to add light interactivity
+	beamed_on_by.clear();
 	return false;
 
 

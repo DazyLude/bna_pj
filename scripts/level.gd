@@ -1,3 +1,4 @@
+@tool
 @icon("res://assets/level_icon.svg")
 extends Node2D
 class_name GameLevel
@@ -87,18 +88,18 @@ func move_character(direction_num: int) -> void:
 			for arya in get_objects_by_tag(LevelObject.TAGS.ALTA):
 				try_move(arya, direction);
 	
+	process_lights();
+	tick_turn();
+
+
+func process_lights():
 	update_beams();
 	beam_on();
-	if tick_light():
-		var recursion_depth = 0;
+	var recursion_depth = 0;
+	while recursion_depth < 10 && tick_light():
 		update_beams();
 		beam_on();
-		while recursion_depth < 10 && tick_light():
-			update_beams();
-			beam_on();
-			recursion_depth += 1;
-	
-	tick_turn();
+		recursion_depth += 1;
 #endregion
 
 
@@ -127,12 +128,6 @@ class MovementData extends RefCounted:
 			weight -= 1;
 		if who.has_tag(LevelObject.TAGS.HEAVY):
 			weight += 1;
-	
-	
-	func dont() -> MovementData:
-		objects_moved.clear();
-		is_executable = false;
-		return self;
 	
 	
 	func add(another: MovementData) -> void:
@@ -211,6 +206,14 @@ func render_beam(beam: Beam) -> void:
 	add_child(beam);
 
 
+func add_emitter(emitter: LevelObject) -> void:
+	beams[emitter] = {};
+
+
+func get_emitters() -> Array:
+	return beams.keys();
+
+
 func generate_beams() -> void:
 	for emitter in beams.keys() as Array[LevelObject]:
 		var _beams = calculate_beams(emitter, get_coords_of_an_object(emitter));
@@ -228,12 +231,10 @@ func beam_on() -> void:
 			for beam in beams_per_emitter.values() as Array[Beam]:
 				if beam.are_coords_lit(coords):
 					sensor._got_beamed_on(beam);
-				else:
-					sensor._not_being_beamed_on(beam);
 
 
 func update_beams() -> void:
-	for emitter in beams.keys():
+	for emitter in get_emitters():
 		var emitter_coords = get_coords_of_an_object(emitter);
 		var _beams : Dictionary = beams[emitter];
 		var new_beams := calculate_beams(emitter, emitter_coords);
@@ -252,8 +253,6 @@ func update_beams() -> void:
 				# beam dissapeared
 				[var beam, null]:
 					beams[emitter].erase(beam_direction);
-					for sensor in beam_sensitive.keys() as Array[LevelObject]:
-						sensor._not_being_beamed_on(beam);
 					remove_child(beam);
 					beam.queue_free();
 				# beam existed in this direction
@@ -286,7 +285,7 @@ func tick_turn() -> void:
 
 # meta 
 @export var level_name := "test level";
-@onready var _main_ref : MainScene = get_tree().root.get_node("Main") as MainScene;
+var _main_ref : MainScene = null;
 
 
 # display
@@ -302,6 +301,22 @@ func _cycle_character() -> void:
 
 
 func _ready() -> void:
+	if Engine.is_editor_hint():
+		var timer = get_tree().create_timer(1.);
+		timer.timeout.connect(_ready);
+		for beam in get_children().filter(func(ch: Node): return ch as Beam != null):
+			remove_child(beam);
+			beam.queue_free();
+		_objects_that_matter.clear();
+		beams.clear();
+		beam_sensitive.clear();
+		transients.clear();
+	
+	
+	if !Engine.is_editor_hint():
+		_main_ref = get_tree().root.get_node("Main") as MainScene;
+	
+	
 	y_sort_enabled = true;
 	var level_objects = get_children().filter(func(ch : Node): return ch as LevelObject != null);
 	for obj in level_objects:
@@ -309,16 +324,22 @@ func _ready() -> void:
 		if !obj.has_tag(LevelObject.TAGS.DECORATION):
 			add_object(obj.starting_coords, obj);
 		if obj.has_tag(LevelObject.TAGS.BEAM_EMITTER):
-			beams[obj] = {};
+			add_emitter(obj);
 		if obj.has_tag(LevelObject.TAGS.BEAM_SENSITIVE):
 			beam_sensitive[obj] = null;
 		if obj.has_tag(LevelObject.TAGS.TRANSIENT):
 			transients[obj] = null;
 	generate_beams();
 	beam_on();
+	tick_light();
+	process_lights();
+	
 
 
 func _process(_delta: float) -> void:
+	if Engine.is_editor_hint(): # dont run in the editor
+		return;
+	
 	if _main_ref.paused:
 		return;
 	
@@ -332,5 +353,3 @@ func _process(_delta: float) -> void:
 		move_character(Direction.LEFT);
 	if Input.is_action_just_pressed("move_right"):
 		move_character(Direction.RIGHT);
-
-

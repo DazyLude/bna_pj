@@ -1,9 +1,9 @@
+@tool
 extends LevelObject
 class_name ShadowGenerator
 
 
 var shadowing : Dictionary = {};
-var beamed_on_by : Dictionary = {};
 
 func _get_emission_directions() -> Array:
 	var result := []
@@ -44,12 +44,5 @@ func _light_tick() -> bool:
 		changes = emitter_type != Beam.TYPE.NONE;
 		emitter_type = Beam.TYPE.NONE;
 	
+	super._light_tick();
 	return changes;
-
-
-func _got_beamed_on(beam: Beam) -> void:
-	beamed_on_by[beam] = null;
-
-
-func _not_being_beamed_on(beam: Beam) -> void:
-	beamed_on_by.erase(beam);
