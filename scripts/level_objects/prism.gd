@@ -16,6 +16,37 @@ var vertical_direction : int = 0;
 		_horizontal_direction = new_v;
 
 
+var atlas : AtlasTexture = preload("res://assets/objects/mirror_atlas.tres");
+enum {
+	TOP_LEFT,
+	TOP_RIGHT,
+	BOTTOM_LEFT,
+	BOTTOM_RIGHT,
+}
+func select_visual_orientation() -> void:
+	var variant : int; 
+	
+	match [vertical_direction, horizontal_direction]:
+		[Direction.UP, Direction.LEFT]:
+			variant = TOP_LEFT;
+		[Direction.UP, Direction.RIGHT]:
+			variant = TOP_RIGHT;
+		[Direction.DOWN, Direction.LEFT]:
+			variant = BOTTOM_LEFT;
+		[Direction.DOWN, Direction.RIGHT]:
+			variant = BOTTOM_RIGHT;
+	
+	match variant:
+		TOP_RIGHT:
+			atlas.region.position.x = 0;
+		TOP_LEFT:
+			atlas.region.position.x = 64.;
+		BOTTOM_RIGHT:
+			atlas.region.position.x = 128.;
+		BOTTOM_LEFT:
+			atlas.region.position.x = 192.;
+
+
 func _get_emission_directions() -> Array:
 	var result := []
 	for dir_num in reflecting.keys():
@@ -29,6 +60,11 @@ func _init() -> void:
 	tags.push_back(TAGS.BEAM_STOPPER);
 	tags.push_back(TAGS.PUSH);
 	emitter_type = Beam.TYPE.NONE;
+
+
+func _prepare_visuals() -> void:
+	_sprite.texture = atlas;
+	select_visual_orientation();
 
 
 func _light_tick() -> bool:
@@ -60,4 +96,7 @@ func change_direction(new_direction: Direction) -> void:
 			vertical_direction = new_direction.num;
 		Direction.LEFT, Direction.RIGHT:
 			horizontal_direction = new_direction.num;
+	
+	select_visual_orientation();
+	
 	super.change_direction(new_direction);
