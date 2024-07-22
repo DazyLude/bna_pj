@@ -306,7 +306,7 @@ func _ready() -> void:
 		timer.timeout.connect(_ready);
 		for beam in get_children().filter(func(ch: Node): return ch as Beam != null):
 			remove_child(beam);
-			beam.queue_free();
+			(beam as Node).free();
 		_objects_that_matter.clear();
 		beams.clear();
 		beam_sensitive.clear();
