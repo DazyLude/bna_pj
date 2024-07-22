@@ -19,7 +19,6 @@ func coords2position(coords: Vector2i) -> Vector2:
 
 
 #region level data system
-@export var level_objects : Array[LevelObject] = [];
 @export var level_terrain : TileMap = null; 
 var _level_terrain_set : TileSet = preload("res://assets/terrain/terrain.tres");
 # { coords: [object in this cell, object in this cell... ] }
@@ -304,6 +303,7 @@ func _cycle_character() -> void:
 
 func _ready() -> void:
 	y_sort_enabled = true;
+	var level_objects = get_children().filter(func(ch : Node): return ch as LevelObject != null);
 	for obj in level_objects:
 		obj.place_on_level(coords2position(obj.starting_coords), self);
 		if !obj.has_tag(LevelObject.TAGS.DECORATION):

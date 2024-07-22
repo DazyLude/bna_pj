@@ -1,8 +1,18 @@
-[gd_scene load_steps=2 format=3 uid="uid://hk04eygeoc0x"]
+[gd_scene load_steps=4 format=3 uid="uid://hk04eygeoc0x"]
 
 [ext_resource type="Script" path="res://scripts/level.gd" id="1_hfp44"]
+[ext_resource type="Script" path="res://scripts/level_objects/alta_object.gd" id="2_eqgem"]
+[ext_resource type="Script" path="res://scripts/level_objects/arya_object.gd" id="3_ujw4g"]
 
 [node name="TestLevel2" type="Node2D"]
 
 [node name="GameLevel" type="Node2D" parent="."]
 script = ExtResource("1_hfp44")
+
+[node name="AltaObject" type="Node2D" parent="GameLevel"]
+script = ExtResource("2_eqgem")
+starting_coords = Vector2i(4, 5)
+
+[node name="AryaObject" type="Node2D" parent="GameLevel"]
+script = ExtResource("3_ujw4g")
+starting_coords = Vector2i(3, 2)
