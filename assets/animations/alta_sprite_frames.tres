@@ -37,6 +37,17 @@ animations = [{
 "frames": [{
 "duration": 1.0,
 "texture": ExtResource("1_hmnvv")
+}, {
+"duration": 1.0,
+"texture": null
+}],
+"loop": true,
+"name": &"stuck",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_hmnvv")
 }],
 "loop": true,
 "name": &"walk",

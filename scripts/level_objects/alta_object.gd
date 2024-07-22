@@ -4,9 +4,11 @@ class_name AltaObject
 
 var animated_sprite: AnimatedSprite2D = AnimatedSprite2D.new();
 var in_the_shadow : bool = false;
+var stuck : bool = false;
 
 enum {
 	WALK,
+	STUCK,
 	FLY,
 }
 var animation_state : int = WALK;
@@ -17,6 +19,7 @@ func _init():
 	tags.push_back(TAGS.PUSH);
 	tags.push_back(TAGS.LIGHT);
 	tags.push_back(TAGS.BEAM_SENSITIVE);
+	tags.push_back(TAGS.TRANSIENT);
 
 
 func _ready():
@@ -27,12 +30,8 @@ func _ready():
 	animated_sprite.play(&"walk");
 
 
-func place_on_level(starting_position: Vector2, level: GameLevel) -> void:
-	position = starting_position;
-	
-	_starting_position = starting_position;
-	_desired_position = starting_position;
-	var diff =  level.cell_size - self.animated_sprite.sprite_frames\
+func _prepare_visuals() -> void:
+	var diff =  _level_ref.cell_size - self.animated_sprite.sprite_frames\
 		.get_frame_texture("walk", 0).get_size();
 	animated_sprite.offset = Vector2(diff.x / 2., diff.y - margin_from_bottom);
 
@@ -58,7 +57,7 @@ func _light_tick() -> bool:
 	
 	in_the_shadow = shadowed && !lit;
 	
-	match [in_the_shadow && has_tag(TAGS.FLYING)]:
+	match [in_the_shadow, has_tag(TAGS.FLYING)]:
 		[true, false]:
 			tags.push_back(TAGS.FLYING);
 		[false, true]:
@@ -68,12 +67,36 @@ func _light_tick() -> bool:
 	return false;
 
 
+func _turn_tick() -> void:
+	var self_coords := _level_ref.get_coords_of_an_object(self);
+	var objects_in_the_cell := _level_ref.get_objects_by_coords(self_coords);
+	stuck = false;
+	
+	for object in objects_in_the_cell as Array[LevelObject]:
+		if (object.has_tag(LevelObject.TAGS.STOP) &&  !self.has_tag(LevelObject.TAGS.FLYING)) ||\
+		   (object.has_tag(LevelObject.TAGS.STOP) && object.has_tag(LevelObject.TAGS.FLYING)):
+			stuck = true;
+
+
 func _process(delta: float) -> void:
-	match [in_the_shadow, animation_state]:
-		[true, var st] when st != FLY:
-			animation_state = FLY;
-			animated_sprite.play(&"fly");
-		[false, var st] when st != WALK:
-			animation_state = WALK;
-			animated_sprite.play(&"walk");
+	var desired_state : int;
+	match [stuck, in_the_shadow, _movement_mode, direction]:
+		[true, _, _, _]:
+			desired_state = STUCK;
+		[_, true, _, _]:
+			desired_state = FLY;
+		[_, _, _, _]:
+			desired_state = WALK;
+	
+	if desired_state != animation_state:
+		match desired_state:
+			FLY:
+				animation_state = FLY;
+				animated_sprite.play(&"fly");
+			WALK:
+				animation_state = WALK;
+				animated_sprite.play(&"walk");
+			STUCK:
+				animation_state = STUCK;
+				animated_sprite.play(&"stuck");
 	super._process(delta);

@@ -142,10 +142,16 @@ func check_move(object: LevelObject, from: Vector2i, to: Vector2i) -> MovementDa
 	for obj in get_objects_by_coords(to):
 		# check tags of objects in the cell we're trying to move
 		obj = obj as LevelObject;
-		if obj.has_tag(LevelObject.TAGS.STOP):
-			# stop movement
-			movement.is_executable = false;
-			break;
+		match [
+			obj.has_tag(LevelObject.TAGS.STOP),
+			obj.has_tag(LevelObject.TAGS.FLYING),
+			object.has_tag(LevelObject.TAGS.FLYING)
+		]:
+			[true, true, _], [true, false, false]:
+				# stop movement
+				movement.is_executable = false;
+				break;
+		
 		if obj.has_tag(LevelObject.TAGS.PUSH):
 			# try to move object as well
 			var obj_movement = check_move(obj, to, to * 2 - from);

@@ -81,6 +81,7 @@ var _starting_position : Vector2;
 var _desired_position : Vector2;
 var _movement_progress : float = 1.;
 var _movement_mode = _STOP; 
+var _level_ref : GameLevel = null;
 
 
 func place_on_level(starting_position: Vector2, level: GameLevel) -> void:
@@ -88,7 +89,13 @@ func place_on_level(starting_position: Vector2, level: GameLevel) -> void:
 	
 	_starting_position = starting_position;
 	_desired_position = starting_position;
-	var diff =  level.cell_size - _sprite.get_rect().size;
+	_level_ref = level;
+	
+	_prepare_visuals();
+
+
+func _prepare_visuals() -> void:
+	var diff =  _level_ref.cell_size - _sprite.get_rect().size;
 	_sprite.offset = Vector2(diff.x / 2., diff.y - margin_from_bottom);
 
 
@@ -157,4 +164,4 @@ func _light_tick() -> bool:
 
 func _turn_tick():
 	# overload this to add time interactivity
-	return false;
+	pass;

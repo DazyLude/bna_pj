@@ -19,12 +19,8 @@ func _ready():
 	add_child(animated_sprite);
 
 	
-func place_on_level(starting_position: Vector2, level: GameLevel) -> void:
-	position = starting_position;
-	
-	_starting_position = starting_position;
-	_desired_position = starting_position;
-	var diff =  level.cell_size - self.animated_sprite.sprite_frames\
+func _prepare_visuals() -> void:
+	var diff =  _level_ref.cell_size - self.animated_sprite.sprite_frames\
 		.get_frame_texture("walk", 0).get_size();
 	animated_sprite.offset = Vector2(diff.x / 2., diff.y - margin_from_bottom);
 
