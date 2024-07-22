@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://ctjkhb2bbatqh"]
+[gd_scene load_steps=3 format=3 uid="uid://ctjkhb2bbatqh"]
 
 [ext_resource type="Script" path="res://scenes/ui/hud.gd" id="1_7uldo"]
+[ext_resource type="Texture2D" uid="uid://bln2h1rv6s46k" path="res://assets/icons/pause_icon.svg" id="2_q2g86"]
 
 [node name="Hud" type="Control"]
 layout_mode = 3
@@ -26,3 +27,12 @@ offset_top = 71.0
 offset_right = 143.0
 offset_bottom = 98.0
 text = "no character"
+
+[node name="PauseButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 1187.0
+offset_top = 19.0
+offset_right = 1259.0
+offset_bottom = 91.0
+icon = ExtResource("2_q2g86")
+flat = true
