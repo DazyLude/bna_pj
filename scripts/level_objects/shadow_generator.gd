@@ -21,28 +21,27 @@ func _init() -> void:
 
 
 func _light_tick() -> bool:
-	shadowing.clear();
-	
+	var temp_shadowing := {};
 	for beam in beamed_on_by.keys() as Array[Beam]:
 		if beam.btype == beam.TYPE.LIGHT:
-			shadowing[beam.direction.num] = null;
+			temp_shadowing[beam.direction.num] = null;
 	
-	if shadowing.has(Direction.UP) && shadowing.has(Direction.DOWN):
-		shadowing.erase(Direction.UP);
-		shadowing.erase(Direction.DOWN);
+	if temp_shadowing.has(Direction.UP) && temp_shadowing.has(Direction.DOWN):
+		temp_shadowing.erase(Direction.UP);
+		temp_shadowing.erase(Direction.DOWN);
 	
-	if shadowing.has(Direction.LEFT) && shadowing.has(Direction.RIGHT):
-		shadowing.erase(Direction.LEFT);
-		shadowing.erase(Direction.RIGHT);
+	if temp_shadowing.has(Direction.LEFT) && temp_shadowing.has(Direction.RIGHT):
+		temp_shadowing.erase(Direction.LEFT);
+		temp_shadowing.erase(Direction.RIGHT);
 	
-	var changes = false;
+	var changes = temp_shadowing != shadowing;
+	shadowing = temp_shadowing;
 	
-	if shadowing.size() != 0:
-		changes = emitter_type != Beam.TYPE.SHADOW;
-		emitter_type = Beam.TYPE.SHADOW;
-	else:
-		changes = emitter_type != Beam.TYPE.NONE;
-		emitter_type = Beam.TYPE.NONE;
+	match shadowing.size():
+		0:
+			emitter_type = Beam.TYPE.NONE;
+		_:
+			emitter_type = Beam.TYPE.SHADOW;
 	
 	super._light_tick();
 	return changes;

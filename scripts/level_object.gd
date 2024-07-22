@@ -142,9 +142,11 @@ func _ready() -> void:
 
 var beamed_on_by : Dictionary = {};
 
+
 func _got_beamed_on(beam: Beam) -> void:
 	# overload this to add light interactivity
 	beamed_on_by[beam] = null;
+
 
 func _light_tick() -> bool:
 	# overload this to add light interactivity

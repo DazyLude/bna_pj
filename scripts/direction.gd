@@ -46,3 +46,17 @@ static func from_vec(vec_v: Vector2) -> Direction:
 			return Direction.from_num(LEFT);
 		_:
 			return Direction.from_num(NONE);
+
+
+func reversed() -> Direction:
+	match num:
+		UP:
+			return Direction.from_num(DOWN);
+		DOWN:
+			return Direction.from_num(UP);
+		LEFT:
+			return Direction.from_num(RIGHT);
+		RIGHT:
+			return Direction.from_num(LEFT);
+		_:
+			return Direction.from_num(NONE);
