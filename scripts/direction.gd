@@ -28,14 +28,14 @@ func equals(other: Direction) -> bool:
 	return self.num == other.num;
 
 
-static func from_num(num: int) -> Direction:
+static func from_num(num_v: int) -> Direction:
 	var direction = Direction.new();
-	direction.num = num;
+	direction.num = num_v;
 	return direction;
 
 
-static func from_vec(vec: Vector2) -> Direction:
-	match Vector2i(vec.normalized()):
+static func from_vec(vec_v: Vector2) -> Direction:
+	match Vector2i(vec_v.normalized()):
 		Vector2i(0, -1):
 			return Direction.from_num(UP);
 		Vector2i(0, 1):

@@ -62,6 +62,7 @@ func remove_object(coords: Vector2i, object: LevelObject) -> void:
 
 
 func move_object(move: MoveDTO) -> void:
+	move.object.change_direction(Direction.from_vec(move.to - move.from));
 	move.object.move_to(coords2position(move.to));
 	remove_object(move.from, move.object);
 	add_object(move.to, move.object);

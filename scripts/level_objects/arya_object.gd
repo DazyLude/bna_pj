@@ -29,18 +29,10 @@ func place_on_level(starting_position: Vector2, level: GameLevel) -> void:
 	animated_sprite.offset = Vector2(diff.x / 2., diff.y - margin_from_bottom);
 
 
-func move_to(new_position: Vector2) -> void:
-	var new_direction = Direction.from_vec(new_position - position);
-	
+func change_direction(new_direction: Direction) -> void:
 	if new_direction.num == Direction.LEFT && direction.num != Direction.LEFT:
 		animated_sprite.flip_h = true;
 	if new_direction.num == Direction.RIGHT && direction.num != Direction.RIGHT:
 		animated_sprite.flip_h = false;
-	
 	if new_direction.num != Direction.NONE || !new_direction.equals(direction):
 		direction = new_direction;
-	_movement_mode = _MOVE;
-	_starting_position = position;
-	_desired_position = new_position;
-	
-	_movement_progress = 0.;

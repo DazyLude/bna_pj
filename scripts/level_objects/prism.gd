@@ -4,8 +4,16 @@ class_name Prism
 
 
 var reflecting : Dictionary = {};
-@export var horizontal_direction : int = 1;
-@export var vertical_direction : int = 0;
+var horizontal_direction : int = 2;
+@export_enum("LEFT", "RIGHT") var _horizontal_direction : int :
+	set(new_v):
+		horizontal_direction = new_v + 2;
+		_horizontal_direction = new_v;
+var vertical_direction : int = 0;
+@export_enum("UP", "DOWN") var _vertical_direction : int :
+	set(new_v):
+		horizontal_direction = new_v;
+		_horizontal_direction = new_v;
 
 
 func _get_emission_directions() -> Array:
@@ -45,8 +53,7 @@ func _light_tick() -> bool:
 	return changes;
 
 
-func move_to(new_position: Vector2) -> void:
-	var new_direction = Direction.from_vec(new_position - position);
+func change_direction(new_direction: Direction) -> void:
 	match new_direction.num:
 		Direction.UP:
 			vertical_direction = Direction.UP;
@@ -56,4 +63,4 @@ func move_to(new_position: Vector2) -> void:
 			horizontal_direction = Direction.RIGHT;
 		Direction.RIGHT:
 			horizontal_direction = Direction.LEFT;
-	super.move_to(new_position);
+	super.change_direction(new_direction);
