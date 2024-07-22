@@ -4,7 +4,6 @@ class_name AltaObject
 
 var animated_sprite: AnimatedSprite2D = AnimatedSprite2D.new();
 var in_the_shadow : bool = false;
-var stuck : bool = false;
 
 enum {
 	WALK,

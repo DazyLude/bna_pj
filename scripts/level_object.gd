@@ -44,6 +44,7 @@ func _get_emission_type(direction: int) -> Beam.TYPE:
 # or just write a GDExtention kekw 
 # can be rewritten as a bitmap, it is supported by the GDScript
 @export var tags : Array[TAGS] = [];
+var stuck : bool = false;
 @export var custom_sprite : Texture2D = null;
 @export var margin_from_bottom : float = 10.;
 var _sprite : Sprite2D = null;

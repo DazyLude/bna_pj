@@ -178,7 +178,7 @@ func try_move(object: LevelObject, direction: Direction):
 	var to = from + delta;
 	
 	var move := check_move(object, from, to);
-	if move.is_executable:
+	if move.is_executable && object.stuck != true:
 		execute_move(move);
 	else:
 		object.nudge(coords2position(to));
