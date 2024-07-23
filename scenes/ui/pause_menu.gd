@@ -9,11 +9,17 @@ var main_menu_pckd := preload("res://scenes/menus/main_menu.tscn");
 func _ready() -> void:
 	_main_ref = get_tree().root.get_node("Main") as MainScene;
 	($ButtonsVBox/ResumeButton as BaseButton).button_up.connect(_continue);
+	($ButtonsVBox/RestartButton as BaseButton).button_up.connect(_restart);
 	($ButtonsVBox/ExitButton as BaseButton).button_up.connect(_exit_to_the_menu);
 
 
 func _continue() -> void:
 	_main_ref.paused = false;
+	_main_ref.remove_modal_component();
+
+
+func _restart() -> void:
+	_main_ref.restart_level();
 	_main_ref.remove_modal_component();
 
 

@@ -10,6 +10,8 @@ enum {
 
 # _ = private variable
 var _current_level : Node = null;
+var _current_level_resourse : PackedScene = null;
+
 var _modal_component : Node = null;
 var _hud : HUD = null;
 var paused : bool = true;
@@ -32,17 +34,24 @@ func _ready() -> void:
 
 
 func load_level(level_id : int) -> void :
-	var level_resource : PackedScene;
-	paused = false;
 	match level_id:
 		_:
-			level_resource = preload("res://scenes/levels/test_level.tscn");
+			_current_level_resourse = preload("res://scenes/levels/test_level.tscn");
 	
 	unload_level();
-	
-	_current_level = level_resource.instantiate();
+	start_level();
+
+
+func restart_level() -> void:
+	unload_level();
+	start_level();
+
+
+func start_level() -> void :
+	_current_level = _current_level_resourse.instantiate();
 	_hud.connect_to_level(_current_level.get_node("GameLevel"));
 	$GameContainer.add_child(_current_level);
+	paused = false;
 
 
 func unload_level() -> void :
