@@ -45,10 +45,16 @@ func load_level(level_id : int) -> void :
 func restart_level() -> void:
 	unload_level();
 	start_level();
+	
+
+func play_transition() -> void:
+	($Transition/Label).text = _current_level.get_node("GameLevel").level_name;
+	$Transition.play("fade_in");
 
 
 func start_level() -> void :
 	_current_level = _current_level_resourse.instantiate();
+	play_transition();
 	_hud.connect_to_level(_current_level.get_node("GameLevel"));
 	$GameContainer.add_child(_current_level);
 	paused = false;
