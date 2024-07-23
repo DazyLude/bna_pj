@@ -35,6 +35,17 @@ func get_objects_by_tag(tag: LevelObject.TAGS) -> Array:
 	return result;
 
 
+func get_objects_by_tags(tags: Array[LevelObject.TAGS]) -> Array:
+	var result : Array[LevelObject] = [];
+	for coords in _objects_that_matter.keys():
+		for obj in _objects_that_matter[coords]:
+			for tag in tags:
+				if (obj as LevelObject).has_tag(tag):
+					result.push_back(obj);
+					break;
+	return result;
+
+
 func get_objects_by_coords(coords: Vector2i) -> Array:
 	return _objects_that_matter.get(coords, []);
 
@@ -91,6 +102,8 @@ func move_character(direction_num: int) -> void:
 	
 	process_lights();
 	tick_turn();
+	if check_win():
+		go_next();
 
 
 func process_lights():
@@ -101,6 +114,23 @@ func process_lights():
 		update_beams();
 		beam_on();
 		recursion_depth += 1;
+
+
+func check_win() -> bool:
+	var characters = get_objects_by_tags([LevelObject.TAGS.ARYA, LevelObject.TAGS.ALTA]);
+	var everyone_ready = true;
+	for character in characters:
+		var coords = get_coords_of_an_object(character);
+		var other_objects = get_objects_by_coords(coords);
+		var check = false;
+		for obj in other_objects as Array[LevelObject]:
+			if obj.has_tag(LevelObject.TAGS.WIN):
+				check = true;
+				break;
+		if !check:
+			everyone_ready = false;
+	
+	return everyone_ready;
 #endregion
 
 
@@ -293,6 +323,11 @@ func tick_turn() -> void:
 # meta 
 @export var level_name := "test level";
 var _main_ref : MainScene = null;
+@export var next_level_id : int = 0;
+
+
+func go_next() -> void:
+	_main_ref.load_level(next_level_id);
 
 
 # display
@@ -340,7 +375,6 @@ func _ready() -> void:
 	beam_on();
 	tick_light();
 	process_lights();
-	
 
 
 func _process(_delta: float) -> void:

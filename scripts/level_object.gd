@@ -17,6 +17,7 @@ enum TAGS {
 	BEAM_EMITTER, #9
 	TRANSIENT, #10
 	FLYING, #11
+	WIN, #12
 }
 
 
