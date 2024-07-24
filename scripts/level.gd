@@ -324,6 +324,13 @@ func tick_turn() -> void:
 @export var level_name := "test level";
 var _main_ref : MainScene = null;
 @export var next_level_id : int = 0;
+var level_objects : Array[Node] = [];
+
+
+const SCREEN_SIZE := Vector2(1280., 720.);
+const DEFAULT_LEVEL_SIZE := Vector2i(15, 9);
+@export var level_size := Vector2i(15, 9);
+@export var ravine_x : int = 8;
 
 
 func go_next() -> void:
@@ -332,14 +339,53 @@ func go_next() -> void:
 
 # display
 var camera_offset : Vector2i;
-
-
 func _cycle_character() -> void:
 	match selected_character:
 			CHARACTER_ID.ARYA:
 				selected_character = CHARACTER_ID.ALTA;
 			CHARACTER_ID.ALTA:
 				selected_character = CHARACTER_ID.ARYA;
+
+
+func spawn_ravine() -> void:
+	if ravine_x == -1 || level_size == Vector2i(-1, -1):
+		return;
+	
+	for y in level_size.y + 2:
+		var t_hole = PitObject.new();
+		t_hole.starting_coords = Vector2i(ravine_x, y)
+		if y == 0:
+			t_hole._direction = Direction.DOWN;
+			t_hole.tags.push_back(LevelObject.TAGS.BEAM_EMITTER);
+			t_hole.emitter_type = Beam.TYPE.LIGHT;
+		add_child(t_hole);
+
+
+func spawn_walls() -> void:
+	if level_size == Vector2i(-1, -1):
+		return;
+	
+	for x in (level_size.x + 2):
+		if x == ravine_x:
+			continue;
+		for y in (level_size.y + 2):
+			if x == 0 || y == 0 || x == level_size.x + 1 || y == level_size.y + 1:
+				var t_wall = WallObject.new();
+				t_wall.starting_coords = Vector2i(x, y);
+				add_child(t_wall);
+
+
+func adjust_offset() -> void:
+	var field_size : Vector2 = Vector2(level_size + Vector2i(2, 2)) * cell_size;
+	var offset = (SCREEN_SIZE - field_size) / 2.;
+	position = offset;
+
+
+func _init() -> void:
+	spawn_ravine();
+	spawn_walls();
+	adjust_offset();
+	y_sort_enabled = true;
 
 
 func _ready() -> void:
@@ -354,13 +400,10 @@ func _ready() -> void:
 		beam_sensitive.clear();
 		transients.clear();
 	
-	
 	if !Engine.is_editor_hint():
 		_main_ref = get_tree().root.get_node("Main") as MainScene;
 	
-	
-	y_sort_enabled = true;
-	var level_objects = get_children().filter(func(ch : Node): return ch as LevelObject != null);
+	level_objects = get_children().filter(func(ch : Node): return ch as LevelObject != null);
 	for obj in level_objects:
 		obj.place_on_level(coords2position(obj.starting_coords), self);
 		if !obj.has_tag(LevelObject.TAGS.DECORATION):
@@ -371,6 +414,7 @@ func _ready() -> void:
 			beam_sensitive[obj] = null;
 		if obj.has_tag(LevelObject.TAGS.TRANSIENT):
 			transients[obj] = null;
+	
 	generate_beams();
 	beam_on();
 	tick_light();

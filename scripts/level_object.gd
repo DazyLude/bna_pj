@@ -37,6 +37,7 @@ func _get_emission_type(direction: int) -> Beam.TYPE:
 
 
 @export var starting_coords := Vector2i(0, 0);
+
 # can be rewritten as a bitmask for performance boost, but I don't know how to export it to the editor
 # exporting could be done by setting an array, as it is already done,
 # but using setters and getters; we can generate array by working with an actual stored bitmask.
@@ -47,7 +48,7 @@ func _get_emission_type(direction: int) -> Beam.TYPE:
 @export var tags : Array[TAGS] = [];
 var stuck : bool = false;
 @export var custom_sprite : Texture2D = null;
-@export var margin_from_bottom : float = 10.;
+@export var margin_from_bottom : float = 0.;
 var _sprite : Sprite2D = null;
 
 
