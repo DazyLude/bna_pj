@@ -16,7 +16,7 @@ var vertical_direction : int = 0;
 		_horizontal_direction = new_v;
 
 
-var atlas : AtlasTexture = preload("res://assets/objects/mirror_atlas.tres");
+var atlas := AtlasTexture.new();
 enum {
 	TOP_LEFT,
 	TOP_RIGHT,
@@ -55,10 +55,14 @@ func _get_emission_directions() -> Array:
 
 
 func _init() -> void:
+	atlas.atlas = preload("res://assets/objects/mirror.png");
+	atlas.region.size = Vector2(64., 64.);
+	
 	tags.push_back(TAGS.BEAM_SENSITIVE);
 	tags.push_back(TAGS.BEAM_EMITTER);
 	tags.push_back(TAGS.BEAM_STOPPER);
 	tags.push_back(TAGS.PUSH);
+	
 	emitter_type = Beam.TYPE.NONE;
 
 

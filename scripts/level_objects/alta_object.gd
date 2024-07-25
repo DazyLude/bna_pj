@@ -12,19 +12,29 @@ enum {
 }
 var animation_state : int = WALK;
 
+var sfx_player := AudioStreamPlayer.new();
+var move_fx : AudioStream = null;
+var nudge_fx : AudioStream = null;
+
 
 func _init():
+	add_child(sfx_player);
+	sfx_player.bus = "sfx";
+	
 	tags.push_back(TAGS.ALTA);
 	tags.push_back(TAGS.PUSH);
 	tags.push_back(TAGS.LIGHT);
 	tags.push_back(TAGS.BEAM_SENSITIVE);
 	tags.push_back(TAGS.TRANSIENT);
+	
+	animated_sprite.sprite_frames = preload("res://assets/animations/alta_sprite_frames.tres");
+	move_fx = preload("res://assets/sfx/whoop3.wav");
+	nudge_fx = preload("res://assets/sfx/poowh.wav");
 
 
 func _ready():
 	animated_sprite.position = self._starting_position;
 	animated_sprite.centered = false;
-	animated_sprite.sprite_frames = load("res://assets/animations/alta_sprite_frames.tres");
 	add_child(animated_sprite);
 	animated_sprite.play(&"walk");
 
@@ -75,6 +85,22 @@ func _turn_tick() -> void:
 		if (object.has_tag(LevelObject.TAGS.STOP) &&  !self.has_tag(LevelObject.TAGS.FLYING)) ||\
 		   (object.has_tag(LevelObject.TAGS.STOP) && object.has_tag(LevelObject.TAGS.FLYING)):
 			stuck = true;
+
+
+func nudge(to: Vector2) -> void:
+	var pitch_mod = 1. + .1 * (randf() - 0.5);
+	sfx_player.pitch_scale = pitch_mod;
+	sfx_player.stream = nudge_fx;
+	sfx_player.play();
+	super.nudge(to);
+
+
+func move_to(to: Vector2) -> void:
+	var pitch_mod = 1. + .1 * (randf() - 0.5);
+	sfx_player.pitch_scale = pitch_mod;
+	sfx_player.stream = move_fx;
+	sfx_player.play();
+	super.move_to(to);
 
 
 func _process(delta: float) -> void:

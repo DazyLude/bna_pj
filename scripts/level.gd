@@ -324,6 +324,15 @@ func tick_turn() -> void:
 @export var level_name := "test level";
 var _main_ref : MainScene = null;
 @export var next_level_id : int = 0;
+var level_objects : Array[Node] = [];
+
+
+const SCREEN_SIZE := Vector2(1280., 720.);
+const DEFAULT_LEVEL_SIZE := Vector2i(15, 9);
+@export var level_size := Vector2i(15, 9);
+@export var ravine_x : int = 8;
+@export var left_door_location := Vector2i(1, 0);
+@export var right_door_location := Vector2i(9, 0);
 
 
 func go_next() -> void:
@@ -332,8 +341,6 @@ func go_next() -> void:
 
 # display
 var camera_offset : Vector2i;
-
-
 func _cycle_character() -> void:
 	match selected_character:
 			CHARACTER_ID.ARYA:
@@ -342,7 +349,85 @@ func _cycle_character() -> void:
 				selected_character = CHARACTER_ID.ARYA;
 
 
+func spawn_ravine() -> void:
+	if ravine_x == -1 || level_size == Vector2i(-1, -1):
+		return;
+	
+	for y in level_size.y + 2:
+		var t_hole = PitObject.new();
+		t_hole.starting_coords = Vector2i(ravine_x, y)
+		if y == 0:
+			t_hole._direction = Direction.DOWN;
+			t_hole.tags.push_back(LevelObject.TAGS.BEAM_EMITTER);
+			t_hole.emitter_type = Beam.TYPE.LIGHT;
+		add_child(t_hole);
+
+
+func spawn_exits() -> void:
+	if left_door_location != Vector2i(-1, -1):
+		spawn_exit(left_door_location);
+	if right_door_location != Vector2i(-1, -1):
+		spawn_exit(right_door_location);
+
+
+func spawn_exit(at: Vector2i) -> void:
+	var t_door := WallObject.new();
+	t_door.starting_coords = at;
+	var t_win_tile := ExitObject.new();
+	var bottom = level_size.x + 2;
+	var farright = level_size.y + 2;
+	match [at.x, at.y]:
+		[0, 0]:
+			return; #xd
+		[0, _]:
+			t_door._direction = Direction.RIGHT;
+		[_, 0]:
+			t_door._direction = Direction.DOWN;
+		[bottom, _]:
+			t_door._direction = Direction.UP;
+		[farright, _]:
+			t_door._direction = Direction.LEFT;
+		[_, _]:
+			return; #xd
+	t_win_tile.starting_coords = at + t_door.direction.vec;
+	t_win_tile.direction = t_door.direction.reversed();
+	
+	add_child(t_door);
+	add_child(t_win_tile);
+
+
+func spawn_walls() -> void:
+	if level_size == Vector2i(-1, -1):
+		return;
+	
+	for x in (level_size.x + 2):
+		if x == ravine_x:
+			continue;
+		for y in (level_size.y + 2):
+			if Vector2i(x, y) == left_door_location || Vector2i(x, y) == right_door_location:
+				continue;
+			if x == 0 || y == 0 || x == level_size.x + 1 || y == level_size.y + 1:
+				var t_wall = WallObject.new();
+				t_wall.starting_coords = Vector2i(x, y);
+				add_child(t_wall);
+
+
+func adjust_offset() -> void:
+	var field_size : Vector2 = Vector2(level_size + Vector2i(2, 2)) * cell_size;
+	var offset = (SCREEN_SIZE - field_size) / 2.;
+	position = offset;
+
+
+var ran_once : bool = false;
 func _ready() -> void:
+	if !ran_once:
+		spawn_ravine();
+		spawn_exits();
+		spawn_walls();
+		adjust_offset();
+		y_sort_enabled = true;
+		ran_once = true;
+	
 	if Engine.is_editor_hint():
 		var timer = get_tree().create_timer(1.);
 		timer.timeout.connect(_ready);
@@ -354,13 +439,10 @@ func _ready() -> void:
 		beam_sensitive.clear();
 		transients.clear();
 	
-	
 	if !Engine.is_editor_hint():
 		_main_ref = get_tree().root.get_node("Main") as MainScene;
 	
-	
-	y_sort_enabled = true;
-	var level_objects = get_children().filter(func(ch : Node): return ch as LevelObject != null);
+	level_objects = get_children().filter(func(ch : Node): return ch as LevelObject != null);
 	for obj in level_objects:
 		obj.place_on_level(coords2position(obj.starting_coords), self);
 		if !obj.has_tag(LevelObject.TAGS.DECORATION):
@@ -371,6 +453,7 @@ func _ready() -> void:
 			beam_sensitive[obj] = null;
 		if obj.has_tag(LevelObject.TAGS.TRANSIENT):
 			transients[obj] = null;
+	
 	generate_beams();
 	beam_on();
 	tick_light();
