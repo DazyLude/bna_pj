@@ -24,6 +24,8 @@ func coords2position(coords: Vector2i) -> Vector2:
 var _level_terrain_set : TileSet = preload("res://assets/terrain/terrain.tres");
 # { coords: [object in this cell, object in this cell... ] }
 var _objects_that_matter : Dictionary = {};
+var _state_history : Dictionary = {};
+var turn_number := 0;
 
 
 func get_objects_by_tag(tag: LevelObject.TAGS) -> Array:
@@ -91,6 +93,9 @@ var selected_character : CHARACTER_ID = CHARACTER_ID.ARYA:
 
 
 func move_character(direction_num: int) -> void:
+	save_state();
+	turn_number += 1;
+	
 	var direction := Direction.from_num(direction_num);
 	match selected_character:
 		CHARACTER_ID.ARYA:
@@ -104,6 +109,25 @@ func move_character(direction_num: int) -> void:
 	tick_turn();
 	if check_win():
 		go_next();
+
+func save_state() -> void:
+	for coords in _objects_that_matter.keys():
+		for obj in _objects_that_matter[coords] as Array[LevelObject]:
+			var gs := obj.get_state();
+			gs["coords"] = coords;
+			if _state_history.has(obj):
+				_state_history[obj].push_back(gs);
+			else:
+				_state_history[obj] = [gs];
+
+
+func load_state() -> void:
+	_objects_that_matter.clear();
+	for obj in _state_history.keys():
+		var state = _state_history[obj].pop_back();
+		obj.set_state(state);
+		obj.move_to(coords2position(state["coords"]));
+		add_object(state["coords"], obj);
 
 
 func process_lights():
@@ -421,6 +445,13 @@ func _ready() -> void:
 	process_lights();
 
 
+func _cancel() -> void:
+	if turn_number > 0:
+		turn_number -= 1;
+		load_state();
+		process_lights();
+
+
 func _process(_delta: float) -> void:
 	if Engine.is_editor_hint(): # dont run in the editor
 		return;
@@ -438,3 +469,5 @@ func _process(_delta: float) -> void:
 		move_character(Direction.LEFT);
 	if Input.is_action_just_pressed("move_right"):
 		move_character(Direction.RIGHT);
+	if Input.is_action_just_pressed("cancel_action"):
+		_cancel();

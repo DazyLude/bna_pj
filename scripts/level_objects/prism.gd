@@ -62,6 +62,19 @@ func _init() -> void:
 	emitter_type = Beam.TYPE.NONE;
 
 
+func get_state() -> Dictionary:
+	var tmp = super.get_state();
+	tmp["horizontal_direction"] = horizontal_direction;
+	tmp["vertical_direction"] = vertical_direction;
+	return tmp;
+
+
+func set_state(state: Dictionary) -> void:
+	super.set_state(state);
+	horizontal_direction = state["horizontal_direction"];
+	vertical_direction = state["vertical_direction"];
+
+
 func _prepare_visuals() -> void:
 	_sprite.texture = atlas;
 	select_visual_orientation();

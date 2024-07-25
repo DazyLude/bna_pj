@@ -87,6 +87,22 @@ var _movement_mode = _STOP;
 var _level_ref : GameLevel = null;
 
 
+func get_state() -> Dictionary:
+	return {
+		"stuck": stuck,
+		"tags": tags,
+		"emitter_type": emitter_type,
+		"_direction": _direction
+	};
+
+
+func set_state(state: Dictionary) -> void:
+	stuck = state["stuck"];
+	tags = state["tags"];
+	emitter_type = state["emitter_type"];
+	_direction = state["_direction"];
+
+
 func place_on_level(starting_position: Vector2, level: GameLevel) -> void:
 	position = starting_position;
 	
