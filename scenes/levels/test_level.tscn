@@ -1,11 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://cbj032n5wntmd"]
+[gd_scene load_steps=6 format=3 uid="uid://cbj032n5wntmd"]
 
 [ext_resource type="Script" path="res://scripts/level.gd" id="1_ub8e0"]
 [ext_resource type="Script" path="res://scripts/level_objects/alta_object.gd" id="2_16qr7"]
 [ext_resource type="Script" path="res://scripts/level_objects/arya_object.gd" id="3_52xuo"]
 [ext_resource type="Script" path="res://scripts/level_objects/shadow_generator.gd" id="4_q6eao"]
 [ext_resource type="Script" path="res://scripts/level_objects/prism.gd" id="5_c25jk"]
-[ext_resource type="Script" path="res://scripts/level_object.gd" id="8_ioghn"]
 
 [node name="TestLevel" type="Node2D"]
 
@@ -13,6 +12,8 @@
 y_sort_enabled = true
 position = Vector2(96, 8)
 script = ExtResource("1_ub8e0")
+left_door_location = Vector2i(3, 0)
+right_door_location = Vector2i(12, 0)
 
 [node name="AltaObject" type="Node2D" parent="GameLevel"]
 position = Vector2(640, 256)
@@ -42,14 +43,8 @@ emitter_type = 1
 starting_coords = Vector2i(6, 5)
 tags = Array[int]([7, 9, 8, 3])
 
-[node name="exit" type="Node2D" parent="GameLevel"]
-position = Vector2(640, 512)
-script = ExtResource("8_ioghn")
-starting_coords = Vector2i(10, 8)
-tags = Array[int]([12])
-
-[node name="exit2" type="Node2D" parent="GameLevel"]
-position = Vector2(384, 512)
-script = ExtResource("8_ioghn")
-starting_coords = Vector2i(6, 8)
-tags = Array[int]([12])
+[node name="Prism2" type="Node2D" parent="GameLevel"]
+position = Vector2(640, 320)
+script = ExtResource("5_c25jk")
+starting_coords = Vector2i(10, 5)
+tags = Array[int]([7, 9, 8, 3])

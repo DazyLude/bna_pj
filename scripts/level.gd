@@ -331,6 +331,8 @@ const SCREEN_SIZE := Vector2(1280., 720.);
 const DEFAULT_LEVEL_SIZE := Vector2i(15, 9);
 @export var level_size := Vector2i(15, 9);
 @export var ravine_x : int = 8;
+@export var left_door_location := Vector2i(1, 0);
+@export var right_door_location := Vector2i(9, 0);
 
 
 func go_next() -> void:
@@ -361,6 +363,39 @@ func spawn_ravine() -> void:
 		add_child(t_hole);
 
 
+func spawn_exits() -> void:
+	if left_door_location != Vector2i(-1, -1):
+		spawn_exit(left_door_location);
+	if right_door_location != Vector2i(-1, -1):
+		spawn_exit(right_door_location);
+
+
+func spawn_exit(at: Vector2i) -> void:
+	var t_door := WallObject.new();
+	t_door.starting_coords = at;
+	var t_win_tile := ExitObject.new();
+	var bottom = level_size.x + 2;
+	var farright = level_size.y + 2;
+	match [at.x, at.y]:
+		[0, 0]:
+			return; #xd
+		[0, _]:
+			t_door._direction = Direction.RIGHT;
+		[_, 0]:
+			t_door._direction = Direction.DOWN;
+		[bottom, _]:
+			t_door._direction = Direction.UP;
+		[farright, _]:
+			t_door._direction = Direction.LEFT;
+		[_, _]:
+			return; #xd
+	t_win_tile.starting_coords = at + t_door.direction.vec;
+	t_win_tile.direction = t_door.direction.reversed();
+	
+	add_child(t_door);
+	add_child(t_win_tile);
+
+
 func spawn_walls() -> void:
 	if level_size == Vector2i(-1, -1):
 		return;
@@ -369,6 +404,8 @@ func spawn_walls() -> void:
 		if x == ravine_x:
 			continue;
 		for y in (level_size.y + 2):
+			if Vector2i(x, y) == left_door_location || Vector2i(x, y) == right_door_location:
+				continue;
 			if x == 0 || y == 0 || x == level_size.x + 1 || y == level_size.y + 1:
 				var t_wall = WallObject.new();
 				t_wall.starting_coords = Vector2i(x, y);
@@ -381,14 +418,16 @@ func adjust_offset() -> void:
 	position = offset;
 
 
-func _init() -> void:
-	spawn_ravine();
-	spawn_walls();
-	adjust_offset();
-	y_sort_enabled = true;
-
-
+var ran_once : bool = false;
 func _ready() -> void:
+	if !ran_once:
+		spawn_ravine();
+		spawn_exits();
+		spawn_walls();
+		adjust_offset();
+		y_sort_enabled = true;
+		ran_once = true;
+	
 	if Engine.is_editor_hint():
 		var timer = get_tree().create_timer(1.);
 		timer.timeout.connect(_ready);
