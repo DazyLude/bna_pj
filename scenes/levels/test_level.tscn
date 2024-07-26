@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://cbj032n5wntmd"]
+[gd_scene load_steps=12 format=3 uid="uid://cbj032n5wntmd"]
 
 [ext_resource type="Script" path="res://scripts/level.gd" id="1_ub8e0"]
 [ext_resource type="Script" path="res://scripts/level_objects/alta_object.gd" id="2_16qr7"]
@@ -7,6 +7,13 @@
 [ext_resource type="Script" path="res://scripts/level_objects/shadow_generator.gd" id="4_q6eao"]
 [ext_resource type="Script" path="res://scripts/level_objects/prism.gd" id="5_c25jk"]
 [ext_resource type="Script" path="res://scripts/level_object.gd" id="7_ens7y"]
+[ext_resource type="Script" path="res://scripts/level_objects/flood_light.gd" id="8_802ht"]
+[ext_resource type="Texture2D" uid="uid://c8i0ucmf82xjj" path="res://assets/floodlights.png" id="9_1ooqr"]
+[ext_resource type="Script" path="res://scripts/level_objects/solar_power.gd" id="10_p2npb"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5je1w"]
+atlas = ExtResource("9_1ooqr")
+region = Rect2(192, 0, 64, 64)
 
 [node name="TestLevel" type="Node2D"]
 
@@ -34,6 +41,7 @@ position = Vector2(256, 320)
 script = ExtResource("3_52xuo")
 _direction = 3
 starting_coords = Vector2i(4, 5)
+tags = Array[int]([2, 3, 7, 10])
 
 [node name="ShadowGenerator" type="Node2D" parent="GameLevel"]
 position = Vector2(384, 192)
@@ -60,3 +68,17 @@ _direction = 1
 emitter_type = 1
 starting_coords = Vector2i(3, 3)
 tags = Array[int]([3, 9, 5])
+
+[node name="FloodLight" type="Node2D" parent="GameLevel"]
+position = Vector2(256, 512)
+script = ExtResource("8_802ht")
+_direction = 3
+starting_coords = Vector2i(4, 8)
+tags = Array[int]([9, 3, 10, 9, 3, 10])
+custom_sprite = SubResource("AtlasTexture_5je1w")
+
+[node name="SolarPower" type="Node2D" parent="GameLevel"]
+position = Vector2(192, 512)
+script = ExtResource("10_p2npb")
+starting_coords = Vector2i(3, 8)
+tags = Array[int]([7, 8, 3, 7, 8, 3])
