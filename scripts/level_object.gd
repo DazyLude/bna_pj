@@ -101,7 +101,7 @@ func set_state(state: Dictionary) -> void:
 	stuck = state["stuck"];
 	tags = state["tags"];
 	emitter_type = state["emitter_type"];
-	_direction = state["_direction"];
+	change_direction(Direction.from_num(state["_direction"]));
 
 
 func place_on_level(starting_position: Vector2, level: GameLevel) -> void:

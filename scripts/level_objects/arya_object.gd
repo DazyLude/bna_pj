@@ -79,7 +79,6 @@ func _light_tick() -> bool:
 	
 	match [lit, has_tag(TAGS.STRONG)]:
 		[true, false]:
-			print("me strong!")
 			tags.push_back(TAGS.STRONG);
 		[false, true]:
 			tags.erase(TAGS.STRONG);

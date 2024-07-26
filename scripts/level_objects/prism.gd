@@ -74,9 +74,9 @@ func get_state() -> Dictionary:
 
 
 func set_state(state: Dictionary) -> void:
-	super.set_state(state);
-	horizontal_direction = state["horizontal_direction"];
 	vertical_direction = state["vertical_direction"];
+	horizontal_direction = state["horizontal_direction"];
+	super.set_state(state);
 
 
 func _prepare_visuals() -> void:
