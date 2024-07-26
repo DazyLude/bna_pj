@@ -27,6 +27,8 @@ func _ready() -> void:
 	for child in get_children():
 		if child as Phrase != null:
 			dialogue.push_back(child)
+			
+	say_the_next_line();
 
 
 func bump_left() -> void:
@@ -136,5 +138,5 @@ func _process(delta: float) -> void:
 		right_nudge = min(right_nudge + delta * animation_speed, 1.);
 		right_node.position = right_position.lerp(right_position + Vector2(0., -20.), sin(right_nudge * PI));
 	
-	if Input.is_action_just_pressed("undo"):
+	if Input.is_action_just_pressed("dialog_continue"):
 		say_the_next_line();
