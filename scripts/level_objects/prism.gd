@@ -12,8 +12,8 @@ var horizontal_direction : int = 2;
 var vertical_direction : int = 0;
 @export_enum("UP", "DOWN") var _vertical_direction : int :
 	set(new_v):
-		horizontal_direction = new_v;
-		_horizontal_direction = new_v;
+		vertical_direction = new_v;
+		_vertical_direction = new_v;
 
 
 var atlas := AtlasTexture.new();

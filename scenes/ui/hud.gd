@@ -18,7 +18,7 @@ func connect_to_level(level_node: GameLevel) -> void:
 	level_node.changed_selected_character.connect(_selected_character_update);
 
 
-func disconnect_from_level(level_node: GameLevel) -> void:
+func disconnect_from_level(_level_node: GameLevel) -> void:
 	($LevelName as Label).text = "no level";
 
 

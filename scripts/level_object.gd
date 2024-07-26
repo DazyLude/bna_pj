@@ -32,7 +32,7 @@ func _get_emission_directions() -> Array :
 	return [direction];
 
 @export var emitter_type : Beam.TYPE = Beam.TYPE.NONE;
-func _get_emission_type(direction: int) -> Beam.TYPE:
+func _get_emission_type(_direction_num: int) -> Beam.TYPE:
 	return emitter_type;
 
 
