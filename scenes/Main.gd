@@ -5,12 +5,18 @@ class_name MainScene
 
 enum {
 	LEVEL_TEST,
+	INTERMISSION_TEST,
 }
 
 
 # _ = private variable
 var _current_level : Node = null;
 var _current_level_resourse : PackedScene = null;
+enum {
+	LEVEL,
+	INTERMISSION,
+}
+var _current_state : int;
 
 var _modal_component : Node = null;
 var _hud : HUD = null;
@@ -34,12 +40,18 @@ func _ready() -> void:
 
 
 func load_level(level_id : int) -> void :
-	match level_id:
-		_:
-			_current_level_resourse = preload("res://scenes/levels/test_level.tscn");
-	
+	fade_out();
+	await get_tree().create_timer(0.2).timeout;
 	unload_level();
+	match level_id:
+		LEVEL_TEST:
+			_current_level_resourse = preload("res://scenes/levels/test_level.tscn");
+			_current_state = LEVEL;
+		INTERMISSION_TEST:
+			_current_level_resourse = preload("res://scenes/intermissions/test_intermission.tscn");
+			_current_state = INTERMISSION;
 	start_level();
+	fade_in();
 
 
 func restart_level() -> void:
@@ -47,23 +59,38 @@ func restart_level() -> void:
 	start_level();
 	
 
-func play_transition() -> void:
-	($Transition/Label).text = _current_level.get_node("GameLevel").level_name;
+func fade_in() -> void:
+	match _current_state:
+		LEVEL:
+			($Transition/Label).text = _current_level.get_node("GameLevel").level_name;
+		INTERMISSION:
+			($Transition/Label).text = _current_level.get_node("Intermission").intermission_name;
 	$Transition.play("fade_in");
+
+
+func fade_out() -> void:
+	$Transition.play("fade_out");
 
 
 func start_level() -> void :
 	_current_level = _current_level_resourse.instantiate();
-	play_transition();
-	_hud.connect_to_level(_current_level.get_node("GameLevel"));
-	$GameContainer.add_child(_current_level);
+	match _current_state:
+		LEVEL:
+			_hud.connect_to_level(_current_level.get_node("GameLevel"));
+			$GameContainer.add_child(_current_level);
+		INTERMISSION:
+			$GameContainer.add_child(_current_level);
 	paused = false;
 
 
 func unload_level() -> void :
 	if _current_level != null:
-		_hud.disconnect_from_level(_current_level.get_node("GameLevel"));
-		$GameContainer.remove_child(_current_level);
+		match _current_state:
+			LEVEL:
+				_hud.disconnect_from_level(_current_level.get_node("GameLevel"));
+				$GameContainer.remove_child(_current_level);
+			INTERMISSION:
+				$GameContainer.remove_child(_current_level);
 		_current_level.queue_free();
 		_current_level = null;
 

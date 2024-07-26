@@ -347,7 +347,7 @@ func tick_turn() -> void:
 # meta 
 @export var level_name := "test level";
 var _main_ref : MainScene = null;
-@export var next_level_id : int = 0;
+@export var next_level_id : int = 1;
 var level_objects : Array[Node] = [];
 
 
@@ -497,12 +497,12 @@ enum {
 	UNDO,
 }
 var delay : Array[Array] = [[0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0]]; # :)
-const ACTION_DELAY : int = 100;
+const ACTION_DELAY : int = 200;
 const ACTION_RESET : int = 100;
 
 
 func check_delay(action: int) -> bool:
-	return Time.get_ticks_msec() - delay[action][0] > ACTION_DELAY;
+	return Time.get_ticks_msec() - delay[action][0] > ACTION_DELAY / min(delay[action][1] + 1, 2);
 
 
 func update_delay(action: int) -> void:

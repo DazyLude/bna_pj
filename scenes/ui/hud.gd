@@ -12,14 +12,12 @@ func _ready() -> void:
 
 
 func connect_to_level(level_node: GameLevel) -> void:
-	($LevelName as Label).text = level_node.level_name;
-	
 	_selected_character_update(level_node.selected_character);
 	level_node.changed_selected_character.connect(_selected_character_update);
 
 
 func disconnect_from_level(_level_node: GameLevel) -> void:
-	($LevelName as Label).text = "no level";
+	pass;
 
 
 func _show_pause_menu() -> void:
@@ -31,7 +29,7 @@ func _show_pause_menu() -> void:
 
 
 func _selected_character_update(selected_character: GameLevel.CHARACTER_ID = 0) -> void:
-	($ActiveCharacter as Label).text = GameLevel.CHARACTER_ID.keys()[selected_character];
+	pass;
 
 
 func _process(_delta: float) -> void:
