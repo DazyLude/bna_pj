@@ -82,17 +82,19 @@ func _turn_tick() -> void:
 	stuck = false;
 	
 	for object in objects_in_the_cell as Array[LevelObject]:
-		if (object.has_tag(LevelObject.TAGS.STOP) &&  !self.has_tag(LevelObject.TAGS.FLYING)) ||\
-		   (object.has_tag(LevelObject.TAGS.STOP) && object.has_tag(LevelObject.TAGS.FLYING)):
+		if (
+			(object.has_tag(LevelObject.TAGS.STOP) &&  !self.has_tag(LevelObject.TAGS.FLYING)) ||
+			(object.has_tag(LevelObject.TAGS.STOP) && object.has_tag(LevelObject.TAGS.FLYING))
+		):
 			stuck = true;
 
 
-func nudge(to: Vector2) -> void:
+func nudge(from: Vector2, to: Vector2) -> void:
 	var pitch_mod = 1. + .1 * (randf() - 0.5);
 	sfx_player.pitch_scale = pitch_mod;
 	sfx_player.stream = nudge_fx;
 	sfx_player.play();
-	super.nudge(to);
+	super.nudge(from, to);
 
 
 func move_to(to: Vector2) -> void:

@@ -130,9 +130,9 @@ func move_to(new_position: Vector2) -> void:
 	_movement_progress = 0.;
 
 
-func nudge(to: Vector2) -> void:
+func nudge(from: Vector2, to: Vector2) -> void:
 	_movement_mode = _NUDGE;
-	_starting_position = position;
+	_starting_position = from;
 	_desired_position = to;
 	
 	_movement_progress = 0.;

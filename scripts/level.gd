@@ -235,7 +235,7 @@ func try_move(object: LevelObject, direction: Direction):
 	if move.is_executable && object.stuck != true:
 		execute_move(move);
 	else:
-		object.nudge(coords2position(to));
+		object.nudge(coords2position(from), coords2position(to));
 #endregion
 
 
@@ -491,6 +491,28 @@ func _cancel() -> void:
 		process_lights();
 
 
+enum {
+	CHANGE,
+	MOVE_UP, MOVE_DOWN, MOVE_LEFT, MOVE_RIGHT,
+	UNDO,
+}
+var delay : Array[Array] = [[0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0]]; # :)
+const ACTION_DELAY : int = 500;
+const ACTION_RESET : int = 550;
+
+
+func check_delay(action: int) -> bool:
+	return Time.get_ticks_msec() - delay[action][0] > max(50, ACTION_DELAY / (1 + delay[action][1]));
+
+
+func update_delay(action: int) -> void:
+	delay[action][0] = Time.get_ticks_msec();
+	if Time.get_ticks_msec() - delay[action][0] > ACTION_RESET:
+		delay[action][1] = 0;
+	else:
+		delay[action][1] += 1;
+
+
 func _process(_delta: float) -> void:
 	if Engine.is_editor_hint(): # dont run in the editor
 		return;
@@ -498,15 +520,32 @@ func _process(_delta: float) -> void:
 	if _main_ref.paused:
 		return;
 	
-	if Input.is_action_just_pressed("change_character"):
-		_cycle_character();
-	if Input.is_action_just_pressed("move_down"):
-		move_character(Direction.DOWN);
-	if Input.is_action_just_pressed("move_up"):
-		move_character(Direction.UP);
-	if Input.is_action_just_pressed("move_left"):
-		move_character(Direction.LEFT);
-	if Input.is_action_just_pressed("move_right"):
-		move_character(Direction.RIGHT);
-	if Input.is_action_just_pressed("cancel_action"):
-		_cancel();
+	if Input.is_action_pressed("change_character"): #0
+		if Input.is_action_just_pressed("change_character") || check_delay(CHANGE):
+			_cycle_character();
+			update_delay(CHANGE);
+	
+	if Input.is_action_pressed("move_down"): #1
+		if Input.is_action_just_pressed("move_down") || check_delay(MOVE_DOWN):
+			move_character(Direction.DOWN);
+			update_delay(MOVE_DOWN);
+	
+	if Input.is_action_pressed("move_up"): #2
+		if Input.is_action_just_pressed("move_up") || check_delay(MOVE_UP):
+			move_character(Direction.UP);
+			update_delay(MOVE_UP);
+	
+	if Input.is_action_pressed("move_left"): #3
+		if Input.is_action_just_pressed("move_left") || check_delay(MOVE_LEFT):
+			move_character(Direction.LEFT);
+			update_delay(MOVE_LEFT);
+	
+	if Input.is_action_pressed("move_right"): #4
+		if Input.is_action_just_pressed("move_right") || check_delay(MOVE_RIGHT):
+			move_character(Direction.RIGHT);
+			update_delay(MOVE_RIGHT);
+	
+	if Input.is_action_pressed("cancel_action"):
+		if Input.is_action_just_pressed("cancel_action") || check_delay(UNDO):
+			_cancel();
+			update_delay(UNDO);

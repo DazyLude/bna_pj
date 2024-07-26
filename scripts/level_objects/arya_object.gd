@@ -44,12 +44,12 @@ func change_direction(new_direction: Direction) -> void:
 		direction = new_direction;
 
 
-func nudge(to: Vector2) -> void:
+func nudge(from: Vector2, to: Vector2) -> void:
 	var pitch_mod = 1. + .1 * (randf() - 0.5);
 	sfx_player.pitch_scale = pitch_mod;
 	sfx_player.stream = nudge_fx;
 	sfx_player.play();
-	super.nudge(to);
+	super.nudge(from, to);
 
 
 func move_to(to: Vector2) -> void:
