@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://cbj032n5wntmd"]
+[gd_scene load_steps=7 format=3 uid="uid://cbj032n5wntmd"]
 
 [ext_resource type="Script" path="res://scripts/level.gd" id="1_ub8e0"]
 [ext_resource type="Script" path="res://scripts/level_objects/alta_object.gd" id="2_16qr7"]
+[ext_resource type="TileSet" uid="uid://bdwegq3k2nkl4" path="res://assets/terrain/terrain.tres" id="2_ghm4y"]
 [ext_resource type="Script" path="res://scripts/level_objects/arya_object.gd" id="3_52xuo"]
 [ext_resource type="Script" path="res://scripts/level_objects/shadow_generator.gd" id="4_q6eao"]
 [ext_resource type="Script" path="res://scripts/level_objects/prism.gd" id="5_c25jk"]
@@ -14,6 +15,12 @@ position = Vector2(96, 8)
 script = ExtResource("1_ub8e0")
 left_door_location = Vector2i(3, 0)
 right_door_location = Vector2i(12, 0)
+
+[node name="TileMap" type="TileMap" parent="GameLevel"]
+z_index = -2
+tile_set = ExtResource("2_ghm4y")
+format = 2
+layer_0/tile_data = PackedInt32Array(65545, 1, 0, 65546, 1, 0, 65547, 1, 0, 65548, 1, 0, 65549, 1, 0, 65550, 1, 0, 65551, 1, 0, 131087, 1, 0, 196623, 1, 0, 262159, 1, 0, 327695, 1, 0, 393231, 1, 0, 458767, 1, 0, 524303, 1, 0, 589839, 1, 0, 589838, 1, 0, 589837, 1, 0, 589836, 1, 0, 589835, 1, 0, 589834, 1, 0, 589833, 1, 0, 524297, 1, 0, 524298, 1, 0, 524299, 1, 0, 524300, 1, 0, 524301, 1, 0, 524302, 1, 0, 458766, 1, 0, 458765, 65537, 0, 458764, 1, 0, 458763, 65537, 0, 458762, 1, 0, 458761, 1, 0, 393225, 1, 0, 327689, 1, 0, 262153, 1, 0, 196617, 1, 0, 131081, 1, 0, 131082, 1, 0, 131083, 1, 0, 131084, 1, 0, 131085, 1, 0, 131086, 1, 0, 196622, 1, 0, 262158, 1, 0, 327694, 65537, 0, 393230, 65537, 0, 393229, 1, 0, 393228, 65537, 0, 393227, 1, 0, 393226, 1, 0, 327690, 1, 0, 262154, 1, 0, 196618, 1, 0, 196619, 1, 0, 196620, 1, 0, 196621, 1, 0, 262157, 1, 0, 327693, 1, 0, 327692, 1, 0, 327691, 1, 0, 262155, 1, 0, 262156, 1, 0)
 
 [node name="AltaObject" type="Node2D" parent="GameLevel"]
 position = Vector2(640, 256)

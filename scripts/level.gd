@@ -497,12 +497,12 @@ enum {
 	UNDO,
 }
 var delay : Array[Array] = [[0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0]]; # :)
-const ACTION_DELAY : int = 500;
-const ACTION_RESET : int = 550;
+const ACTION_DELAY : int = 100;
+const ACTION_RESET : int = 100;
 
 
 func check_delay(action: int) -> bool:
-	return Time.get_ticks_msec() - delay[action][0] > max(50, ACTION_DELAY / (1 + delay[action][1]));
+	return Time.get_ticks_msec() - delay[action][0] > ACTION_DELAY;
 
 
 func update_delay(action: int) -> void:
@@ -545,7 +545,7 @@ func _process(_delta: float) -> void:
 			move_character(Direction.RIGHT);
 			update_delay(MOVE_RIGHT);
 	
-	if Input.is_action_pressed("cancel_action"):
-		if Input.is_action_just_pressed("cancel_action") || check_delay(UNDO):
+	if Input.is_action_pressed("undo"):
+		if Input.is_action_just_pressed("undo") || check_delay(UNDO):
 			_cancel();
 			update_delay(UNDO);

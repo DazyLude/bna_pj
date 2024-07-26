@@ -8,6 +8,7 @@ func _init():
 	atlas.atlas = preload("res://assets/objects/exit_arrow.png");
 	atlas.region.size = Vector2(64., 64.);
 	select_visual_orientation();
+	z_index = -1;
 	
 	tags.push_back(TAGS.WIN);
 
