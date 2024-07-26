@@ -520,10 +520,8 @@ func _process(_delta: float) -> void:
 	if _main_ref.paused:
 		return;
 	
-	if Input.is_action_pressed("change_character"): #0
-		if Input.is_action_just_pressed("change_character") || check_delay(CHANGE):
-			_cycle_character();
-			update_delay(CHANGE);
+	if Input.is_action_just_pressed("change_character"): #0
+		_cycle_character();
 	
 	if Input.is_action_pressed("move_down"): #1
 		if Input.is_action_just_pressed("move_down") || check_delay(MOVE_DOWN):
