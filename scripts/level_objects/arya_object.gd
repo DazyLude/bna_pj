@@ -8,6 +8,9 @@ var sfx_player := AudioStreamPlayer.new();
 var move_fx : AudioStream = null;
 var nudge_fx : AudioStream = null;
 
+var in_the_shadow : bool = false;
+var lit : bool = false;
+
 
 func _init():
 	add_child(sfx_player);
@@ -15,7 +18,8 @@ func _init():
 	
 	tags.push_back(TAGS.ARYA);
 	tags.push_back(TAGS.PUSH);
-	tags.push_back(TAGS.LIGHT);
+	tags.push_back(TAGS.BEAM_SENSITIVE);
+	tags.push_back(TAGS.TRANSIENT);
 	
 	animated_sprite.sprite_frames = preload("res://assets/animations/arya_sprite_frames.tres");
 	move_fx = preload("res://assets/sfx/whoop_h.wav");
@@ -58,3 +62,43 @@ func move_to(to: Vector2) -> void:
 	sfx_player.stream = move_fx;
 	sfx_player.play();
 	super.move_to(to);
+
+
+func _light_tick() -> bool:
+	var lit := false;
+	var shadowed := false;
+	
+	for beam in beamed_on_by.keys():
+		if beam.btype == Beam.TYPE.LIGHT:
+			lit = true;
+		if beam.btype == Beam.TYPE.SHADOW:
+			shadowed = true;
+	
+	in_the_shadow = shadowed && !lit;
+	self.lit = lit;
+	
+	match [lit, has_tag(TAGS.STRONG)]:
+		[true, false]:
+			print("me strong!")
+			tags.push_back(TAGS.STRONG);
+		[false, true]:
+			tags.erase(TAGS.STRONG);
+	
+	super._light_tick();
+	return false;
+
+
+func _turn_tick() -> void:
+	var self_coords := _level_ref.get_coords_of_an_object(self);
+	var objects_in_the_cell := _level_ref.get_objects_by_coords(self_coords);
+	stuck = false;
+	
+	for object in objects_in_the_cell as Array[LevelObject]:
+		if (
+			(object.has_tag(LevelObject.TAGS.STOP) &&  !self.has_tag(LevelObject.TAGS.FLYING)) ||
+			(object.has_tag(LevelObject.TAGS.STOP) && object.has_tag(LevelObject.TAGS.FLYING))
+		):
+			stuck = true;
+	
+	if in_the_shadow:
+		stuck = true;

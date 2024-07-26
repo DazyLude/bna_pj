@@ -212,7 +212,10 @@ func check_move(object: LevelObject, from: Vector2i, to: Vector2i) -> MovementDa
 			movement.add(obj_movement);
 	
 	# if the movement stack is too heavy, don't move at all
-	if movement.weight > 1:
+	if !(
+		movement.weight <= 2 ||
+		(movement.weight <= 3 && object.has_tag(LevelObject.TAGS.STRONG))
+	):
 		movement.is_executable = false;
 	
 	return movement;
@@ -347,7 +350,7 @@ func tick_turn() -> void:
 # meta 
 @export var level_name := "test level";
 var _main_ref : MainScene = null;
-@export var next_level_id : int = 0;
+@export var next_level_id : int = 1;
 var level_objects : Array[Node] = [];
 
 
@@ -497,12 +500,12 @@ enum {
 	UNDO,
 }
 var delay : Array[Array] = [[0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0]]; # :)
-const ACTION_DELAY : int = 100;
+const ACTION_DELAY : int = 200;
 const ACTION_RESET : int = 100;
 
 
 func check_delay(action: int) -> bool:
-	return Time.get_ticks_msec() - delay[action][0] > ACTION_DELAY;
+	return Time.get_ticks_msec() - delay[action][0] > ACTION_DELAY / min(delay[action][1] + 1, 2);
 
 
 func update_delay(action: int) -> void:

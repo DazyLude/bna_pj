@@ -18,6 +18,7 @@ enum TAGS {
 	TRANSIENT, #10
 	FLYING, #11
 	WIN, #12
+	STRONG, #13
 }
 
 

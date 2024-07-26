@@ -1,0 +1,43 @@
+[gd_scene load_steps=5 format=3 uid="uid://giqnruxb0r5k"]
+
+[ext_resource type="Script" path="res://scripts/intermission.gd" id="1_6amcu"]
+[ext_resource type="Script" path="res://scripts/phrase.gd" id="2_ge373"]
+[ext_resource type="Texture2D" uid="uid://uyrbkxph4hln" path="res://assets/arya_art.jpg" id="3_jwqug"]
+[ext_resource type="Texture2D" uid="uid://me76ph0lhh2n" path="res://assets/alta_art.jpg" id="4_ki1qg"]
+
+[node name="GenericIntermission" type="Node2D"]
+
+[node name="Intermission" type="Node2D" parent="."]
+script = ExtResource("1_6amcu")
+
+[node name="Phrase" type="Node" parent="Intermission" node_paths=PackedStringArray("reaction")]
+script = ExtResource("2_ge373")
+text = "what if i tell you right now that I can edge and goon right now to skibidi toilet better than anyone alse"
+reaction = NodePath("../arya")
+
+[node name="Phrase2" type="Node" parent="Intermission" node_paths=PackedStringArray("reaction")]
+script = ExtResource("2_ge373")
+text = "господи что ты несешь"
+side = 1
+reaction = NodePath("../alta")
+
+[node name="Phrase3" type="Node" parent="Intermission" node_paths=PackedStringArray("reaction")]
+script = ExtResource("2_ge373")
+text = "that's the newest brainrot book, right?"
+reaction = NodePath("../arya")
+
+[node name="Phrase4" type="Node" parent="Intermission" node_paths=PackedStringArray("reaction")]
+script = ExtResource("2_ge373")
+text = "*dies of cringe*"
+side = 1
+reaction = NodePath("../alta")
+
+[node name="arya" type="Sprite2D" parent="Intermission"]
+position = Vector2(230, 544)
+texture = ExtResource("3_jwqug")
+flip_h = true
+
+[node name="alta" type="Sprite2D" parent="Intermission"]
+position = Vector2(1080, 560)
+texture = ExtResource("4_ki1qg")
+flip_h = true
