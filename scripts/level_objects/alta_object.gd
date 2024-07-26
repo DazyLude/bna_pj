@@ -4,6 +4,7 @@ class_name AltaObject
 
 var animated_sprite: AnimatedSprite2D = AnimatedSprite2D.new();
 var in_the_shadow : bool = false;
+var lit : bool = false;
 
 enum {
 	WALK,
@@ -23,7 +24,6 @@ func _init():
 	
 	tags.push_back(TAGS.ALTA);
 	tags.push_back(TAGS.PUSH);
-	tags.push_back(TAGS.LIGHT);
 	tags.push_back(TAGS.BEAM_SENSITIVE);
 	tags.push_back(TAGS.TRANSIENT);
 	
@@ -65,6 +65,7 @@ func _light_tick() -> bool:
 			shadowed = true;
 	
 	in_the_shadow = shadowed && !lit;
+	self.lit = lit;
 	
 	match [in_the_shadow, has_tag(TAGS.FLYING)]:
 		[true, false]:
@@ -87,6 +88,9 @@ func _turn_tick() -> void:
 			(object.has_tag(LevelObject.TAGS.STOP) && object.has_tag(LevelObject.TAGS.FLYING))
 		):
 			stuck = true;
+	
+	if lit:
+		stuck = true;
 
 
 func nudge(from: Vector2, to: Vector2) -> void:

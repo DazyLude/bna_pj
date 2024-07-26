@@ -212,7 +212,10 @@ func check_move(object: LevelObject, from: Vector2i, to: Vector2i) -> MovementDa
 			movement.add(obj_movement);
 	
 	# if the movement stack is too heavy, don't move at all
-	if movement.weight > 1:
+	if !(
+		movement.weight <= 2 ||
+		(movement.weight <= 3 && object.has_tag(LevelObject.TAGS.STRONG))
+	):
 		movement.is_executable = false;
 	
 	return movement;
