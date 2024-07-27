@@ -1,0 +1,50 @@
+[gd_scene load_steps=8 format=3 uid="uid://egnckgeg0cbs"]
+
+[ext_resource type="Script" path="res://scripts/level.gd" id="1_ou5lv"]
+[ext_resource type="TileSet" uid="uid://bdwegq3k2nkl4" path="res://assets/terrain/terrain.tres" id="2_30sp5"]
+[ext_resource type="Script" path="res://scripts/level_objects/alta_object.gd" id="4_ya41b"]
+[ext_resource type="Script" path="res://scripts/level_objects/arya_object.gd" id="5_3wlx6"]
+[ext_resource type="Script" path="res://scripts/level_objects/powered_gate.gd" id="5_aup3w"]
+[ext_resource type="Texture2D" uid="uid://gexrcmts5jl7" path="res://assets/objects/powered_door.png" id="6_h3qui"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f4mul"]
+atlas = ExtResource("6_h3qui")
+region = Rect2(64, 0, 64, 64)
+
+[node name="FlightTutorial" type="Node2D"]
+
+[node name="GameLevel" type="Node2D" parent="." node_paths=PackedStringArray("level_terrain")]
+y_sort_enabled = true
+position = Vector2(96, 8)
+script = ExtResource("1_ou5lv")
+level_terrain = NodePath("TileMap")
+level_name = "we just moved in..."
+next_level_id = 4
+left_door_location = Vector2i(4, 0)
+right_door_location = Vector2i(12, 0)
+
+[node name="TileMap" type="TileMap" parent="GameLevel"]
+z_index = -1
+tile_set = ExtResource("2_30sp5")
+format = 2
+layer_0/tile_data = PackedInt32Array(65537, 0, 1, 131074, 0, 1, 196611, 0, 1, 262148, 0, 1, 327685, 0, 1, 393222, 0, 1, 458759, 0, 1, 524294, 0, 1, 589829, 0, 1, 524292, 0, 1, 458755, 0, 1, 393218, 0, 1, 327681, 0, 1, 262146, 0, 1, 196609, 0, 1, 65539, 0, 1, 131076, 0, 1, 65541, 0, 1, 131078, 0, 1, 196613, 0, 1, 65543, 0, 1, 196615, 0, 1, 262150, 0, 1, 327687, 0, 1, 458757, 0, 1, 393220, 0, 1, 327683, 0, 1, 458753, 0, 1, 524290, 0, 1, 589827, 0, 1, 589825, 0, 1, 589831, 0, 1, 589828, 65536, 1, 589826, 65536, 1, 524289, 65536, 1, 458754, 65536, 1, 393217, 65536, 1, 327682, 65536, 1, 262145, 65536, 1, 196610, 65536, 1, 131073, 65536, 1, 65538, 65536, 1, 131075, 65536, 1, 65540, 65536, 1, 131077, 65536, 1, 65542, 65536, 1, 131079, 65536, 1, 196614, 65536, 1, 262151, 65536, 1, 262149, 65536, 1, 196612, 65536, 1, 262147, 65536, 1, 327684, 65536, 1, 393219, 65536, 1, 458756, 65536, 1, 393221, 65536, 1, 327686, 65536, 1, 393223, 65536, 1, 458758, 65536, 1, 524293, 65536, 1, 524291, 65536, 1, 589830, 65536, 1, 524295, 65536, 1, 589833, 0, 0, 524298, 0, 0, 458763, 0, 0, 393228, 0, 0, 327693, 0, 0, 262158, 0, 0, 196623, 0, 0, 131086, 0, 0, 65549, 0, 0, 131084, 0, 0, 65547, 0, 0, 131082, 0, 0, 65545, 0, 0, 196617, 0, 0, 327691, 0, 0, 393226, 0, 0, 262154, 0, 0, 327689, 0, 0, 262156, 0, 0, 196619, 0, 0, 196621, 0, 0, 327695, 0, 0, 393230, 0, 0, 458765, 0, 0, 524300, 0, 0, 589835, 0, 0, 589837, 0, 0, 524302, 0, 0, 458767, 0, 0, 589839, 0, 0, 458761, 0, 0, 589834, 65536, 0, 524297, 65536, 0, 458762, 65536, 0, 393225, 65536, 0, 327690, 65536, 0, 262153, 65536, 0, 196618, 65536, 0, 131081, 65536, 0, 65546, 65536, 0, 131083, 65536, 0, 65548, 65536, 0, 131085, 65536, 0, 65550, 65536, 0, 131087, 65536, 0, 196622, 65536, 0, 196620, 65536, 0, 262155, 65536, 0, 262157, 65536, 0, 327692, 65536, 0, 393229, 65536, 0, 393227, 65536, 0, 458764, 65536, 0, 524299, 65536, 0, 589836, 65536, 0, 524301, 65536, 0, 589838, 65536, 0, 524303, 65536, 0, 458766, 65536, 0, 393231, 65536, 0, 327694, 65536, 0, 262159, 65536, 0, 65551, 0, 0)
+
+[node name="AltaObject" type="Node2D" parent="GameLevel"]
+position = Vector2(768, 576)
+script = ExtResource("4_ya41b")
+starting_coords = Vector2i(12, 9)
+tags = Array[int]([1, 3, 7, 10])
+
+[node name="AryaObject" type="Node2D" parent="GameLevel"]
+position = Vector2(256, 576)
+script = ExtResource("5_3wlx6")
+starting_coords = Vector2i(4, 9)
+tags = Array[int]([2, 3, 7, 10])
+margin_from_bottom = 10.0
+
+[node name="PoweredGate" type="Node2D" parent="GameLevel"]
+position = Vector2(64, 64)
+script = ExtResource("5_aup3w")
+starting_coords = Vector2i(1, 1)
+tags = Array[int]([10, 4])
+custom_sprite = SubResource("AtlasTexture_f4mul")
