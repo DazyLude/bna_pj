@@ -115,6 +115,8 @@ func place_on_level(starting_position: Vector2, level: GameLevel) -> void:
 
 
 func _prepare_visuals() -> void:
+	if _sprite == null:
+		return;
 	var diff =  _level_ref.cell_size - _sprite.get_rect().size;
 	_sprite.offset = Vector2(diff.x / 2., diff.y - margin_from_bottom);
 

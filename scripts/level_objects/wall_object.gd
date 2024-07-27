@@ -2,15 +2,18 @@
 extends LevelObject
 class_name WallObject
 
-func _init():
+func _init(invisible : bool = false):
 	tags.push_back(TAGS.STOP);
+	tags.push_back(TAGS.FLYING);
 	tags.push_back(TAGS.BEAM_STOPPER);
-	custom_sprite = load("res://assets/7070ph.png");
+	if !invisible:
+		custom_sprite = load("res://assets/big_stone.png");
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	super._ready();
+	if custom_sprite != null:
+		super._ready();
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

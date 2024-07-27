@@ -5,19 +5,19 @@
 [ext_resource type="Texture2D" uid="uid://uyrbkxph4hln" path="res://assets/arya_art.jpg" id="3_jwqug"]
 [ext_resource type="Texture2D" uid="uid://me76ph0lhh2n" path="res://assets/alta_art.jpg" id="4_ki1qg"]
 
-[node name="GenericIntermission" type="Node2D"]
+[node name="TestIntermission" type="Node2D"]
 
 [node name="Intermission" type="Node2D" parent="."]
 script = ExtResource("1_6amcu")
 
 [node name="Phrase" type="Node" parent="Intermission" node_paths=PackedStringArray("reaction")]
 script = ExtResource("2_ge373")
-text = "what if i tell you right now that I can edge and goon right now to skibidi toilet better than anyone alse"
+text = "what if i tell you right now that I can edge and goon right now to skibidi toilet better than anyone else"
 reaction = NodePath("../arya")
 
 [node name="Phrase2" type="Node" parent="Intermission" node_paths=PackedStringArray("reaction")]
 script = ExtResource("2_ge373")
-text = "господи что ты несешь"
+text = "what the fuck are you talking about"
 side = 1
 reaction = NodePath("../alta")
 

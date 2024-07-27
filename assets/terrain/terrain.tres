@@ -1,6 +1,15 @@
-[gd_resource type="TileSet" load_steps=3 format=3 uid="uid://bdwegq3k2nkl4"]
+[gd_resource type="TileSet" load_steps=5 format=3 uid="uid://bdwegq3k2nkl4"]
 
+[ext_resource type="Texture2D" uid="uid://c4vfkgd0jgm4k" path="res://assets/terrain/tiles.png" id="1_fo8q4"]
 [ext_resource type="Texture2D" uid="uid://dy3nsrmnf3aw8" path="res://assets/terrain/floor.png" id="1_fxb75"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_aubq8"]
+texture = ExtResource("1_fo8q4")
+texture_region_size = Vector2i(64, 64)
+0:0/0 = 0
+1:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_f6klp"]
 texture = ExtResource("1_fxb75")
@@ -14,3 +23,4 @@ terrain_set_0/mode = 0
 terrain_set_0/terrain_0/name = "Terrain 0"
 terrain_set_0/terrain_0/color = Color(0.501961, 0.345098, 0.25098, 1)
 sources/1 = SubResource("TileSetAtlasSource_f6klp")
+sources/0 = SubResource("TileSetAtlasSource_aubq8")

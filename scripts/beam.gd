@@ -16,9 +16,9 @@ enum TYPE {
 func _get_beam_color(type : TYPE) -> Color:
 	match type:
 		TYPE.LIGHT:
-			return Color(227./255., 227./255., 93./255., 0.2);
+			return Color(227./255., 227./255., 93./255., 0.3);
 		TYPE.SHADOW:
-			return Color(40./255., 40./255., 60./255., 0.2);
+			return Color(30./255., 30./255., 40./255., 0.4);
 		_:
 			return Color(0., 0., 0., 0.,);
 
