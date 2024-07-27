@@ -15,6 +15,10 @@ const _movement_speed_multiplier : float = 5.; # 1/ms
 var _selected_character = null;
 var _arya_start_position = null;
 var _alta_start_position = null;
+var delta_x = Vector2(150., 0.);
+var delta_y = Vector2(0., 100.)
+var _arya_end_position : Vector2;
+var _alta_end_position : Vector2;
 var _tmp_arya = null;
 var _tmp_alta = null;
 
@@ -22,8 +26,9 @@ func _ready() -> void:
 	_main_ref = get_tree().root.get_node("Main") as MainScene;
 	($PauseButton as BaseButton).button_up.connect(_show_pause_menu);
 	_arya_start_position = $AryaChar.position;
+	_arya_end_position = _arya_start_position + delta_x - delta_y;
 	_alta_start_position = $AltaChar.position;
-	
+	_alta_end_position = _alta_start_position - delta_x - delta_y;
 
 
 func connect_to_level(level_node: GameLevel) -> void:
@@ -55,9 +60,6 @@ func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("cancel") && !_main_ref.paused:
 		_show_pause_menu();
 	
-	var delta = Vector2(30., 0.);
-	var _arya_end_position = _arya_start_position + delta;
-	var _alta_end_position = _alta_start_position - delta;
 	if _movement_mode != _STOP:
 		if _movement_progress < 1.:
 			_movement_progress = minf(_movement_progress + _delta * _movement_speed_multiplier, 1.);
