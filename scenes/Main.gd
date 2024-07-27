@@ -30,7 +30,7 @@ var main_music : AudioStream = null;
 func _ready() -> void:
 	add_child(sfx_player);
 	sfx_player.bus = "Master";
-	main_music = preload("res://assets/music/DEMO1.mp3");
+	main_music = preload("res://assets/music/demo2.mp3");
 	sfx_player.stream = main_music;
 	sfx_player.finished.connect(func(): sfx_player.play());
 	sfx_player.play();

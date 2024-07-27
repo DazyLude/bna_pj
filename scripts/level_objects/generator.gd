@@ -7,11 +7,9 @@ func is_powered() -> bool:
 	return true;
 
 
-func _ready() -> void:
+func _init() -> void:
 	tags.push_back(TAGS.PUSH);
-	tags.push_back(TAGS.HEAVY);
-	super._ready();
-
+	
 
 func _prepare_visuals() -> void:
 	_sprite.texture = preload("res://assets/generator.png");

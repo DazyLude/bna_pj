@@ -5,8 +5,8 @@ class_name GameLevel
 
 
 enum CHARACTER_ID {
-	ALTA,
-	ARYA,
+	ALTA, #0
+	ARYA, #1
 }
 
 
@@ -107,7 +107,6 @@ func move_character(direction_num: int) -> void:
 	
 	process_lights();
 	tick_turn();
-	process_lights();
 	if check_win():
 		go_next();
 

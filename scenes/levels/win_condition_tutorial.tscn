@@ -33,12 +33,14 @@ position = Vector2(768, 576)
 script = ExtResource("4_f8duk")
 starting_coords = Vector2i(12, 9)
 tags = Array[int]([1, 3, 7, 10])
+margin_from_bottom = 11.0
 
 [node name="AryaObject" type="Node2D" parent="GameLevel"]
 position = Vector2(256, 576)
 script = ExtResource("5_aqgjh")
 starting_coords = Vector2i(4, 9)
 tags = Array[int]([2, 3, 7, 10])
+margin_from_bottom = 10.0
 
 [node name="PitObject" type="Node2D" parent="GameLevel"]
 z_index = -1

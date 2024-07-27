@@ -43,6 +43,17 @@ func change_direction(new_direction: Direction) -> void:
 	select_visual_orientation();
 
 
+func get_state() -> Dictionary:
+	var tmp = super.get_state();
+	tmp["active"] = active;
+	return tmp;
+
+
+func set_state(state: Dictionary) -> void:
+	active = state["active"];
+	super.set_state(state);
+
+
 func _turn_tick() -> void:
 	var self_coords = _level_ref.get_coords_of_an_object(self);
 	active = false;

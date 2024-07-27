@@ -225,12 +225,14 @@ position = Vector2(768, 576)
 script = ExtResource("3_y7j1n")
 starting_coords = Vector2i(12, 9)
 tags = Array[int]([1, 3, 7, 10])
+margin_from_bottom = 11.0
 
 [node name="AryaObject" type="Node2D" parent="GameLevel"]
 position = Vector2(256, 576)
 script = ExtResource("4_6ijlq")
 starting_coords = Vector2i(4, 9)
 tags = Array[int]([2, 3, 7, 10])
+margin_from_bottom = 10.0
 
 [node name="WallObject" type="Node2D" parent="GameLevel"]
 position = Vector2(256, 192)

@@ -24,6 +24,24 @@ func select_visual() -> void:
 			atlas.region.position.x = 64.;
 
 
+func get_state() -> Dictionary:
+	var tmp = super.get_state();
+	tmp["active"] = active;
+	return tmp;
+
+
+func set_state(state: Dictionary) -> void:
+	active = state["active"];
+	match [active, has_tag(TAGS.STOP)]:
+		[true, true]:
+			tags.erase(TAGS.STOP);
+			select_visual();
+		[false, false]:
+			tags.push_back(TAGS.STOP);
+			select_visual();
+	super.set_state(state);
+
+
 func _ready() -> void:
 	custom_sprite = atlas;
 	super._ready();

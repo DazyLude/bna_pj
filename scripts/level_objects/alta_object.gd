@@ -35,6 +35,8 @@ func _init():
 	tags.push_back(TAGS.BEAM_SENSITIVE);
 	tags.push_back(TAGS.TRANSIENT);
 	
+	margin_from_bottom = 11.;
+	
 	animated_sprite.sprite_frames = preload("res://assets/animations/alta_sprite_frames.tres");
 	move_fx = preload("res://assets/sfx/whoop3.wav");
 	nudge_fx = preload("res://assets/sfx/poowh.wav");
