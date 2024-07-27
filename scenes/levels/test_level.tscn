@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://cbj032n5wntmd"]
+[gd_scene load_steps=16 format=3 uid="uid://cbj032n5wntmd"]
 
 [ext_resource type="Script" path="res://scripts/level.gd" id="1_ub8e0"]
 [ext_resource type="Script" path="res://scripts/level_objects/alta_object.gd" id="2_16qr7"]
@@ -10,14 +10,20 @@
 [ext_resource type="Script" path="res://scripts/level_objects/flood_light.gd" id="8_802ht"]
 [ext_resource type="Texture2D" uid="uid://c8i0ucmf82xjj" path="res://assets/floodlights.png" id="9_1ooqr"]
 [ext_resource type="Script" path="res://scripts/level_objects/solar_power.gd" id="10_p2npb"]
+[ext_resource type="Script" path="res://scripts/level_objects/powered_gate.gd" id="11_m8us1"]
+[ext_resource type="Texture2D" uid="uid://gexrcmts5jl7" path="res://assets/objects/powered_door.png" id="12_ik0v7"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_h004q"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_7y0us"]
 atlas = ExtResource("9_1ooqr")
 region = Rect2(192, 0, 64, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_20fos"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_840l0"]
 atlas = ExtResource("9_1ooqr")
 region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_al6ur"]
+atlas = ExtResource("12_ik0v7")
+region = Rect2(0, 0, 64, 64)
 
 [node name="TestLevel" type="Node2D"]
 
@@ -78,27 +84,37 @@ position = Vector2(192, 512)
 script = ExtResource("8_802ht")
 active = true
 _direction = 3
+emitter_type = 1
 starting_coords = Vector2i(3, 8)
-tags = Array[int]([9, 3, 10, 9, 3, 10, 9, 3, 10, 9, 3, 10, 9, 3, 10, 9, 3, 10, 9, 3, 10, 9, 3, 10, 9, 3, 10])
-custom_sprite = SubResource("AtlasTexture_h004q")
+tags = Array[int]([9, 3, 10, 9, 3, 10, 9, 3, 10, 9, 3, 10, 9, 3, 10, 9, 3, 10, 9, 3, 10, 9, 3, 10, 9, 3, 10, 9, 3, 10, 9, 3, 10, 9, 3, 10])
+custom_sprite = SubResource("AtlasTexture_7y0us")
 
 [node name="SolarPower" type="Node2D" parent="GameLevel"]
 position = Vector2(192, 448)
 script = ExtResource("10_p2npb")
 starting_coords = Vector2i(3, 7)
-tags = Array[int]([7, 8, 3, 7, 8, 3, 7, 8, 3, 7, 8, 3, 7, 8, 3, 7, 8, 3, 7, 8, 3, 7, 8, 3, 7, 8, 3])
+tags = Array[int]([7, 8, 3, 7, 8, 3, 7, 8, 3, 7, 8, 3, 7, 8, 3, 7, 8, 3, 7, 8, 3, 7, 8, 3, 7, 8, 3, 7, 8, 3, 7, 8, 3, 7, 8, 3])
 
 [node name="FloodLight2" type="Node2D" parent="GameLevel"]
 position = Vector2(832, 448)
 script = ExtResource("8_802ht")
 active = true
 _direction = 2
+emitter_type = 1
 starting_coords = Vector2i(13, 7)
-tags = Array[int]([9, 3, 10, 9, 3, 10, 9, 3, 10, 9, 3, 10, 9, 3, 10, 9, 3, 10, 9, 3, 10, 9, 3, 10, 9, 3, 10, 9, 3, 10])
-custom_sprite = SubResource("AtlasTexture_20fos")
+tags = Array[int]([9, 3, 10, 9, 3, 10, 9, 3, 10, 9, 3, 10, 9, 3, 10, 9, 3, 10, 9, 3, 10, 9, 3, 10, 9, 3, 10, 9, 3, 10, 9, 3, 10, 9, 3, 10, 9, 3, 10])
+custom_sprite = SubResource("AtlasTexture_840l0")
 
 [node name="SolarPower2" type="Node2D" parent="GameLevel"]
 position = Vector2(832, 512)
 script = ExtResource("10_p2npb")
 starting_coords = Vector2i(13, 8)
-tags = Array[int]([7, 8, 3, 7, 8, 3, 7, 8, 3, 7, 8, 3, 7, 8, 3, 7, 8, 3, 7, 8, 3, 7, 8, 3, 7, 8, 3, 7, 8, 3])
+tags = Array[int]([7, 8, 3, 7, 8, 3, 7, 8, 3, 7, 8, 3, 7, 8, 3, 7, 8, 3, 7, 8, 3, 7, 8, 3, 7, 8, 3, 7, 8, 3, 7, 8, 3, 7, 8, 3, 7, 8, 3])
+
+[node name="PoweredGate" type="Node2D" parent="GameLevel"]
+position = Vector2(128, 448)
+script = ExtResource("11_m8us1")
+active = true
+starting_coords = Vector2i(2, 7)
+tags = Array[int]([10])
+custom_sprite = SubResource("AtlasTexture_al6ur")

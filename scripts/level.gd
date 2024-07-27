@@ -493,6 +493,7 @@ func _ready() -> void:
 	generate_beams();
 	beam_on();
 	tick_light();
+	tick_turn();
 	process_lights();
 
 

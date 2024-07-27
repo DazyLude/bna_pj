@@ -13,7 +13,7 @@
 [ext_resource type="Texture2D" uid="uid://cppyeqda4oe50" path="res://assets/big_stone.png" id="11_a3dcm"]
 [ext_resource type="Script" path="res://scripts/level_objects/shadow_generator.gd" id="12_h7rri"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_awcwt"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_trfxh"]
 atlas = ExtResource("8_wo7ho")
 region = Rect2(192, 0, 64, 64)
 
@@ -135,16 +135,18 @@ custom_sprite = ExtResource("6_3fywi")
 [node name="FloodLight" type="Node2D" parent="GameLevel"]
 position = Vector2(384, 384)
 script = ExtResource("7_lvlbg")
+active = true
 _direction = 3
+emitter_type = 1
 starting_coords = Vector2i(6, 6)
-tags = Array[int]([9, 3, 10, 9, 3, 10, 9, 3, 10, 9, 3, 10, 9, 3, 10, 9, 3, 10, 9, 3, 10, 9, 3, 10, 9, 3, 10, 9, 3, 10, 9, 3, 10])
-custom_sprite = SubResource("AtlasTexture_awcwt")
+tags = Array[int]([9, 3, 10, 9, 3, 10, 9, 3, 10, 9, 3, 10, 9, 3, 10, 9, 3, 10, 9, 3, 10, 9, 3, 10, 9, 3, 10, 9, 3, 10, 9, 3, 10, 9, 3, 10, 9, 3, 10])
+custom_sprite = SubResource("AtlasTexture_trfxh")
 
 [node name="Generator" type="Node2D" parent="GameLevel"]
 position = Vector2(384, 320)
 script = ExtResource("9_lk53l")
 starting_coords = Vector2i(6, 5)
-tags = Array[int]([3, 6, 3, 6, 3, 6, 3, 6, 3, 6, 3, 6, 3, 6, 3, 6, 3, 6])
+tags = Array[int]([3, 6, 3, 6, 3, 6, 3, 6, 3, 6, 3, 6, 3, 6, 3, 6, 3, 6, 3, 6, 3, 6])
 margin_from_bottom = 10.0
 
 [node name="WallObject" type="Node2D" parent="GameLevel"]
