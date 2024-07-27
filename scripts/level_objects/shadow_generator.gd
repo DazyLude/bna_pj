@@ -4,12 +4,22 @@ class_name ShadowGenerator
 
 
 var shadowing : Dictionary = {};
+@export_enum("box", "screen") var variant : int = 0;
 
 func _get_emission_directions() -> Array:
 	var result := []
 	for dir_num in shadowing.keys():
 		result.push_back(Direction.from_num(dir_num));
 	return result;
+
+
+func _ready() -> void:
+	super._ready();
+	match variant:
+		0:
+			_sprite.texture = load("res://assets/box.png");
+		1:
+			_sprite.texture = load("res://assets/screen.png");
 
 
 func _init() -> void:

@@ -23,7 +23,18 @@ var _hud : HUD = null;
 var paused : bool = true;
 
 
+var sfx_player := AudioStreamPlayer.new();
+var main_music : AudioStream = null;
+
+
 func _ready() -> void:
+	add_child(sfx_player);
+	sfx_player.bus = "Master";
+	main_music = preload("res://assets/music/demo2.mp3");
+	sfx_player.stream = main_music;
+	sfx_player.finished.connect(func(): sfx_player.play());
+	sfx_player.play();
+	
 	var hud_pckd := preload("res://scenes/ui/hud.tscn");
 	_hud = hud_pckd.instantiate();
 	add_ui_component(_hud);

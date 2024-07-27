@@ -5,7 +5,6 @@ class_name SolarPower
 
 var active = false;
 func is_powered() -> bool:
-	print("solar is ", active);
 	return active;
 
 

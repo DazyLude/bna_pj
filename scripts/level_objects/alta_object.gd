@@ -7,11 +7,19 @@ var in_the_shadow : bool = false;
 var lit : bool = false;
 
 enum {
-	WALK,
+	WALK_LEFT,
+	WALK_RIGHT,
+	WALK_UP,
+	WALK_DOWN,
+	IDLE_LEFT,
+	IDLE_RIGHT,
+	IDLE_UP,
+	IDLE_DOWN,
 	STUCK,
 	FLY,
 }
-var animation_state : int = WALK;
+
+var animation_state : int = IDLE_DOWN;
 
 var sfx_player := AudioStreamPlayer.new();
 var move_fx : AudioStream = null;
@@ -27,6 +35,8 @@ func _init():
 	tags.push_back(TAGS.BEAM_SENSITIVE);
 	tags.push_back(TAGS.TRANSIENT);
 	
+	margin_from_bottom = 11.;
+	
 	animated_sprite.sprite_frames = preload("res://assets/animations/alta_sprite_frames.tres");
 	move_fx = preload("res://assets/sfx/whoop3.wav");
 	nudge_fx = preload("res://assets/sfx/poowh.wav");
@@ -36,22 +46,13 @@ func _ready():
 	animated_sprite.position = self._starting_position;
 	animated_sprite.centered = false;
 	add_child(animated_sprite);
-	animated_sprite.play(&"walk");
+	animated_sprite.play(&"idle_down");
 
 
 func _prepare_visuals() -> void:
 	var diff =  _level_ref.cell_size - self.animated_sprite.sprite_frames\
-		.get_frame_texture("walk", 0).get_size();
+		.get_frame_texture("idle_down", 0).get_size();
 	animated_sprite.offset = Vector2(diff.x / 2., diff.y - margin_from_bottom);
-
-
-func change_direction(new_direction: Direction) -> void:
-	if new_direction.num == Direction.LEFT && direction.num != Direction.LEFT:
-		animated_sprite.flip_h = true;
-	if new_direction.num == Direction.RIGHT && direction.num != Direction.RIGHT:
-		animated_sprite.flip_h = false;
-	if new_direction.num != Direction.NONE || !new_direction.equals(direction):
-		direction = new_direction;
 
 
 func _light_tick() -> bool:
@@ -111,23 +112,53 @@ func move_to(to: Vector2) -> void:
 
 func _process(delta: float) -> void:
 	var desired_state : int;
-	match [stuck, in_the_shadow, _movement_mode, direction]:
+	match [stuck, _movement_mode, _direction, in_the_shadow]:
 		[true, _, _, _]:
 			desired_state = STUCK;
-		[_, true, _, _]:
+		[false, _, _, true]:
 			desired_state = FLY;
-		[_, _, _, _]:
-			desired_state = WALK;
+		# up
+		[false, _MOVE, Direction.UP, _], [false, _NUDGE, Direction.UP, _]:
+			desired_state = WALK_UP;
+		[false, _STOP, Direction.UP, _]:
+			desired_state = IDLE_UP;
+		# left
+		[false, _MOVE, Direction.LEFT, _], [false, _NUDGE, Direction.LEFT, _]:
+			desired_state = WALK_LEFT;
+		[false, _STOP, Direction.LEFT, _]:
+			desired_state = IDLE_LEFT;
+		# right
+		[false, _MOVE, Direction.RIGHT, _], [false, _NUDGE, Direction.RIGHT, _]:
+			desired_state = WALK_RIGHT;
+		[false, _STOP, Direction.RIGHT, _]:
+			desired_state = IDLE_RIGHT;
+		# down
+		[false, _MOVE, Direction.DOWN, _], [false, _NUDGE, Direction.DOWN, _]:
+			desired_state = WALK_DOWN;
+		[false, _STOP, Direction.DOWN, _]:
+			desired_state = IDLE_DOWN;
 	
 	if desired_state != animation_state:
+		animation_state = desired_state;
 		match desired_state:
 			FLY:
-				animation_state = FLY;
 				animated_sprite.play(&"fly");
-			WALK:
-				animation_state = WALK;
-				animated_sprite.play(&"walk");
 			STUCK:
-				animation_state = STUCK;
 				animated_sprite.play(&"stuck");
+			WALK_LEFT:
+				animated_sprite.play(&"walk_left");
+			WALK_RIGHT:
+				animated_sprite.play(&"walk_right");
+			WALK_UP:
+				animated_sprite.play(&"walk_up");
+			WALK_DOWN:
+				animated_sprite.play(&"walk_down");
+			IDLE_LEFT:
+				animated_sprite.play(&"idle_left");
+			IDLE_RIGHT:
+				animated_sprite.play(&"idle_right");
+			IDLE_UP:
+				animated_sprite.play(&"idle_up");
+			IDLE_DOWN:
+				animated_sprite.play(&"idle_down");
 	super._process(delta);

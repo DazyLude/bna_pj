@@ -5,8 +5,8 @@ class_name GameLevel
 
 
 enum CHARACTER_ID {
-	ALTA,
-	ARYA,
+	ALTA, #0
+	ARYA, #1
 }
 
 
@@ -107,7 +107,6 @@ func move_character(direction_num: int) -> void:
 	
 	process_lights();
 	tick_turn();
-	process_lights();
 	if check_win():
 		go_next();
 
@@ -364,7 +363,8 @@ const DEFAULT_LEVEL_SIZE := Vector2i(15, 9);
 
 
 func go_next() -> void:
-	_main_ref.load_level(next_level_id);
+	if _main_ref != null:
+		_main_ref.load_level(next_level_id);
 
 
 # display
@@ -428,6 +428,13 @@ func spawn_walls() -> void:
 	if level_size == Vector2i(-1, -1):
 		return;
 	
+	var t_background = Sprite2D.new();
+	t_background.texture = preload("res://assets/terrain/background.png");
+	t_background.centered = false;
+	t_background.offset = -self.position;
+	t_background.z_index = -3;
+	add_child(t_background);
+	
 	for x in (level_size.x + 2):
 		if x == ravine_x:
 			continue;
@@ -435,7 +442,7 @@ func spawn_walls() -> void:
 			if Vector2i(x, y) == left_door_location || Vector2i(x, y) == right_door_location:
 				continue;
 			if x == 0 || y == 0 || x == level_size.x + 1 || y == level_size.y + 1:
-				var t_wall = WallObject.new();
+				var t_wall = WallObject.new(true);
 				t_wall.starting_coords = Vector2i(x, y);
 				add_child(t_wall);
 
@@ -449,10 +456,10 @@ func adjust_offset() -> void:
 var ran_once : bool = false;
 func _ready() -> void:
 	if !ran_once:
+		adjust_offset();
 		spawn_ravine();
 		spawn_exits();
 		spawn_walls();
-		adjust_offset();
 		y_sort_enabled = true;
 		ran_once = true;
 	
@@ -485,6 +492,7 @@ func _ready() -> void:
 	generate_beams();
 	beam_on();
 	tick_light();
+	tick_turn();
 	process_lights();
 
 
@@ -502,26 +510,25 @@ enum {
 }
 var delay : Array[Array] = [[0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0]]; # :)
 const ACTION_DELAY : int = 200;
-const ACTION_RESET : int = 100;
+const ACTION_RESET : int = 300;
 
 
 func check_delay(action: int) -> bool:
-	return Time.get_ticks_msec() - delay[action][0] > ACTION_DELAY / min(delay[action][1] + 1, 2);
+	if Time.get_ticks_msec() - delay[action][0] > ACTION_RESET:
+		delay[action][1] = 0;
+	return Time.get_ticks_msec() - delay[action][0] > ACTION_DELAY;
 
 
 func update_delay(action: int) -> void:
 	delay[action][0] = Time.get_ticks_msec();
-	if Time.get_ticks_msec() - delay[action][0] > ACTION_RESET:
-		delay[action][1] = 0;
-	else:
-		delay[action][1] += 1;
+	delay[action][1] += 1;
 
 
 func _process(_delta: float) -> void:
 	if Engine.is_editor_hint(): # dont run in the editor
 		return;
 	
-	if _main_ref.paused:
+	if _main_ref != null && _main_ref.paused:
 		return;
 	
 	if Input.is_action_just_pressed("change_character"): #0

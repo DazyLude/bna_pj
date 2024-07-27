@@ -16,9 +16,9 @@ enum TYPE {
 func _get_beam_color(type : TYPE) -> Color:
 	match type:
 		TYPE.LIGHT:
-			return Color(227./255., 227./255., 93./255., 0.2);
+			return Color(227./255., 227./255., 93./255., 0.3);
 		TYPE.SHADOW:
-			return Color(40./255., 40./255., 60./255., 0.2);
+			return Color(30./255., 30./255., 40./255., 0.4);
 		_:
 			return Color(0., 0., 0., 0.,);
 
@@ -33,34 +33,55 @@ const _movement_speed_multiplier : float = 10.; # 1/ms
 var _movement_progress : float = 1.;
 var _movement_mode = _STOP; 
 
+
 var _start := Vector2(0., 0.);
 var _desired_start := Vector2(0., 0.);
 var _end := Vector2(0., 0.);
 var _desired_end := Vector2(0., 0.);
 
+
 var _beam_size : Vector2:
 	get:
-		return (_end - _start).abs() + _level_ref.cell_size;
+		match direction.num:
+			Direction.UP, Direction.DOWN:
+				return (_end - _start).abs() + Vector2(_level_ref.cell_size.x, 0.);
+			_:
+				return (_end - _start).abs() + Vector2(0., _level_ref.cell_size.y);
+
 
 var _beam_position : Vector2:
 	get:
 		match direction.num:
-			Direction.UP, Direction.LEFT:
-				return _end - _start;
-			_:
-				return Vector2(0., 0.);
+			Direction.UP:
+				return _end - _start + Vector2(0., _level_ref.cell_size.y / 2);
+			Direction.LEFT:
+				return _end - _start + Vector2(_level_ref.cell_size.x / 2, 0.);
+			Direction.DOWN:
+				return Vector2(0., _level_ref.cell_size.y / 2);
+			Direction.RIGHT, _:
+				return Vector2(_level_ref.cell_size.x / 2, 0.);
+
 
 var _desired_beam_size : Vector2:
 	get:
-		return (_desired_end - _desired_start).abs() + _level_ref.cell_size;
+		match direction.num:
+			Direction.UP, Direction.DOWN:
+				return (_desired_end - _desired_start).abs() + Vector2(_level_ref.cell_size.x, 0.);
+			_:
+				return (_desired_end - _desired_start).abs() + Vector2(0., _level_ref.cell_size.y);
+
 
 var _desired_beam_position : Vector2:
 	get:
 		match direction.num:
-			Direction.UP, Direction.LEFT:
-				return _desired_end - _desired_start;
-			_:
-				return Vector2(0., 0.);
+			Direction.UP:
+				return _desired_end - _desired_start + Vector2(0., _level_ref.cell_size.y / 2);
+			Direction.LEFT:
+				return _desired_end - _desired_start + Vector2(_level_ref.cell_size.x / 2, 0.);
+			Direction.DOWN:
+				return Vector2(0., _level_ref.cell_size.y / 2);
+			Direction.RIGHT, _:
+				return Vector2(_level_ref.cell_size.x / 2, 0.);
 
 
 var start := Vector2i(0, 0);
