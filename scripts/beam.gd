@@ -23,6 +23,15 @@ func _get_beam_color(type : TYPE) -> Color:
 			return Color(0., 0., 0., 0.,);
 
 
+func _get_beam_sprite(type : TYPE) -> Resource:
+	match type:
+		TYPE.LIGHT:
+			return preload("res://assets/objects/light_trans.png");
+		_, TYPE.SHADOW:
+			return preload("res://assets/objects/light_trans.png");
+
+
+
 enum {
 	_STOP,
 	_SLIDE,
@@ -91,7 +100,7 @@ var btype : TYPE;
 
 
 var _level_ref : GameLevel = null;
-var _beam_body_ref : ColorRect = null;
+var _beam_body_ref : Node = null;
 
 
 func are_coords_lit(coords: Vector2i) -> bool:
@@ -120,13 +129,25 @@ func _init(from: Vector2i, to: Vector2i, dir: Direction, type: TYPE, level: Game
 
 
 func _ready() -> void:
-	var beam_body := ColorRect.new();
-	beam_body.color = _get_beam_color(btype);
+	var beam_body = null;
+	match btype:
+		TYPE.SHADOW:
+			beam_body = ColorRect.new();
+			beam_body.color = _get_beam_color(btype);
+		TYPE.LIGHT:
+			beam_body = Sprite2D.new();
+			beam_body.centered = false;
+			beam_body.texture = _get_beam_sprite(btype);
+	
 	_beam_body_ref = beam_body;
 	add_child(beam_body);
 	position = _start;
 	beam_body.position = _beam_position;
-	beam_body.size = _beam_size;
+	match btype:
+		TYPE.SHADOW:
+			beam_body.size = _beam_size;
+		TYPE.LIGHT:
+			beam_body.scale = _beam_size / Vector2(64., 64.);
 
 
 func slide(new_start: Vector2, new_end: Vector2) -> void:

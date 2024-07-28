@@ -350,7 +350,7 @@ func tick_turn() -> void:
 # meta 
 @export var level_name := "test level";
 var _main_ref : MainScene = null;
-@export var next_level_id : int = 1;
+@export var next_level_id : MainScene.LevelID = 1;
 var level_objects : Array[Node] = [];
 
 
@@ -486,7 +486,7 @@ func _ready() -> void:
 		beam_sensitive.clear();
 		transients.clear();
 	
-	if !Engine.is_editor_hint():
+	if !Engine.is_editor_hint() && get_tree() != null:
 		_main_ref = get_tree().root.get_node("Main") as MainScene;
 	
 	level_objects = get_children().filter(func(ch : Node): return ch as LevelObject != null);
