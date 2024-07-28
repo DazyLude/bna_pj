@@ -3,6 +3,8 @@ extends Control
 
 var _main_ref : MainScene = null;
 var main_menu_pckd := preload("res://scenes/menus/main_menu.tscn");
+var sound_max := preload("res://assets/icons/sound-max-svgrepo-com.svg")
+var sound_mute := preload("res://assets/icons/sound-mute-alt-svgrepo-com.svg");
 
 
 # Called when the node enters the scene tree for the first time.
@@ -11,6 +13,7 @@ func _ready() -> void:
 	($ButtonsVBox/ResumeButton as BaseButton).button_up.connect(_continue);
 	($ButtonsVBox/RestartButton as BaseButton).button_up.connect(_restart);
 	($ButtonsVBox/ExitButton as BaseButton).button_up.connect(_exit_to_the_menu);
+	($Mute as TextureButton).button_up.connect(_mute);
 
 
 func _continue() -> void:
@@ -25,6 +28,14 @@ func _restart() -> void:
 
 func _exit_to_the_menu() -> void:
 	_main_ref.display_modal_component(main_menu_pckd.instantiate());
+
+
+func _mute() -> void:
+	AudioServer.set_bus_mute(2, not AudioServer.is_bus_mute(2));
+	if AudioServer.is_bus_mute(2):
+		$Mute.set_texture_normal(sound_mute);
+	else:
+		$Mute.set_texture_normal(sound_max);
 
 
 func _process(_delta: float) -> void:
