@@ -29,18 +29,67 @@ layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -468.0
-offset_top = 153.0
-offset_right = 526.0
-offset_bottom = 650.0
+offset_left = -489.0
+offset_top = 148.0
+offset_right = 505.0
+offset_bottom = 645.0
 grow_horizontal = 2
+theme_override_constants/h_separation = 20
+theme_override_constants/v_separation = 40
+columns = 7
 
-[node name="TestLevelButton" type="Button" parent="ButtonsGrid"]
+[node name="Level1" type="Button" parent="ButtonsGrid"]
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
 theme_override_font_sizes/font_size = 24
-text = "test
-level"
+text = "Ready...
+Steady...
+Go!"
+
+[node name="Level2" type="Button" parent="ButtonsGrid"]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "We Just
+Moved In"
+
+[node name="Level3" type="Button" parent="ButtonsGrid"]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Door 
+Stuck"
+
+[node name="Level4" type="Button" parent="ButtonsGrid"]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Exposed
+to
+Light"
+
+[node name="Level5" type="Button" parent="ButtonsGrid"]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Why is it green
+if there is
+no green?"
+
+[node name="Level6" type="Button" parent="ButtonsGrid"]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Flight or Flight
+Responce"
+
+[node name="Level7" type="Button" parent="ButtonsGrid"]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Mirrors
+and
+Mirrors"
 
 [node name="Title" type="Label" parent="."]
 layout_mode = 0

@@ -1,0 +1,40 @@
+[gd_scene load_steps=5 format=3 uid="uid://cpkarodnyrdli"]
+
+[ext_resource type="Script" path="res://scripts/intermission.gd" id="1_5iqfq"]
+[ext_resource type="Script" path="res://scripts/phrase.gd" id="2_0fqn3"]
+[ext_resource type="Texture2D" uid="uid://c0q713x2uynyv" path="res://assets/characters/arya_beeg.png" id="3_1horp"]
+[ext_resource type="Texture2D" uid="uid://n6k00kvfm7kk" path="res://assets/characters/alta_beeg.png" id="4_83mga"]
+
+[node name="IntermissionScene" type="Node2D"]
+
+[node name="Intermission" type="Node2D" parent="."]
+script = ExtResource("1_5iqfq")
+_next_level_id = 13
+intermission_name = "intermission"
+
+[node name="PhraseAlta" type="Node" parent="Intermission" node_paths=PackedStringArray("reaction")]
+script = ExtResource("2_0fqn3")
+text = "What really bothers me is the fact that we just moved into this building."
+side = 1
+reaction = NodePath("../alta")
+
+[node name="PhraseArya" type="Node" parent="Intermission" node_paths=PackedStringArray("reaction")]
+script = ExtResource("2_0fqn3")
+text = "Not the absence of the wall between our apartments?"
+reaction = NodePath("../arya")
+
+[node name="PhraseAlta2" type="Node" parent="Intermission" node_paths=PackedStringArray("reaction")]
+script = ExtResource("2_0fqn3")
+text = "That as well."
+side = 1
+reaction = NodePath("../alta")
+
+[node name="arya" type="Sprite2D" parent="Intermission"]
+position = Vector2(167, 505)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("3_1horp")
+
+[node name="alta" type="Sprite2D" parent="Intermission"]
+position = Vector2(1092, 496)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("4_83mga")

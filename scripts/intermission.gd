@@ -2,7 +2,6 @@ extends Node2D
 class_name Intermission
 
 var dialogue : Array[Phrase] = [];
-var dialogue_index : int = -1;
 
 var left_node : Node2D = null;
 var left_position : Vector2;
@@ -12,13 +11,21 @@ var right_node : Node2D = null;
 var right_position : Vector2;
 var right_nudge : float = 1.;
 
+var dialogue_index : int = -1;
 var bubbles : Array[Node] = [];
 
-const bubble_control_height := 300.;
+const bubble_control_height := 520.;
+const outer_side_margin := 320.;
+const bubble_width := 310;
+const bubble_padding := 5.;
+
+const font_size := 28;
+
+const bump_height := 20.;
 
 var _main_ref : MainScene = null;
-@export var _next_level_id : int = 0;
-@export var intermission_name : String = "Test Intermission"
+@export var _next_level_id : MainScene.LevelID = 0;
+@export var intermission_name : String = "Introduction";
 
 
 func _ready() -> void:
@@ -29,6 +36,7 @@ func _ready() -> void:
 			dialogue.push_back(child)
 			
 	say_the_next_line();
+	#call_deferred("adjust_height");
 
 
 func bump_left() -> void:
@@ -41,41 +49,44 @@ func bump_right() -> void:
 
 func spawn_bubble(text: String) -> Node:
 	var t_panel : Panel = Panel.new();
-	t_panel.size.x = 310.;
+	t_panel.size.x = bubble_width;
 	
 	var t_label : Label = Label.new();
-	t_label.position = Vector2(5., 5.);
+	t_label.position = Vector2(bubble_padding, bubble_padding);
 	t_label.text = text;
-	t_label.size.x = 300.;
+	t_label.size.x = bubble_width - 2. * bubble_padding;
 	t_label.autowrap_mode = TextServer.AUTOWRAP_WORD;
 	
-	t_label.add_theme_font_size_override("font_size", 30);
+	t_label.add_theme_font_size_override("font_size", font_size);
 	
 	t_panel.add_child(t_label);
 	# this call is deferred because label parameters update not immidiately.
 	self.call_deferred("set_height", t_label, t_panel);
 	bubbles.push_back(t_panel);
-	add_child(t_panel);
 	return t_panel;
 
 
 func set_height(label : Label, panel : Panel) -> void:
-	panel.size.y = label.size.y + 10.;
+	panel.size.y = label.size.y + bubble_padding * 2.;
 
 
 func spawn_left_bubble(text: String) -> Node:
 	var bubble = spawn_bubble(text);
-	bubble.position.x = 10.;
+	bubble.position.x = outer_side_margin;
 	bubble.position.y = bubble_control_height;
+	add_child(bubble);
 	bump_left();
+	call_deferred("adjust_height");
 	return bubble;
 
 
 func spawn_right_bubble(text: String) -> Node:
 	var bubble = spawn_bubble(text);
-	bubble.position.x = get_window().get_viewport().size.x - (10. + bubble.size.x);
+	bubble.position.x = get_window().get_viewport().size.x - (outer_side_margin + bubble_width);
 	bubble.position.y = bubble_control_height;
+	add_child(bubble);
 	bump_right();
+	call_deferred("adjust_height");
 	return bubble;
 
 
@@ -121,22 +132,21 @@ func say_the_next_line() -> void:
 
 
 func go_next() -> void:
-	_main_ref.load_level(_next_level_id);
+	if (_main_ref != null):
+		_main_ref.load_level(_next_level_id);
 
 
-const animation_speed := 10.
+const animation_speed := 5.
 
 
 func _process(delta: float) -> void:
-	adjust_height();
-	
 	if left_node != null && left_nudge < 1.:
 		left_nudge = min(left_nudge + delta * animation_speed, 1.);
-		left_node.position = left_position.lerp(left_position + Vector2(0., -20.), sin(left_nudge * PI));
+		left_node.position = left_position.lerp(left_position + Vector2(0., -bump_height), sin(left_nudge * PI));
 	
 	if right_node != null && right_nudge < 1.:
 		right_nudge = min(right_nudge + delta * animation_speed, 1.);
-		right_node.position = right_position.lerp(right_position + Vector2(0., -20.), sin(right_nudge * PI));
+		right_node.position = right_position.lerp(right_position + Vector2(0., -bump_height), sin(right_nudge * PI));
 	
 	if Input.is_action_just_pressed("dialog_continue"):
 		say_the_next_line();

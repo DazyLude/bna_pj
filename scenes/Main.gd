@@ -3,10 +3,81 @@ class_name MainScene
 # this node handles level, UI and BGM loading
 
 
-enum {
+enum LevelID {
 	LEVEL_TEST,
 	INTERMISSION_TEST,
+	
+	INTRODUCTION,
+	INTERMISSION_1,
+	INTERMISSION_2,
+	INTERMISSION_3,
+	INTERMISSION_4,
+	INTERMISSION_5,
+	INTERMISSION_6,
+	EPILOGUE,
+	
+	WIN_CONDITION_TUTORIAL,
+	BOXES_TUTORIAL,
+	GATES_TUTORIAL,
+	SHADOWS_TUTORIAL,
+	FLIGHT_TUTORIAL,
+	SOLAR_TUTORIAL,
+	MIRROR_TUTORIAL,
 }
+
+
+func setup_scene(level_id: LevelID) -> void:
+	match level_id:
+		LevelID.LEVEL_TEST:
+			_current_level_resourse = preload("res://scenes/levels/boxes_tutorial.tscn");
+			_current_state = LEVEL;
+		LevelID.INTERMISSION_TEST:
+			_current_level_resourse = preload("res://scenes/intermissions/test_intermission.tscn");
+			_current_state = INTERMISSION;
+			
+		LevelID.INTRODUCTION:
+			_current_level_resourse = preload("res://scenes/intermissions/introduction.tscn");
+			_current_state = INTERMISSION;
+		LevelID.INTERMISSION_1:
+			_current_level_resourse = preload("res://scenes/intermissions/intermission1.tscn");
+			_current_state = INTERMISSION;
+		LevelID.INTERMISSION_2:
+			_current_level_resourse = preload("res://scenes/intermissions/intermission2.tscn");
+			_current_state = INTERMISSION;
+		LevelID.INTERMISSION_3:
+			_current_level_resourse = preload("res://scenes/intermissions/intermission3.tscn");
+			_current_state = INTERMISSION;
+		LevelID.INTERMISSION_4:
+			_current_level_resourse = preload("res://scenes/intermissions/intermission4.tscn");
+			_current_state = INTERMISSION;
+		LevelID.INTERMISSION_5:
+			_current_level_resourse = preload("res://scenes/intermissions/intermission5.tscn");
+			_current_state = INTERMISSION;
+		LevelID.INTERMISSION_6:
+			_current_level_resourse = preload("res://scenes/intermissions/intermission6.tscn");
+			_current_state = INTERMISSION;
+		
+		LevelID.WIN_CONDITION_TUTORIAL:
+			_current_level_resourse = preload("res://scenes/levels/win_condition_tutorial.tscn");
+			_current_state = LEVEL;
+		LevelID.BOXES_TUTORIAL:
+			_current_level_resourse = preload("res://scenes/levels/boxes_tutorial.tscn");
+			_current_state = LEVEL;
+		LevelID.GATES_TUTORIAL:
+			_current_level_resourse = preload("res://scenes/levels/gates_tutorial.tscn");
+			_current_state = LEVEL;
+		LevelID.SHADOWS_TUTORIAL:
+			_current_level_resourse = preload("res://scenes/levels/shadows_tutorial.tscn");
+			_current_state = LEVEL;
+		LevelID.SOLAR_TUTORIAL:
+			_current_level_resourse = preload("res://scenes/levels/solar_panels_tutorial.tscn");
+			_current_state = LEVEL;
+		LevelID.FLIGHT_TUTORIAL:
+			_current_level_resourse = preload("res://scenes/levels/flight_tutorial.tscn");
+			_current_state = LEVEL;
+		LevelID.MIRROR_TUTORIAL:
+			_current_level_resourse = preload("res://scenes/levels/mirrors_tutorial.tscn");
+			_current_state = LEVEL;
 
 
 # _ = private variable
@@ -51,17 +122,13 @@ func _ready() -> void:
 #	(get_tree().root.get_node("Main") as MainScene).load_level(MainScene.LEVEL_TEST);
 
 
-func load_level(level_id : int) -> void :
+func load_level(level_id : LevelID) -> void :
 	fade_out();
 	await get_tree().create_timer(0.2).timeout;
 	unload_level();
-	match level_id:
-		LEVEL_TEST:
-			_current_level_resourse = preload("res://scenes/levels/test_level.tscn");
-			_current_state = LEVEL;
-		INTERMISSION_TEST:
-			_current_level_resourse = preload("res://scenes/intermissions/test_intermission.tscn");
-			_current_state = INTERMISSION;
+	
+	setup_scene(level_id);
+	
 	start_level();
 	fade_in();
 
@@ -129,6 +196,6 @@ func display_modal_component(component: Control) -> void :
 
 func remove_modal_component() -> void :
 	if _modal_component != null:
-		remove_child(_modal_component);
+		$UIContainer.remove_child(_modal_component);
 		_modal_component.queue_free();
 		_modal_component = null;
