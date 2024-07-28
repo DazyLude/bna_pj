@@ -85,10 +85,10 @@ func fade_out() -> void:
 
 
 func start_level() -> void :
-	_hud.visible = true;
 	_current_level = _current_level_resourse.instantiate();
 	match _current_state:
 		LEVEL:
+			_hud.visible = true;
 			_hud.connect_to_level(_current_level.get_node("GameLevel"));
 			$GameContainer.add_child(_current_level);
 		INTERMISSION:

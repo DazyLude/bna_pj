@@ -10,6 +10,10 @@ var sound_mute := preload("res://assets/icons/sound-mute-alt-svgrepo-com.svg");
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	_main_ref = get_tree().root.get_node("Main") as MainScene;
+	if _main_ref._current_state == _main_ref.LEVEL:
+		$LevelName.text = _main_ref._current_level.get_node("GameLevel").level_name;
+	else:
+		$LevelName.text = _main_ref._current_level.get_node("Intermission").intermission_name;
 	($ButtonsVBox/ResumeButton as BaseButton).button_up.connect(_continue);
 	($ButtonsVBox/RestartButton as BaseButton).button_up.connect(_restart);
 	($ButtonsVBox/ExitButton as BaseButton).button_up.connect(_exit_to_the_menu);
