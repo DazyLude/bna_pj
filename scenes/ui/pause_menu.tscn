@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://hxjkdjl5lxga"]
+[gd_scene load_steps=3 format=3 uid="uid://hxjkdjl5lxga"]
 
 [ext_resource type="Script" path="res://scenes/ui/pause_menu.gd" id="1_2lsar"]
+[ext_resource type="Texture2D" uid="uid://7nnlcxklao7h" path="res://assets/icons/sound-max-svgrepo-com.svg" id="2_jprv3"]
 
 [node name="PauseMenu" type="Control"]
 layout_mode = 3
@@ -50,3 +51,12 @@ offset_right = 709.0
 offset_bottom = 218.0
 theme_override_font_sizes/font_size = 60
 text = "pause"
+
+[node name="Mute" type="TextureButton" parent="."]
+layout_mode = 0
+offset_left = 1188.0
+offset_top = 99.0
+offset_right = 1260.0
+offset_bottom = 171.0
+texture_normal = ExtResource("2_jprv3")
+stretch_mode = 0
