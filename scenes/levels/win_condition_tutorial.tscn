@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://xmnswilhl3kl"]
+[gd_scene load_steps=26 format=3 uid="uid://xmnswilhl3kl"]
 
 [ext_resource type="Script" path="res://scripts/level.gd" id="1_qnitn"]
 [ext_resource type="TileSet" uid="uid://bdwegq3k2nkl4" path="res://assets/terrain/terrain.tres" id="2_n7wbh"]
@@ -6,9 +6,73 @@
 [ext_resource type="Script" path="res://scripts/level_objects/alta_object.gd" id="4_f8duk"]
 [ext_resource type="Script" path="res://scripts/level_objects/arya_object.gd" id="5_aqgjh"]
 [ext_resource type="Script" path="res://scripts/level_objects/wall_object.gd" id="6_c1fby"]
+[ext_resource type="Texture2D" uid="uid://dkloq5p4tjwtq" path="res://assets/objects/hole_spreadsheet.png" id="6_qyhug"]
 [ext_resource type="Texture2D" uid="uid://cppyeqda4oe50" path="res://assets/big_stone.png" id="7_60lb4"]
 [ext_resource type="Script" path="res://scripts/level_objects/pit_object.gd" id="8_176kk"]
-[ext_resource type="Texture2D" uid="uid://boi6yralaphpe" path="res://assets/terrain/hole.png" id="9_3bvj0"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sw1j6"]
+atlas = ExtResource("6_qyhug")
+region = Rect2(64, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rmxgn"]
+atlas = ExtResource("6_qyhug")
+region = Rect2(0, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gjtiu"]
+atlas = ExtResource("6_qyhug")
+region = Rect2(0, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gb064"]
+atlas = ExtResource("6_qyhug")
+region = Rect2(0, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mabti"]
+atlas = ExtResource("6_qyhug")
+region = Rect2(0, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hdniw"]
+atlas = ExtResource("6_qyhug")
+region = Rect2(0, 128, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6wlv8"]
+atlas = ExtResource("6_qyhug")
+region = Rect2(64, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1ycib"]
+atlas = ExtResource("6_qyhug")
+region = Rect2(0, 128, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_06ahf"]
+atlas = ExtResource("6_qyhug")
+region = Rect2(64, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g1v26"]
+atlas = ExtResource("6_qyhug")
+region = Rect2(0, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bfloe"]
+atlas = ExtResource("6_qyhug")
+region = Rect2(0, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c1y2w"]
+atlas = ExtResource("6_qyhug")
+region = Rect2(0, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2uqjq"]
+atlas = ExtResource("6_qyhug")
+region = Rect2(0, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hkk6k"]
+atlas = ExtResource("6_qyhug")
+region = Rect2(0, 128, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yetl3"]
+atlas = ExtResource("6_qyhug")
+region = Rect2(64, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jlr5a"]
+atlas = ExtResource("6_qyhug")
+region = Rect2(0, 128, 64, 64)
 
 [node name="FlightTutorial" type="Node2D"]
 
@@ -46,9 +110,10 @@ margin_from_bottom = 10.0
 z_index = -1
 position = Vector2(640, 64)
 script = ExtResource("8_176kk")
+variant = 2
 starting_coords = Vector2i(10, 1)
 tags = Array[int]([4])
-custom_sprite = ExtResource("9_3bvj0")
+custom_sprite = SubResource("AtlasTexture_sw1j6")
 
 [node name="PitObject2" type="Node2D" parent="GameLevel"]
 z_index = -1
@@ -56,7 +121,7 @@ position = Vector2(640, 128)
 script = ExtResource("8_176kk")
 starting_coords = Vector2i(10, 2)
 tags = Array[int]([4])
-custom_sprite = ExtResource("9_3bvj0")
+custom_sprite = SubResource("AtlasTexture_rmxgn")
 
 [node name="PitObject3" type="Node2D" parent="GameLevel"]
 z_index = -1
@@ -64,7 +129,7 @@ position = Vector2(640, 192)
 script = ExtResource("8_176kk")
 starting_coords = Vector2i(10, 3)
 tags = Array[int]([4])
-custom_sprite = ExtResource("9_3bvj0")
+custom_sprite = SubResource("AtlasTexture_gjtiu")
 
 [node name="PitObject4" type="Node2D" parent="GameLevel"]
 z_index = -1
@@ -72,7 +137,7 @@ position = Vector2(640, 256)
 script = ExtResource("8_176kk")
 starting_coords = Vector2i(10, 4)
 tags = Array[int]([4])
-custom_sprite = ExtResource("9_3bvj0")
+custom_sprite = SubResource("AtlasTexture_gb064")
 
 [node name="PitObject5" type="Node2D" parent="GameLevel"]
 z_index = -1
@@ -80,39 +145,43 @@ position = Vector2(640, 320)
 script = ExtResource("8_176kk")
 starting_coords = Vector2i(10, 5)
 tags = Array[int]([4])
-custom_sprite = ExtResource("9_3bvj0")
+custom_sprite = SubResource("AtlasTexture_mabti")
 
 [node name="PitObject6" type="Node2D" parent="GameLevel"]
 z_index = -1
 position = Vector2(640, 384)
 script = ExtResource("8_176kk")
+variant = 3
 starting_coords = Vector2i(10, 6)
 tags = Array[int]([4])
-custom_sprite = ExtResource("9_3bvj0")
+custom_sprite = SubResource("AtlasTexture_hdniw")
 
 [node name="PitObject7" type="Node2D" parent="GameLevel"]
 z_index = -1
 position = Vector2(640, 512)
 script = ExtResource("8_176kk")
+variant = 2
 starting_coords = Vector2i(10, 8)
 tags = Array[int]([4])
-custom_sprite = ExtResource("9_3bvj0")
+custom_sprite = SubResource("AtlasTexture_6wlv8")
 
 [node name="PitObject8" type="Node2D" parent="GameLevel"]
 z_index = -1
 position = Vector2(640, 576)
 script = ExtResource("8_176kk")
+variant = 3
 starting_coords = Vector2i(10, 9)
 tags = Array[int]([4])
-custom_sprite = ExtResource("9_3bvj0")
+custom_sprite = SubResource("AtlasTexture_1ycib")
 
 [node name="PitObject9" type="Node2D" parent="GameLevel"]
 z_index = -1
 position = Vector2(896, 64)
 script = ExtResource("8_176kk")
+variant = 2
 starting_coords = Vector2i(14, 1)
 tags = Array[int]([4])
-custom_sprite = ExtResource("9_3bvj0")
+custom_sprite = SubResource("AtlasTexture_06ahf")
 
 [node name="PitObject10" type="Node2D" parent="GameLevel"]
 z_index = -1
@@ -120,7 +189,7 @@ position = Vector2(896, 128)
 script = ExtResource("8_176kk")
 starting_coords = Vector2i(14, 2)
 tags = Array[int]([4])
-custom_sprite = ExtResource("9_3bvj0")
+custom_sprite = SubResource("AtlasTexture_g1v26")
 
 [node name="PitObject11" type="Node2D" parent="GameLevel"]
 z_index = -1
@@ -128,7 +197,7 @@ position = Vector2(896, 192)
 script = ExtResource("8_176kk")
 starting_coords = Vector2i(14, 3)
 tags = Array[int]([4])
-custom_sprite = ExtResource("9_3bvj0")
+custom_sprite = SubResource("AtlasTexture_bfloe")
 
 [node name="PitObject12" type="Node2D" parent="GameLevel"]
 z_index = -1
@@ -136,7 +205,7 @@ position = Vector2(896, 256)
 script = ExtResource("8_176kk")
 starting_coords = Vector2i(14, 4)
 tags = Array[int]([4])
-custom_sprite = ExtResource("9_3bvj0")
+custom_sprite = SubResource("AtlasTexture_c1y2w")
 
 [node name="PitObject13" type="Node2D" parent="GameLevel"]
 z_index = -1
@@ -144,31 +213,34 @@ position = Vector2(896, 320)
 script = ExtResource("8_176kk")
 starting_coords = Vector2i(14, 5)
 tags = Array[int]([4])
-custom_sprite = ExtResource("9_3bvj0")
+custom_sprite = SubResource("AtlasTexture_2uqjq")
 
 [node name="PitObject14" type="Node2D" parent="GameLevel"]
 z_index = -1
 position = Vector2(896, 384)
 script = ExtResource("8_176kk")
+variant = 3
 starting_coords = Vector2i(14, 6)
 tags = Array[int]([4])
-custom_sprite = ExtResource("9_3bvj0")
+custom_sprite = SubResource("AtlasTexture_hkk6k")
 
 [node name="PitObject15" type="Node2D" parent="GameLevel"]
 z_index = -1
 position = Vector2(896, 512)
 script = ExtResource("8_176kk")
+variant = 2
 starting_coords = Vector2i(14, 8)
 tags = Array[int]([4])
-custom_sprite = ExtResource("9_3bvj0")
+custom_sprite = SubResource("AtlasTexture_yetl3")
 
 [node name="PitObject16" type="Node2D" parent="GameLevel"]
 z_index = -1
 position = Vector2(896, 576)
 script = ExtResource("8_176kk")
+variant = 3
 starting_coords = Vector2i(14, 9)
 tags = Array[int]([4])
-custom_sprite = ExtResource("9_3bvj0")
+custom_sprite = SubResource("AtlasTexture_jlr5a")
 
 [node name="WallObject" type="Node2D" parent="GameLevel"]
 position = Vector2(128, 64)

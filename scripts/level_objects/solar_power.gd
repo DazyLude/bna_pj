@@ -3,15 +3,15 @@ extends LevelObject
 class_name SolarPower
 
 
-var active = false;
+@export var active = false;
 func is_powered() -> bool:
 	return active;
 
 
 func _ready() -> void:
-	tags.push_back(TAGS.BEAM_SENSITIVE);
-	tags.push_back(TAGS.BEAM_STOPPER);
-	tags.push_back(TAGS.PUSH);
+	add_tag(TAGS.BEAM_SENSITIVE);
+	add_tag(TAGS.BEAM_STOPPER);
+	add_tag(TAGS.PUSH);
 	super._ready();
 
 

@@ -38,6 +38,7 @@ func _ready() -> void:
 	var hud_pckd := preload("res://scenes/ui/hud.tscn");
 	_hud = hud_pckd.instantiate();
 	add_ui_component(_hud);
+	_hud.visible = false;
 	
 	var main_menu_pckd := preload("res://scenes/menus/main_menu.tscn");
 	display_modal_component(main_menu_pckd.instantiate());
@@ -84,6 +85,7 @@ func fade_out() -> void:
 
 
 func start_level() -> void :
+	_hud.visible = true;
 	_current_level = _current_level_resourse.instantiate();
 	match _current_state:
 		LEVEL:
@@ -95,6 +97,7 @@ func start_level() -> void :
 
 
 func unload_level() -> void :
+	_hud.visible = false;
 	if _current_level != null:
 		match _current_state:
 			LEVEL:
@@ -126,6 +129,6 @@ func display_modal_component(component: Control) -> void :
 
 func remove_modal_component() -> void :
 	if _modal_component != null:
-		$UIContainer.remove_child(_modal_component);
+		remove_child(_modal_component);
 		_modal_component.queue_free();
 		_modal_component = null;

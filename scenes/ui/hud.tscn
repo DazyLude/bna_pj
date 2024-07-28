@@ -2,8 +2,8 @@
 
 [ext_resource type="Script" path="res://scenes/ui/hud.gd" id="1_7uldo"]
 [ext_resource type="Texture2D" uid="uid://bln2h1rv6s46k" path="res://assets/icons/pause_icon.svg" id="2_q2g86"]
-[ext_resource type="Texture2D" uid="uid://eed80vah42lo" path="res://assets/gyaru.png" id="3_fvi5n"]
-[ext_resource type="Texture2D" uid="uid://cke8b8lbmqq66" path="res://assets/alta.png" id="4_i4odb"]
+[ext_resource type="Texture2D" uid="uid://c0q713x2uynyv" path="res://assets/characters/arya_beeg.png" id="3_rj8vc"]
+[ext_resource type="Texture2D" uid="uid://n6k00kvfm7kk" path="res://assets/characters/alta_beeg.png" id="4_dqvqi"]
 
 [node name="Hud" type="Control"]
 layout_mode = 3
@@ -25,9 +25,11 @@ icon = ExtResource("2_q2g86")
 flat = true
 
 [node name="AryaChar" type="Sprite2D" parent="."]
-position = Vector2(36, 677)
-texture = ExtResource("3_fvi5n")
+position = Vector2(-100, 850)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("3_rj8vc")
 
 [node name="AltaChar" type="Sprite2D" parent="."]
-position = Vector2(1246, 679)
-texture = ExtResource("4_i4odb")
+position = Vector2(1350, 850)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("4_dqvqi")

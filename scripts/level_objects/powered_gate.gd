@@ -9,8 +9,18 @@ var atlas := AtlasTexture.new();
 func _init() -> void:
 	atlas.atlas = preload("res://assets/objects/powered_door.png");
 	atlas.region.size = Vector2(64., 64.);
-	tags.push_back(TAGS.TRANSIENT);
+	add_tag(TAGS.TRANSIENT);
+
+
+func _ready() -> void:
+	custom_sprite = atlas;
+	match [active, has_tag(TAGS.STOP)]:
+		[true, true]:
+			remove_tag(TAGS.STOP);
+		[false, false]:
+			add_tag(TAGS.STOP);
 	select_visual();
+	super._ready();
 
 
 func select_visual() -> void:
@@ -34,17 +44,12 @@ func set_state(state: Dictionary) -> void:
 	active = state["active"];
 	match [active, has_tag(TAGS.STOP)]:
 		[true, true]:
-			tags.erase(TAGS.STOP);
+			remove_tag(TAGS.STOP);
 			select_visual();
 		[false, false]:
-			tags.push_back(TAGS.STOP);
+			add_tag(TAGS.STOP);
 			select_visual();
 	super.set_state(state);
-
-
-func _ready() -> void:
-	custom_sprite = atlas;
-	super._ready();
 
 
 func _prepare_visuals() -> void:
@@ -65,10 +70,10 @@ func _turn_tick() -> void:
 	
 	match [active, has_tag(TAGS.STOP)]:
 		[true, true]:
-			tags.erase(TAGS.STOP);
+			remove_tag(TAGS.STOP);
 			select_visual();
 		[false, false]:
-			tags.push_back(TAGS.STOP);
+			add_tag(TAGS.STOP);
 			select_visual();
 	
 	super._turn_tick();

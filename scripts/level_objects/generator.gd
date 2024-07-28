@@ -8,7 +8,7 @@ func is_powered() -> bool:
 
 
 func _init() -> void:
-	tags.push_back(TAGS.PUSH);
+	add_tag(TAGS.PUSH);
 	
 
 func _prepare_visuals() -> void:
