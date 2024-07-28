@@ -15,11 +15,11 @@ var atlas := AtlasTexture.new();
 var invisible : bool = true;
 
 
-func _init(invisible : bool = false):
+func _init(l_invisible : bool = false):
 	add_tag(TAGS.STOP);
 	add_tag(TAGS.FLYING);
 	add_tag(TAGS.BEAM_STOPPER);
-	self.invisible = invisible;
+	self.invisible = l_invisible;
 
 
 # Called when the node enters the scene tree for the first time.
