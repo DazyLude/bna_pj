@@ -145,6 +145,19 @@ func has_tag(tag: TAGS) -> bool:
 	return tags.has(tag);
 
 
+func add_tag(tag: TAGS) -> void:
+	if tags.has(tag):
+		return;
+	else:
+		tags.push_back(tag);
+
+
+func remove_tag(tag: TAGS) -> void:
+	tags.erase(tag);
+	if tags.has(tag):
+		remove_tag(tag);
+
+
 func _process(delta: float) -> void:
 	#overload this to do custom movement animations for an object
 	if _movement_mode != _STOP:

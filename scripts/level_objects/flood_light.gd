@@ -26,9 +26,9 @@ func select_visual_orientation() -> void:
 
 
 func _ready() -> void:
-	tags.push_back(TAGS.BEAM_EMITTER);
-	tags.push_back(TAGS.PUSH);
-	tags.push_back(TAGS.TRANSIENT);
+	add_tag(TAGS.BEAM_EMITTER);
+	add_tag(TAGS.PUSH);
+	add_tag(TAGS.TRANSIENT);
 	emitter_type = Beam.TYPE.NONE;
 	custom_sprite = atlas;
 	super._ready();

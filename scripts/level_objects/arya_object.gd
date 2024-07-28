@@ -32,10 +32,10 @@ func _init():
 	add_child(sfx_player);
 	sfx_player.bus = "sfx";
 	
-	tags.push_back(TAGS.ARYA);
-	tags.push_back(TAGS.PUSH);
-	tags.push_back(TAGS.BEAM_SENSITIVE);
-	tags.push_back(TAGS.TRANSIENT);
+	add_tag(TAGS.ARYA);
+	add_tag(TAGS.PUSH);
+	add_tag(TAGS.BEAM_SENSITIVE);
+	add_tag(TAGS.TRANSIENT);
 	
 	animated_sprite.sprite_frames = preload("res://assets/animations/arya_sprite_frames.tres");
 	move_fx = preload("res://assets/sfx/whoop_h.wav");
@@ -88,10 +88,10 @@ func _light_tick() -> bool:
 	match [lit, has_tag(TAGS.STRONG)]:
 		[true, false]:
 			powered_up = true;
-			tags.push_back(TAGS.STRONG);
+			add_tag(TAGS.STRONG);
 		[false, true]:
 			powered_up = false;
-			tags.erase(TAGS.STRONG);
+			remove_tag(TAGS.STRONG);
 	
 	super._light_tick();
 	return false;

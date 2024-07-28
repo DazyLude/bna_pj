@@ -10,7 +10,7 @@ func _init():
 	select_visual_orientation();
 	z_index = -1;
 	
-	tags.push_back(TAGS.WIN);
+	add_tag(TAGS.WIN);
 
 
 func select_visual_orientation() -> void:

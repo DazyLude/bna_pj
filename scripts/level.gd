@@ -381,26 +381,38 @@ func spawn_ravine() -> void:
 	if ravine_x == -1 || level_size == Vector2i(-1, -1):
 		return;
 	
-	for y in level_size.y + 2:
+	for y in range(-1, level_size.y + 1):
+		if y == 0:
+			continue;
 		var t_hole = PitObject.new();
 		t_hole.starting_coords = Vector2i(ravine_x, y)
-		if y == 0:
+		t_hole.variant = PitObject.ABYSS;
+		if y == -1:
 			t_hole._direction = Direction.DOWN;
-			t_hole.tags.push_back(LevelObject.TAGS.BEAM_EMITTER);
+			t_hole.add_tag(LevelObject.TAGS.BEAM_EMITTER);
 			t_hole.emitter_type = Beam.TYPE.LIGHT;
+		if y == 1:
+			t_hole.variant = PitObject.MIDDLE_TOP;
+		if y == level_size.y:
+			t_hole.variant = PitObject.MIDDLE_BOTTOM;
 		add_child(t_hole);
 
 
 func spawn_exits() -> void:
 	if left_door_location != Vector2i(-1, -1):
-		spawn_exit(left_door_location);
+		spawn_exit(left_door_location, true);
 	if right_door_location != Vector2i(-1, -1):
-		spawn_exit(right_door_location);
+		spawn_exit(right_door_location, false);
 
 
-func spawn_exit(at: Vector2i) -> void:
+func spawn_exit(at: Vector2i, is_dark: bool) -> void:
 	var t_door := WallObject.new();
 	t_door.starting_coords = at;
+	if is_dark:
+		t_door.variant = WallObject.DARK_DOOR;
+	else:
+		t_door.variant = WallObject.LIGHT_DOOR;
+	
 	var t_win_tile := ExitObject.new();
 	var bottom = level_size.x + 2;
 	var farright = level_size.y + 2;
@@ -490,9 +502,10 @@ func _ready() -> void:
 			transients[obj] = null;
 	
 	generate_beams();
-	beam_on();
-	tick_light();
+	process_lights();
 	tick_turn();
+	process_lights();
+	tick_turn(); # this is required for solar panels to power stuff at the start of a level
 	process_lights();
 
 

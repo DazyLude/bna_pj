@@ -23,10 +23,10 @@ func _ready() -> void:
 
 
 func _init() -> void:
-	tags.push_back(TAGS.BEAM_SENSITIVE);
-	tags.push_back(TAGS.BEAM_EMITTER);
-	tags.push_back(TAGS.BEAM_STOPPER);
-	tags.push_back(TAGS.PUSH);
+	add_tag(TAGS.BEAM_SENSITIVE);
+	add_tag(TAGS.BEAM_EMITTER);
+	add_tag(TAGS.BEAM_STOPPER);
+	add_tag(TAGS.PUSH);
 	emitter_type = Beam.TYPE.NONE;
 
 

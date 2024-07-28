@@ -30,10 +30,10 @@ func _init():
 	add_child(sfx_player);
 	sfx_player.bus = "sfx";
 	
-	tags.push_back(TAGS.ALTA);
-	tags.push_back(TAGS.PUSH);
-	tags.push_back(TAGS.BEAM_SENSITIVE);
-	tags.push_back(TAGS.TRANSIENT);
+	add_tag(TAGS.ALTA);
+	add_tag(TAGS.PUSH);
+	add_tag(TAGS.BEAM_SENSITIVE);
+	add_tag(TAGS.TRANSIENT);
 	
 	margin_from_bottom = 11.;
 	
@@ -70,9 +70,9 @@ func _light_tick() -> bool:
 	
 	match [in_the_shadow, has_tag(TAGS.FLYING)]:
 		[true, false]:
-			tags.push_back(TAGS.FLYING);
+			add_tag(TAGS.FLYING);
 		[false, true]:
-			tags.erase(TAGS.FLYING);
+			remove_tag(TAGS.FLYING);
 	
 	super._light_tick();
 	return false;
