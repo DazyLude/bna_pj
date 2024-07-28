@@ -14,18 +14,45 @@ intermission_name = "intermission"
 
 [node name="PhraseAlta" type="Node" parent="Intermission" node_paths=PackedStringArray("reaction")]
 script = ExtResource("2_ex0cq")
-text = "What really bothers me is the fact that we just moved into this building."
+text = "Arya, I have a question."
 side = 1
 reaction = NodePath("../alta")
 
 [node name="PhraseArya" type="Node" parent="Intermission" node_paths=PackedStringArray("reaction")]
 script = ExtResource("2_ex0cq")
-text = "Not the absence of the wall between our apartments?"
+text = "What's up?"
 reaction = NodePath("../arya")
 
 [node name="PhraseAlta2" type="Node" parent="Intermission" node_paths=PackedStringArray("reaction")]
 script = ExtResource("2_ex0cq")
-text = "That as well."
+text = "Why was there a 1000 watt projector in your room?"
+side = 1
+reaction = NodePath("../alta")
+
+[node name="PhraseArya2" type="Node" parent="Intermission" node_paths=PackedStringArray("reaction")]
+script = ExtResource("2_ex0cq")
+text = "Well, you know, stuff…"
+reaction = NodePath("../arya")
+
+[node name="PhraseAlta3" type="Node" parent="Intermission" node_paths=PackedStringArray("reaction")]
+script = ExtResource("2_ex0cq")
+text = "Is it to repel me, just in case?"
+side = 1
+reaction = NodePath("../alta")
+
+[node name="PhraseArya3" type="Node" parent="Intermission" node_paths=PackedStringArray("reaction")]
+script = ExtResource("2_ex0cq")
+text = "I’d never!"
+reaction = NodePath("../arya")
+
+[node name="PhraseArya4" type="Node" parent="Intermission" node_paths=PackedStringArray("reaction")]
+script = ExtResource("2_ex0cq")
+text = "…heh"
+reaction = NodePath("../arya")
+
+[node name="PhraseAlta4" type="Node" parent="Intermission" node_paths=PackedStringArray("reaction")]
+script = ExtResource("2_ex0cq")
+text = "I hope the magical nature of boxes will help with these burning light beams."
 side = 1
 reaction = NodePath("../alta")
 

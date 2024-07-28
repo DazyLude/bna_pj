@@ -24,7 +24,7 @@ const font_size := 28;
 const bump_height := 20.;
 
 var _main_ref : MainScene = null;
-@export var _next_level_id : MainScene.LevelID = 0;
+@export var _next_level_id : MainScene.LevelID = MainScene.LevelID.WIN_CONDITION_TUTORIAL;
 @export var intermission_name : String = "Introduction";
 
 
@@ -121,6 +121,8 @@ func say_the_line(phrase: Phrase) -> void:
 			
 			right_position = right_node.position;
 			spawn_right_bubble(phrase.text);
+		_:
+			dialogue_index = -1;
 
 
 func say_the_next_line() -> void:

@@ -12,22 +12,54 @@ script = ExtResource("1_6mytf")
 _next_level_id = 14
 intermission_name = "intermission"
 
+[node name="PhraseArya" type="Node" parent="Intermission" node_paths=PackedStringArray("reaction")]
+script = ExtResource("2_r34h8")
+text = "What’s wrong with these shadows?"
+reaction = NodePath("../arya")
+
+[node name="PhraseArya2" type="Node" parent="Intermission" node_paths=PackedStringArray("reaction")]
+script = ExtResource("2_r34h8")
+text = "Why do these shadows make me feel soooo empty and totally powerless?"
+reaction = NodePath("../arya")
+
 [node name="PhraseAlta" type="Node" parent="Intermission" node_paths=PackedStringArray("reaction")]
 script = ExtResource("2_r34h8")
-text = "What really bothers me is the fact that we just moved into this building."
+text = "I like them this way more."
 side = 1
 reaction = NodePath("../alta")
 
-[node name="PhraseArya" type="Node" parent="Intermission" node_paths=PackedStringArray("reaction")]
+[node name="PhraseArya3" type="Node" parent="Intermission" node_paths=PackedStringArray("reaction")]
 script = ExtResource("2_r34h8")
-text = "Not the absence of the wall between our apartments?"
+text = "What? Why?"
 reaction = NodePath("../arya")
 
 [node name="PhraseAlta2" type="Node" parent="Intermission" node_paths=PackedStringArray("reaction")]
 script = ExtResource("2_r34h8")
-text = "That as well."
+text = "I had to do something with the threat of being burned alive by the daylight, you know."
 side = 1
 reaction = NodePath("../alta")
+
+[node name="PhraseAlta3" type="Node" parent="Intermission" node_paths=PackedStringArray("reaction")]
+script = ExtResource("2_r34h8")
+text = "I might have snuck some of the prepared materials in your apartment. "
+side = 1
+reaction = NodePath("../alta")
+
+[node name="PhraseAlta4" type="Node" parent="Intermission" node_paths=PackedStringArray("reaction")]
+script = ExtResource("2_r34h8")
+text = ":)"
+side = 1
+reaction = NodePath("../alta")
+
+[node name="PhraseArya4" type="Node" parent="Intermission" node_paths=PackedStringArray("reaction")]
+script = ExtResource("2_r34h8")
+text = "…"
+reaction = NodePath("../arya")
+
+[node name="PhraseArya5" type="Node" parent="Intermission" node_paths=PackedStringArray("reaction")]
+script = ExtResource("2_r34h8")
+text = "Remove them when we are done with this errand, please."
+reaction = NodePath("../arya")
 
 [node name="arya" type="Sprite2D" parent="Intermission"]
 position = Vector2(167, 505)

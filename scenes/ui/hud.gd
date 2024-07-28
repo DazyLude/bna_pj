@@ -48,7 +48,9 @@ func _show_pause_menu() -> void:
 	_main_ref.display_modal_component(pause_menu_pckd.instantiate());
 
 
-func _selected_character_update(selected_character: GameLevel.CHARACTER_ID = 0) -> void:
+func _selected_character_update(
+	selected_character: GameLevel.CHARACTER_ID = GameLevel.CHARACTER_ID.ARYA
+) -> void:
 	_movement_mode = _MOVE;
 	_movement_progress = 0.;
 	_selected_character = selected_character;

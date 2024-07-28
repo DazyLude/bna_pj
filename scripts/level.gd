@@ -20,8 +20,7 @@ func coords2position(coords: Vector2i) -> Vector2:
 
 
 #region level data system
-@export var level_terrain : TileMap = null; 
-var _level_terrain_set : TileSet = preload("res://assets/terrain/terrain.tres");
+@export var level_terrain : TileMap = null;
 # { coords: [object in this cell, object in this cell... ] }
 var _objects_that_matter : Dictionary = {};
 var _state_history : Dictionary = {};
@@ -144,6 +143,8 @@ func check_win() -> bool:
 	var characters = get_objects_by_tags([LevelObject.TAGS.ARYA, LevelObject.TAGS.ALTA]);
 	var everyone_ready = true;
 	for character in characters:
+		if character.stuck:
+			return false;
 		var coords = get_coords_of_an_object(character);
 		var other_objects = get_objects_by_coords(coords);
 		var check = false;
@@ -350,7 +351,7 @@ func tick_turn() -> void:
 # meta 
 @export var level_name := "test level";
 var _main_ref : MainScene = null;
-@export var next_level_id : MainScene.LevelID = 1;
+@export var next_level_id : MainScene.LevelID = MainScene.LevelID.INTRODUCTION;
 var level_objects : Array[Node] = [];
 
 

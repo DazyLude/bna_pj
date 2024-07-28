@@ -14,18 +14,23 @@ intermission_name = "intermission"
 
 [node name="PhraseAlta" type="Node" parent="Intermission" node_paths=PackedStringArray("reaction")]
 script = ExtResource("2_lw0jm")
-text = "What really bothers me is the fact that we just moved into this building."
+text = "Thanks for the help."
 side = 1
 reaction = NodePath("../alta")
 
 [node name="PhraseArya" type="Node" parent="Intermission" node_paths=PackedStringArray("reaction")]
 script = ExtResource("2_lw0jm")
-text = "Not the absence of the wall between our apartments?"
+text = "Kinda had to do that."
+reaction = NodePath("../arya")
+
+[node name="PhraseArya2" type="Node" parent="Intermission" node_paths=PackedStringArray("reaction")]
+script = ExtResource("2_lw0jm")
+text = "Don’t sweat it."
 reaction = NodePath("../arya")
 
 [node name="PhraseAlta2" type="Node" parent="Intermission" node_paths=PackedStringArray("reaction")]
 script = ExtResource("2_lw0jm")
-text = "That as well."
+text = "Don't worry, I won’t."
 side = 1
 reaction = NodePath("../alta")
 

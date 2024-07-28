@@ -73,19 +73,19 @@ func move_to(to: Vector2) -> void:
 
 
 func _light_tick() -> bool:
-	var lit := false;
+	var l_lit := false;
 	var shadowed := false;
 	
 	for beam in beamed_on_by.keys():
 		if beam.btype == Beam.TYPE.LIGHT:
-			lit = true;
+			l_lit = true;
 		if beam.btype == Beam.TYPE.SHADOW:
 			shadowed = true;
 	
-	in_the_shadow = shadowed && !lit;
-	self.lit = lit;
+	in_the_shadow = shadowed && !l_lit;
+	self.lit = l_lit;
 	
-	match [lit, has_tag(TAGS.STRONG)]:
+	match [l_lit, has_tag(TAGS.STRONG)]:
 		[true, false]:
 			powered_up = true;
 			add_tag(TAGS.STRONG);

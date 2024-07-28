@@ -38,6 +38,9 @@ func setup_scene(level_id: LevelID) -> void:
 		LevelID.INTRODUCTION:
 			_current_level_resourse = preload("res://scenes/intermissions/introduction.tscn");
 			_current_state = INTERMISSION;
+		LevelID.EPILOGUE:
+			_current_level_resourse = preload("res://scenes/intermissions/epilogue.tscn");
+			_current_state = INTERMISSION;
 		LevelID.INTERMISSION_1:
 			_current_level_resourse = preload("res://scenes/intermissions/intermission1.tscn");
 			_current_state = INTERMISSION;

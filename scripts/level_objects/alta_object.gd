@@ -56,17 +56,17 @@ func _prepare_visuals() -> void:
 
 
 func _light_tick() -> bool:
-	var lit := false;
+	var l_lit := false;
 	var shadowed := false;
 	
 	for beam in beamed_on_by.keys():
 		if beam.btype == Beam.TYPE.LIGHT:
-			lit = true;
+			l_lit = true;
 		if beam.btype == Beam.TYPE.SHADOW:
 			shadowed = true;
 	
-	in_the_shadow = shadowed && !lit;
-	self.lit = lit;
+	in_the_shadow = shadowed && !l_lit;
+	self.lit = l_lit;
 	
 	match [in_the_shadow, has_tag(TAGS.FLYING)]:
 		[true, false]:

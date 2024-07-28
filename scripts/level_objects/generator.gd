@@ -8,6 +8,7 @@ func is_powered() -> bool:
 
 
 func _init() -> void:
+	margin_from_bottom = 10.
 	add_tag(TAGS.PUSH);
 	
 
