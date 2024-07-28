@@ -140,6 +140,9 @@ const animation_speed := 5.
 
 
 func _process(delta: float) -> void:
+	if _main_ref != null && _main_ref.paused:
+		return;
+	
 	if left_node != null && left_nudge < 1.:
 		left_nudge = min(left_nudge + delta * animation_speed, 1.);
 		left_node.position = left_position.lerp(left_position + Vector2(0., -bump_height), sin(left_nudge * PI));

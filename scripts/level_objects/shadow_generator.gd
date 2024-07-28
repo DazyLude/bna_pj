@@ -4,7 +4,9 @@ class_name ShadowGenerator
 
 
 var shadowing : Dictionary = {};
-@export_enum("box", "screen") var variant : int = 0;
+@export_enum("box", "screen", "light_box", "dark_box") var variant : int = 0;
+var atlas := AtlasTexture.new();
+
 
 func _get_emission_directions() -> Array:
 	var result := []
@@ -14,12 +16,22 @@ func _get_emission_directions() -> Array:
 
 
 func _ready() -> void:
-	super._ready();
 	match variant:
 		0:
-			_sprite.texture = load("res://assets/box.png");
+			custom_sprite = load("res://assets/box.png");
 		1:
-			_sprite.texture = load("res://assets/screen.png");
+			custom_sprite = load("res://assets/screen.png");
+		2:
+			custom_sprite = atlas;
+			atlas.atlas = preload("res://assets/objects/box_spritesheet.png");
+			atlas.region.size = Vector2(64., 60.);
+			atlas.region.position = Vector2(0., 0.);
+		3:
+			custom_sprite = atlas;
+			atlas.atlas = preload("res://assets/objects/box_spritesheet.png");
+			atlas.region.size = Vector2(64., 60.);
+			atlas.region.position = Vector2(64., 0.);
+	super._ready();
 
 
 func _init() -> void:

@@ -94,17 +94,61 @@ var _hud : HUD = null;
 var paused : bool = true;
 
 
-var sfx_player := AudioStreamPlayer.new();
-var main_music : AudioStream = null;
+var music_player := AudioStreamPlayer.new();
+
+
+var track = 0;
+enum {
+	NONE,
+	FADE_IN,
+	FADE_OUT,
+}
+var transition_state = NONE;
+var transition_progress = 0.;
+const transition_speed = .75;
+const max_volume = -12.;
+const min_volume = -80.;
+var music_bus := AudioServer.get_bus_index(&"music");
+var main_music : AudioStream = preload(
+	"res://assets/music/BGM_-_032_-_Toy_Piano_For_Paris.mp3"
+);
+var level_music : AudioStream = preload("res://assets/music/夏の面影_2.mp3");
+var _req_music : int = 0; 
+
+func music_fadeout(to_level: bool = true) -> void:
+	transition_state = FADE_OUT;
+	transition_progress = 1.;
+	if to_level:
+		_req_music = 1;
+	else:
+		_req_music = 0;
+
+func music_fadein() -> void:
+	transition_state = FADE_IN;
+	transition_progress = 0.;
+
+func switch_tracks() -> void:
+	music_player.stop();
+	match _req_music:
+		0:
+			music_player.stream = main_music;
+		1:
+			music_player.stream = level_music;
+	get_tree().create_timer(1. / transition_speed / 2.).timeout.connect(
+		func(): music_player.play();
+	);
+	track = _req_music;
+	music_fadein();
 
 
 func _ready() -> void:
-	add_child(sfx_player);
-	sfx_player.bus = "music";
-	main_music = preload("res://assets/music/demo2.mp3");
-	sfx_player.stream = main_music;
-	sfx_player.finished.connect(func(): sfx_player.play());
-	sfx_player.play();
+	AudioServer.set_bus_volume_db(music_bus, max_volume);
+	
+	add_child(music_player);
+	music_player.bus = "music";
+	music_player.stream = main_music;
+	music_player.finished.connect(func(): music_player.play());
+	music_player.play();
 	
 	var hud_pckd := preload("res://scenes/ui/hud.tscn");
 	_hud = hud_pckd.instantiate();
@@ -123,6 +167,9 @@ func _ready() -> void:
 
 
 func load_level(level_id : LevelID) -> void :
+	if track == 0:
+		music_fadeout();
+	
 	fade_out();
 	await get_tree().create_timer(0.2).timeout;
 	unload_level();
@@ -199,3 +246,21 @@ func remove_modal_component() -> void :
 		$UIContainer.remove_child(_modal_component);
 		_modal_component.queue_free();
 		_modal_component = null;
+
+
+func _process(delta: float) -> void:
+	if transition_state != NONE:
+		match transition_state:
+			FADE_OUT:
+				transition_progress = max(0., transition_progress - delta * transition_speed);
+				var volume = lerp(min_volume, max_volume, smoothstep(0., 1., transition_progress));
+				AudioServer.set_bus_volume_db(music_bus, volume);
+				if transition_progress == 0.:
+					switch_tracks();
+			FADE_IN:
+				transition_progress = min(1., transition_progress + delta * transition_speed);
+				var volume = lerp(min_volume, max_volume, smoothstep(0., 1., transition_progress));
+				AudioServer.set_bus_volume_db(music_bus, volume);
+				if transition_progress == 1.:
+					transition_state = NONE;
+	

@@ -31,6 +31,7 @@ func _restart() -> void:
 
 
 func _exit_to_the_menu() -> void:
+	_main_ref.music_fadeout(false);
 	_main_ref.display_modal_component(main_menu_pckd.instantiate());
 
 
