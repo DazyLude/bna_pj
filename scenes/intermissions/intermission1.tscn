@@ -29,6 +29,17 @@ text = "That as well."
 side = 1
 reaction = NodePath("../alta")
 
+[node name="PhraseAlta3" type="Node" parent="Intermission" node_paths=PackedStringArray("reaction")]
+script = ExtResource("2_7bxc1")
+text = "On the bright side, they look like old ruins now, that fits me well."
+side = 1
+reaction = NodePath("../alta")
+
+[node name="PhraseArya2" type="Node" parent="Intermission" node_paths=PackedStringArray("reaction")]
+script = ExtResource("2_7bxc1")
+text = "I only hope that the bright side of these newly formed old ruins is not in ruins…"
+reaction = NodePath("../arya")
+
 [node name="arya" type="Sprite2D" parent="Intermission"]
 position = Vector2(167, 505)
 scale = Vector2(0.2, 0.2)

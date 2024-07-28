@@ -143,6 +143,8 @@ func check_win() -> bool:
 	var characters = get_objects_by_tags([LevelObject.TAGS.ARYA, LevelObject.TAGS.ALTA]);
 	var everyone_ready = true;
 	for character in characters:
+		if character.stuck:
+			return false;
 		var coords = get_coords_of_an_object(character);
 		var other_objects = get_objects_by_coords(coords);
 		var check = false;

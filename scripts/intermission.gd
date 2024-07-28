@@ -121,6 +121,8 @@ func say_the_line(phrase: Phrase) -> void:
 			
 			right_position = right_node.position;
 			spawn_right_bubble(phrase.text);
+		_:
+			dialogue_index = -1;
 
 
 func say_the_next_line() -> void:

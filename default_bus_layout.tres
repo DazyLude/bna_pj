@@ -9,7 +9,7 @@ wet = 0.1
 
 [sub_resource type="AudioEffectPitchShift" id="AudioEffectPitchShift_s7rto"]
 resource_name = "PitchShift"
-pitch_scale = 0.95
+pitch_scale = 0.82
 
 [resource]
 bus/0/volume_db = 6.02

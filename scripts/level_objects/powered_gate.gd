@@ -10,6 +10,8 @@ func _init() -> void:
 	atlas.atlas = preload("res://assets/objects/powered_door.png");
 	atlas.region.size = Vector2(64., 64.);
 	add_tag(TAGS.TRANSIENT);
+	margin_from_bottom = -5;
+	z_index = 0;
 
 
 func _ready() -> void:
