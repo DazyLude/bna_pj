@@ -70,14 +70,15 @@ func get_state() -> Dictionary:
 	var tmp = super.get_state();
 	tmp["horizontal_direction"] = horizontal_direction;
 	tmp["vertical_direction"] = vertical_direction;
+	
 	return tmp;
 
 
 func set_state(state: Dictionary) -> void:
-	vertical_direction = state["vertical_direction"];
-	horizontal_direction = state["horizontal_direction"];
-	select_visual_orientation();
 	super.set_state(state);
+	horizontal_direction = state["horizontal_direction"];
+	vertical_direction = state["vertical_direction"];
+	select_visual_orientation();
 
 
 func _prepare_visuals() -> void:
