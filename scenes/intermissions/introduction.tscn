@@ -1,0 +1,54 @@
+[gd_scene load_steps=5 format=3 uid="uid://giqnruxb0r5k"]
+
+[ext_resource type="Script" path="res://scripts/intermission.gd" id="1_b82hg"]
+[ext_resource type="Script" path="res://scripts/phrase.gd" id="2_s4qdt"]
+[ext_resource type="Texture2D" uid="uid://c0q713x2uynyv" path="res://assets/characters/arya_beeg.png" id="3_ngs6u"]
+[ext_resource type="Texture2D" uid="uid://n6k00kvfm7kk" path="res://assets/characters/alta_beeg.png" id="4_yengs"]
+
+[node name="IntermissionScene" type="Node2D"]
+
+[node name="Intermission" type="Node2D" parent="."]
+script = ExtResource("1_b82hg")
+_next_level_id = 10
+
+[node name="Phrase" type="Node" parent="Intermission" node_paths=PackedStringArray("reaction")]
+script = ExtResource("2_s4qdt")
+text = "What was that noise? Why is there a ravine in place of a wall?"
+reaction = NodePath("../arya")
+
+[node name="Phrase2" type="Node" parent="Intermission" node_paths=PackedStringArray("reaction")]
+script = ExtResource("2_s4qdt")
+text = "Oh, hello, Arya."
+side = 1
+reaction = NodePath("../alta")
+
+[node name="Phrase3" type="Node" parent="Intermission" node_paths=PackedStringArray("reaction")]
+script = ExtResource("2_s4qdt")
+text = "Oh. "
+reaction = NodePath("../arya")
+
+[node name="Phrase4" type="Node" parent="Intermission" node_paths=PackedStringArray("reaction")]
+script = ExtResource("2_s4qdt")
+text = "Wasn’t expecting to see you. Do you know what happened?"
+reaction = NodePath("../arya")
+
+[node name="Phrase5" type="Node" parent="Intermission" node_paths=PackedStringArray("reaction")]
+script = ExtResource("2_s4qdt")
+text = "Well, there was a loud noise, and then the wall between our rooms collapsed, and then…"
+side = 1
+reaction = NodePath("../alta")
+
+[node name="Phrase6" type="Node" parent="Intermission" node_paths=PackedStringArray("reaction")]
+script = ExtResource("2_s4qdt")
+text = "Alright, I got the gist of it. Let’s go outside and see what *actually* happened."
+reaction = NodePath("../arya")
+
+[node name="arya" type="Sprite2D" parent="Intermission"]
+position = Vector2(167, 505)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("3_ngs6u")
+
+[node name="alta" type="Sprite2D" parent="Intermission"]
+position = Vector2(1092, 496)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("4_yengs")
