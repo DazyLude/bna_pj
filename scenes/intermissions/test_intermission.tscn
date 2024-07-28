@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://giqnruxb0r5k"]
+[gd_scene load_steps=5 format=3 uid="uid://sqvnpen7rl4o"]
 
 [ext_resource type="Script" path="res://scripts/intermission.gd" id="1_6amcu"]
 [ext_resource type="Script" path="res://scripts/phrase.gd" id="2_ge373"]

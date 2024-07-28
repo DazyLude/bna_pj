@@ -16,7 +16,7 @@ func _ready() -> void:
 
 
 func _start_game() -> void:
-	_main_ref.load_level(MainScene.LEVEL_TEST);
+	_main_ref.load_level(MainScene.LevelID.INTRODUCTION);
 	_main_ref.remove_modal_component();
 
 
