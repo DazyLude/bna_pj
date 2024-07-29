@@ -11,6 +11,7 @@ enum TYPE {
 	LIGHT,
 	SHADOW,
 }
+var atlas := AtlasTexture.new();
 
 
 func _get_beam_color(type : TYPE) -> Color:
@@ -26,7 +27,12 @@ func _get_beam_color(type : TYPE) -> Color:
 func _get_beam_sprite(type : TYPE) -> Resource:
 	match type:
 		TYPE.LIGHT:
-			return preload("res://assets/objects/light_trans.png");
+			match direction.num:
+				Direction.UP, Direction.DOWN:
+					atlas.region.position = Vector2(64., 0.);
+				_:
+					atlas.region.position = Vector2(0., 0.);
+			return atlas;
 		_, TYPE.SHADOW:
 			return preload("res://assets/objects/light_trans.png");
 
@@ -126,6 +132,9 @@ func _init(from: Vector2i, to: Vector2i, dir: Direction, type: TYPE, level: Game
 	_level_ref = level;
 	_start = level.coords2position(from);
 	_end = level.coords2position(to);
+	
+	atlas.atlas = preload("res://assets/objects/light_trans_sh.png");
+	atlas.region.size = Vector2(64., 64.);
 
 
 func _ready() -> void:
@@ -141,6 +150,7 @@ func _ready() -> void:
 	
 	_beam_body_ref = beam_body;
 	add_child(beam_body);
+	
 	position = _start;
 	beam_body.position = _beam_position;
 	match btype:

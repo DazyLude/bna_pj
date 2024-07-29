@@ -1,0 +1,40 @@
+[gd_resource type="SpriteFrames" load_steps=5 format=3 uid="uid://dve58o0h1hx5v"]
+
+[ext_resource type="Texture2D" uid="uid://cowqys1k4pckw" path="res://assets/animations/kamekamehaaaaaaa.png" id="1_05a0o"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i88aj"]
+atlas = ExtResource("1_05a0o")
+region = Rect2(0, 0, 64, 80)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p4gtm"]
+atlas = ExtResource("1_05a0o")
+region = Rect2(64, 0, 64, 80)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yfaru"]
+atlas = ExtResource("1_05a0o")
+region = Rect2(128, 0, 64, 80)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": null
+}],
+"loop": true,
+"name": &"empty",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i88aj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p4gtm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yfaru")
+}],
+"loop": true,
+"name": &"powered_up",
+"speed": 20.0
+}]
