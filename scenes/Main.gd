@@ -174,6 +174,9 @@ func _ready() -> void:
 	add_ui_component(_hud);
 	_hud.visible = false;
 	
+	$Transition/BlackRectangle.visible = false;
+	$Transition/LevelName.visible = false;
+	
 	var main_menu_pckd := preload("res://scenes/menus/main_menu.tscn");
 	display_modal_component(main_menu_pckd.instantiate());
 	
@@ -207,9 +210,9 @@ func restart_level() -> void:
 func fade_in() -> void:
 	match _current_state:
 		LEVEL:
-			($Transition/Label).text = _current_level.get_node("GameLevel").level_name;
+			($Transition/LevelName).text = _current_level.get_node("GameLevel").level_name;
 		INTERMISSION:
-			($Transition/Label).text = _current_level.get_node("Intermission").intermission_name;
+			($Transition/LevelName).text = _current_level.get_node("Intermission").intermission_name;
 	$Transition.play("fade_in");
 
 
