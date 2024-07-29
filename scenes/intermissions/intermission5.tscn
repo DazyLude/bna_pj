@@ -9,7 +9,7 @@
 
 [node name="Intermission" type="Node2D" parent="."]
 script = ExtResource("1_5iqfq")
-_next_level_id = 16
+_next_level_id = 15
 intermission_name = "intermission"
 
 [node name="PhraseAlta" type="Node" parent="Intermission" node_paths=PackedStringArray("reaction")]
@@ -31,6 +31,12 @@ reaction = NodePath("../arya")
 [node name="PhraseAlta2" type="Node" parent="Intermission" node_paths=PackedStringArray("reaction")]
 script = ExtResource("2_0fqn3")
 text = "Don't worry, I won’t."
+side = 1
+reaction = NodePath("../alta")
+
+[node name="PhraseAlta3" type="Node" parent="Intermission" node_paths=PackedStringArray("reaction")]
+script = ExtResource("2_0fqn3")
+text = "Can’t even."
 side = 1
 reaction = NodePath("../alta")
 

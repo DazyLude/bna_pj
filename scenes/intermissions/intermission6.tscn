@@ -9,30 +9,41 @@
 
 [node name="Intermission" type="Node2D" parent="."]
 script = ExtResource("1_x31jb")
-_next_level_id = 15
+_next_level_id = 16
 intermission_name = "intermission"
 
 [node name="PhraseAlta" type="Node" parent="Intermission" node_paths=PackedStringArray("reaction")]
 script = ExtResource("2_lw0jm")
-text = "Thanks for the help."
+text = "That was quite a display of strength."
+side = 1
+reaction = NodePath("../alta")
+
+[node name="PhraseAlta2" type="Node" parent="Intermission" node_paths=PackedStringArray("reaction")]
+script = ExtResource("2_lw0jm")
+text = "Did you learn how to do that from our dad?"
 side = 1
 reaction = NodePath("../alta")
 
 [node name="PhraseArya" type="Node" parent="Intermission" node_paths=PackedStringArray("reaction")]
 script = ExtResource("2_lw0jm")
-text = "Kinda had to do that."
+text = "Ugh…"
 reaction = NodePath("../arya")
 
 [node name="PhraseArya2" type="Node" parent="Intermission" node_paths=PackedStringArray("reaction")]
 script = ExtResource("2_lw0jm")
-text = "Don’t sweat it."
+text = "Please just ignore that that has ever happened."
 reaction = NodePath("../arya")
 
-[node name="PhraseAlta2" type="Node" parent="Intermission" node_paths=PackedStringArray("reaction")]
+[node name="PhraseAlta3" type="Node" parent="Intermission" node_paths=PackedStringArray("reaction")]
 script = ExtResource("2_lw0jm")
-text = "Don't worry, I won’t."
+text = "Why? Our daddy told us not to be ashamed of our… peculiarities."
 side = 1
 reaction = NodePath("../alta")
+
+[node name="PhraseArya3" type="Node" parent="Intermission" node_paths=PackedStringArray("reaction")]
+script = ExtResource("2_lw0jm")
+text = "I already regret asking."
+reaction = NodePath("../arya")
 
 [node name="arya" type="Sprite2D" parent="Intermission"]
 position = Vector2(167, 505)

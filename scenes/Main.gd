@@ -21,8 +21,13 @@ enum LevelID {
 	GATES_TUTORIAL,
 	SHADOWS_TUTORIAL,
 	FLIGHT_TUTORIAL,
-	SOLAR_TUTORIAL,
+	STRENGTH_TUTORIAL,
+	
+	LEVEL_1,
+	
 	MIRROR_TUTORIAL,
+	
+	SOLAR_TUTORIAL,
 }
 
 
@@ -72,14 +77,25 @@ func setup_scene(level_id: LevelID) -> void:
 		LevelID.SHADOWS_TUTORIAL:
 			_current_level_resourse = preload("res://scenes/levels/shadows_tutorial.tscn");
 			_current_state = LEVEL;
-		LevelID.SOLAR_TUTORIAL:
-			_current_level_resourse = preload("res://scenes/levels/solar_panels_tutorial.tscn");
-			_current_state = LEVEL;
 		LevelID.FLIGHT_TUTORIAL:
 			_current_level_resourse = preload("res://scenes/levels/flight_tutorial.tscn");
 			_current_state = LEVEL;
+		LevelID.STRENGTH_TUTORIAL:
+			_current_level_resourse = preload("res://scenes/levels/strength_tutorial.tscn");
+			_current_state = LEVEL;
+		
+		LevelID.LEVEL_1:
+			_current_level_resourse = preload("res://scenes/levels/level_1.tscn");
+			_current_state = LEVEL;
+		
 		LevelID.MIRROR_TUTORIAL:
 			_current_level_resourse = preload("res://scenes/levels/mirrors_tutorial.tscn");
+			_current_state = LEVEL;
+		
+		
+		
+		LevelID.SOLAR_TUTORIAL:
+			_current_level_resourse = preload("res://scenes/levels/solar_panels_tutorial.tscn");
 			_current_state = LEVEL;
 
 

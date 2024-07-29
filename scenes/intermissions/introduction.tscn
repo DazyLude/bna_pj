@@ -9,7 +9,6 @@
 
 [node name="Intermission" type="Node2D" parent="."]
 script = ExtResource("1_b82hg")
-_next_level_id = 10
 
 [node name="Phrase" type="Node" parent="Intermission" node_paths=PackedStringArray("reaction")]
 script = ExtResource("2_s4qdt")
