@@ -29,6 +29,12 @@ var _main_ref : MainScene = null;
 
 
 func _ready() -> void:
+	var bg := Sprite2D.new();
+	bg.texture = preload("res://assets/background_inter.png");
+	bg.centered = false;
+	bg.z_index = -1;
+	add_child(bg);
+	
 	_main_ref = get_tree().root.get_node("Main") as MainScene;
 	_main_ref.get_node("UIContainer").get_child(0).visible = true;
 	
