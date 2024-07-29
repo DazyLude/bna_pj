@@ -20,6 +20,7 @@ enum {
 }
 
 var animation_state : int = IDLE_DOWN;
+var desired_state : int;
 
 var sfx_player := AudioStreamPlayer.new();
 var move_fx : AudioStream = null;
@@ -40,6 +41,11 @@ func _init():
 	animated_sprite.sprite_frames = preload("res://assets/animations/alta_sprite_frames.tres");
 	move_fx = preload("res://assets/sfx/whoop3.wav");
 	nudge_fx = preload("res://assets/sfx/poowh.wav");
+
+
+func set_state(dict: Dictionary) -> void:
+	super.set_state(dict);
+	update_desired_state();
 
 
 func _ready():
@@ -92,6 +98,8 @@ func _turn_tick() -> void:
 	
 	if lit:
 		stuck = true;
+	
+	update_desired_state();
 
 
 func nudge(from: Vector2, to: Vector2) -> void:
@@ -110,8 +118,7 @@ func move_to(to: Vector2) -> void:
 	super.move_to(to);
 
 
-func _process(delta: float) -> void:
-	var desired_state : int;
+func update_desired_state() -> void:
 	match [stuck, _movement_mode, _direction, in_the_shadow]:
 		[true, _, _, _]:
 			desired_state = STUCK;
@@ -137,7 +144,9 @@ func _process(delta: float) -> void:
 			desired_state = WALK_DOWN;
 		[false, _STOP, Direction.DOWN, _]:
 			desired_state = IDLE_DOWN;
-	
+
+
+func _process(delta: float) -> void:
 	if desired_state != animation_state:
 		animation_state = desired_state;
 		match desired_state:

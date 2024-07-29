@@ -73,6 +73,11 @@ func nudge(from: Vector2, to: Vector2) -> void:
 	super.nudge(from, to);
 
 
+func set_state(dict: Dictionary) -> void:
+	super.set_state(dict);
+	update_desired_state();
+
+
 func move_to(to: Vector2) -> void:
 	var pitch_mod = 1. + .1 * (randf() - 0.5);
 	sfx_player.pitch_scale = pitch_mod;
@@ -121,6 +126,10 @@ func _turn_tick() -> void:
 	if in_the_shadow:
 		stuck = true;
 	
+	update_desired_state();
+
+
+func update_desired_state() -> void:
 	match [stuck, _movement_mode, _direction]:
 		[true, _, _]:
 			desired_state = STUCK;

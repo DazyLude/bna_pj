@@ -476,7 +476,7 @@ func _ready() -> void:
 		y_sort_enabled = true;
 		ran_once = true;
 	
-	if Engine.is_editor_hint():
+	if Engine.is_editor_hint() && get_tree() != null:
 		var timer = get_tree().create_timer(1.);
 		timer.timeout.connect(_ready);
 		for beam in get_children().filter(func(ch: Node): return ch as Beam != null):
