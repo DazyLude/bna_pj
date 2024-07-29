@@ -45,7 +45,7 @@ func _init():
 
 func set_state(dict: Dictionary) -> void:
 	super.set_state(dict);
-	update_desired_state();
+	call_deferred("update_desired_state");
 
 
 func _ready():

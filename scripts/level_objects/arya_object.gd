@@ -75,7 +75,7 @@ func nudge(from: Vector2, to: Vector2) -> void:
 
 func set_state(dict: Dictionary) -> void:
 	super.set_state(dict);
-	update_desired_state();
+	call_deferred("update_desired_state");
 
 
 func move_to(to: Vector2) -> void:

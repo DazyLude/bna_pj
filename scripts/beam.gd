@@ -24,17 +24,13 @@ func _get_beam_color(type : TYPE) -> Color:
 			return Color(0., 0., 0., 0.,);
 
 
-func _get_beam_sprite(type : TYPE) -> Resource:
-	match type:
-		TYPE.LIGHT:
-			match direction.num:
-				Direction.UP, Direction.DOWN:
-					atlas.region.position = Vector2(64., 0.);
-				_:
-					atlas.region.position = Vector2(0., 0.);
-			return atlas;
-		_, TYPE.SHADOW:
-			return preload("res://assets/objects/light_trans.png");
+func _get_beam_sprite() -> Resource:
+	match direction.num:
+		Direction.UP, Direction.DOWN:
+			atlas.region.position = Vector2(64., 0.);
+		_:
+			atlas.region.position = Vector2(0., 0.);
+	return atlas;
 
 
 
@@ -133,31 +129,26 @@ func _init(from: Vector2i, to: Vector2i, dir: Direction, type: TYPE, level: Game
 	_start = level.coords2position(from);
 	_end = level.coords2position(to);
 	
-	atlas.atlas = preload("res://assets/objects/light_trans_sh.png");
+	match btype:
+		TYPE.LIGHT:
+			atlas.atlas = preload("res://assets/objects/light_trans_sh.png");
+		TYPE.SHADOW:
+			atlas.atlas = preload("res://assets/objects/dark_trans_sh.png");
 	atlas.region.size = Vector2(64., 64.);
 
 
 func _ready() -> void:
 	var beam_body = null;
-	match btype:
-		TYPE.SHADOW:
-			beam_body = ColorRect.new();
-			beam_body.color = _get_beam_color(btype);
-		TYPE.LIGHT:
-			beam_body = Sprite2D.new();
-			beam_body.centered = false;
-			beam_body.texture = _get_beam_sprite(btype);
+	beam_body = Sprite2D.new();
+	beam_body.centered = false;
+	beam_body.texture = _get_beam_sprite();
 	
 	_beam_body_ref = beam_body;
 	add_child(beam_body);
 	
 	position = _start;
 	beam_body.position = _beam_position;
-	match btype:
-		TYPE.SHADOW:
-			beam_body.size = _beam_size;
-		TYPE.LIGHT:
-			beam_body.scale = _beam_size / Vector2(64., 64.);
+	beam_body.scale = _beam_size / Vector2(64., 64.);
 
 
 func slide(new_start: Vector2, new_end: Vector2) -> void:
@@ -184,9 +175,6 @@ func _process(delta: float) -> void:
 				_SLIDE:
 					position = _start.lerp(_desired_start, smoothstep(0.49, 0.51, _movement_progress));
 					_beam_body_ref.position = _beam_position.lerp(_desired_beam_position, smoothstep(0.49, 0.51, _movement_progress));
-					if btype == TYPE.LIGHT:
-						_beam_body_ref.scale = _beam_size.lerp(_desired_beam_size, smoothstep(0.49, 0.51, _movement_progress)) / Vector2(64., 64.) ;
-					else:
-						_beam_body_ref.size = _beam_size.lerp(_desired_beam_size, smoothstep(0.49, 0.51, _movement_progress));
+					_beam_body_ref.scale = _beam_size.lerp(_desired_beam_size, smoothstep(0.49, 0.51, _movement_progress)) / Vector2(64., 64.) ;
 		else:
 			_movement_mode = _STOP;
