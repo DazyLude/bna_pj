@@ -17,7 +17,7 @@ func _ready() -> void:
 	($ButtonsVBox/ResumeButton as BaseButton).button_up.connect(_continue);
 	($ButtonsVBox/RestartButton as BaseButton).button_up.connect(_restart);
 	($ButtonsVBox/ExitButton as BaseButton).button_up.connect(_exit_to_the_menu);
-	($Mute as TextureButton).button_up.connect(_mute);
+	($Mute as Button).button_up.connect(_mute);
 
 
 func _continue() -> void:
@@ -36,11 +36,12 @@ func _exit_to_the_menu() -> void:
 
 
 func _mute() -> void:
+	($Mute as Button).release_focus();
 	AudioServer.set_bus_mute(2, not AudioServer.is_bus_mute(2));
 	if AudioServer.is_bus_mute(2):
-		$Mute.set_texture_normal(sound_mute);
+		$Mute.icon = sound_mute;
 	else:
-		$Mute.set_texture_normal(sound_max);
+		$Mute.icon = sound_max;
 
 
 func _process(_delta: float) -> void:

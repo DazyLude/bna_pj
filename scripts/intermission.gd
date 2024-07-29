@@ -30,6 +30,7 @@ var _main_ref : MainScene = null;
 
 func _ready() -> void:
 	_main_ref = get_tree().root.get_node("Main") as MainScene;
+	_main_ref.get_node("UIContainer").get_child(0).visible = true;
 	
 	for child in get_children():
 		if child as Phrase != null:

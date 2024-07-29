@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://hxjkdjl5lxga"]
+[gd_scene load_steps=4 format=3 uid="uid://hxjkdjl5lxga"]
 
 [ext_resource type="Script" path="res://scenes/ui/pause_menu.gd" id="1_2lsar"]
+[ext_resource type="StyleBox" uid="uid://cctn4j5n5fhb5" path="res://scenes/ui/background.stylebox" id="2_e7ycr"]
 [ext_resource type="Texture2D" uid="uid://7nnlcxklao7h" path="res://assets/icons/sound-max-svgrepo-com.svg" id="2_jprv3"]
 
 [node name="PauseMenu" type="Control"]
@@ -14,9 +15,10 @@ script = ExtResource("1_2lsar")
 
 [node name="LevelName" type="Label" parent="."]
 layout_mode = 0
-offset_right = 760.0
-offset_bottom = 77.0
+offset_right = 29.0
+offset_bottom = 83.0
 theme_override_font_sizes/font_size = 60
+theme_override_styles/normal = ExtResource("2_e7ycr")
 
 [node name="ButtonsVBox" type="VBoxContainer" parent="."]
 custom_minimum_size = Vector2(150, 90)
@@ -56,13 +58,15 @@ offset_top = 135.0
 offset_right = 709.0
 offset_bottom = 218.0
 theme_override_font_sizes/font_size = 60
+theme_override_styles/normal = ExtResource("2_e7ycr")
 text = "pause"
 
-[node name="Mute" type="TextureButton" parent="."]
+[node name="Mute" type="Button" parent="."]
 layout_mode = 0
-offset_left = 1188.0
+offset_left = 1186.0
 offset_top = 99.0
-offset_right = 1260.0
-offset_bottom = 171.0
-texture_normal = ExtResource("2_jprv3")
-stretch_mode = 0
+offset_right = 1266.0
+offset_bottom = 179.0
+theme_override_colors/icon_normal_color = Color(0, 0, 0, 1)
+icon = ExtResource("2_jprv3")
+flat = true
