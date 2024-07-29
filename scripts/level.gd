@@ -361,6 +361,8 @@ const DEFAULT_LEVEL_SIZE := Vector2i(15, 9);
 @export var ravine_x : int = 8;
 @export var left_door_location := Vector2i(1, 0);
 @export var right_door_location := Vector2i(9, 0);
+@export var left_door_upside_down_location := Vector2i(-1, -1);
+@export var right_door_upside_down_location := Vector2i(-1, -1);
 
 
 func go_next() -> void:
@@ -409,10 +411,21 @@ func spawn_exits() -> void:
 func spawn_exit(at: Vector2i, is_dark: bool) -> void:
 	var t_door := WallObject.new();
 	t_door.starting_coords = at;
+	var t_door_ud := WallObject.new();
+	t_door_ud.starting_coords = Vector2i(at.x, 10);
+	
 	if is_dark:
 		t_door.variant = WallObject.DARK_DOOR;
+		
+		t_door_ud.variant = WallObject.DARK_DOOR_UPSIDE_DOWN;
+		if left_door_upside_down_location != Vector2i(-1, -1):
+			t_door_ud.starting_coords = left_door_upside_down_location;
 	else:
 		t_door.variant = WallObject.LIGHT_DOOR;
+		
+		t_door_ud.variant = WallObject.LIGHT_DOOR_UPSIDE_DOWN;
+		if right_door_upside_down_location != Vector2i(-1, -1):
+			t_door_ud.starting_coords = right_door_upside_down_location;
 	
 	var t_win_tile := ExitObject.new();
 	var bottom = level_size.x + 2;
@@ -434,6 +447,7 @@ func spawn_exit(at: Vector2i, is_dark: bool) -> void:
 	t_win_tile.direction = t_door.direction.reversed();
 	
 	add_child(t_door);
+	add_child(t_door_ud);
 	add_child(t_win_tile);
 
 
