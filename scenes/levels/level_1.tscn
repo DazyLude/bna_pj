@@ -12,6 +12,7 @@
 [ext_resource type="Script" path="res://scripts/level_objects/flood_light.gd" id="10_l68mr"]
 [ext_resource type="Texture2D" uid="uid://c8i0ucmf82xjj" path="res://assets/floodlights.png" id="11_4suqm"]
 [ext_resource type="Script" path="res://scripts/level_objects/wall_object.gd" id="12_lgtya"]
+
 [ext_resource type="Texture2D" uid="uid://cpgarpurooirs" path="res://assets/objects/obstacles_spritesheet.png" id="13_yg7y7"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_fi5ct"]
@@ -241,6 +242,8 @@ level_name = "Heavylifting"
 next_level_id = 9
 left_door_location = Vector2i(4, 0)
 right_door_location = Vector2i(12, 0)
+left_door_upside_down_location = null
+right_door_upside_down_location = null
 
 [node name="TileMap" type="TileMap" parent="GameLevel"]
 z_index = -1
@@ -302,6 +305,7 @@ script = ExtResource("5_neb2y")
 starting_coords = Vector2i(12, 7)
 tags = Array[int]([4])
 custom_sprite = SubResource("AtlasTexture_1508p")
+
 
 [node name="PitObject10" type="Node2D" parent="GameLevel"]
 z_index = -1
@@ -523,6 +527,7 @@ starting_coords = Vector2i(2, 2)
 tags = Array[int]([4])
 custom_sprite = SubResource("AtlasTexture_d6llw")
 
+
 [node name="PitObject31" type="Node2D" parent="GameLevel"]
 z_index = -1
 position = Vector2(576, 64)
@@ -711,6 +716,7 @@ starting_coords = Vector2i(9, 4)
 tags = Array[int]([4, 11, 8])
 custom_sprite = SubResource("AtlasTexture_bam4b")
 
+
 [node name="WallObject3" type="Node2D" parent="GameLevel"]
 position = Vector2(704, 256)
 script = ExtResource("12_lgtya")
@@ -719,6 +725,7 @@ starting_coords = Vector2i(11, 4)
 tags = Array[int]([4, 11, 8])
 custom_sprite = SubResource("AtlasTexture_pfv75")
 
+
 [node name="WallObject4" type="Node2D" parent="GameLevel"]
 position = Vector2(768, 256)
 script = ExtResource("12_lgtya")
@@ -726,6 +733,7 @@ variant = 3
 starting_coords = Vector2i(12, 4)
 tags = Array[int]([4, 11, 8])
 custom_sprite = SubResource("AtlasTexture_0byhi")
+
 
 [node name="WallObject5" type="Node2D" parent="GameLevel"]
 position = Vector2(896, 256)
