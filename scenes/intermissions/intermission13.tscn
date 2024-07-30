@@ -1,0 +1,98 @@
+[gd_scene load_steps=5 format=3 uid="uid://cjlby1gdvxcg0"]
+
+[ext_resource type="Script" path="res://scripts/intermission.gd" id="1_d666d"]
+[ext_resource type="Script" path="res://scripts/phrase.gd" id="2_pfpjq"]
+[ext_resource type="Texture2D" uid="uid://c0q713x2uynyv" path="res://assets/characters/arya_beeg.png" id="3_vaxlr"]
+[ext_resource type="Texture2D" uid="uid://n6k00kvfm7kk" path="res://assets/characters/alta_beeg.png" id="4_4sr46"]
+
+[node name="IntermissionScene" type="Node2D"]
+
+[node name="Intermission" type="Node2D" parent="."]
+script = ExtResource("1_d666d")
+_next_level_id = 29
+intermission_name = "intermission"
+
+[node name="PhraseArya" type="Node" parent="Intermission" node_paths=PackedStringArray("reaction")]
+script = ExtResource("2_pfpjq")
+text = "That doesn’t make any sense."
+reaction = NodePath("../arya2")
+
+[node name="PhraseArya2" type="Node" parent="Intermission" node_paths=PackedStringArray("reaction")]
+script = ExtResource("2_pfpjq")
+text = "How do these panels work? Why do they work???"
+reaction = NodePath("../arya2")
+
+[node name="PhraseArya3" type="Node" parent="Intermission" node_paths=PackedStringArray("reaction")]
+script = ExtResource("2_pfpjq")
+text = "They shouldn’t."
+reaction = NodePath("../arya2")
+
+[node name="PhraseAlta" type="Node" parent="Intermission" node_paths=PackedStringArray("reaction")]
+script = ExtResource("2_pfpjq")
+text = "And so shouldn’t I, but I go on my shift every night regardless."
+side = 1
+reaction = NodePath("../alta2")
+
+[node name="PhraseArya4" type="Node" parent="Intermission" node_paths=PackedStringArray("reaction")]
+script = ExtResource("2_pfpjq")
+text = "One thing is not wanting to work, but doing so anyway."
+reaction = NodePath("../arya2")
+
+[node name="PhraseArya5" type="Node" parent="Intermission" node_paths=PackedStringArray("reaction")]
+script = ExtResource("2_pfpjq")
+text = "And another thing is not being able to work…"
+reaction = NodePath("../arya2")
+
+[node name="PhraseArya6" type="Node" parent="Intermission" node_paths=PackedStringArray("reaction")]
+script = ExtResource("2_pfpjq")
+text = "Due to the laws of thermodynamics."
+reaction = NodePath("../arya2")
+
+[node name="PhraseAlta2" type="Node" parent="Intermission" node_paths=PackedStringArray("reaction")]
+script = ExtResource("2_pfpjq")
+text = "I think my job is against the laws of physics as well."
+side = 1
+reaction = NodePath("../alta2")
+
+[node name="PhraseArya7" type="Node" parent="Intermission" node_paths=PackedStringArray("reaction")]
+script = ExtResource("2_pfpjq")
+text = "Where do you even work being… yourself?"
+reaction = NodePath("../arya2")
+
+[node name="PhraseAlta4" type="Node" parent="Intermission" node_paths=PackedStringArray("reaction")]
+script = ExtResource("2_pfpjq")
+text = "Night shift security at the local flat-earthers HQ."
+side = 1
+reaction = NodePath("../alta2")
+
+[node name="PhraseAlta5" type="Node" parent="Intermission" node_paths=PackedStringArray("reaction")]
+script = ExtResource("2_pfpjq")
+text = "They pay quite well for a bunch of weirdos."
+side = 1
+reaction = NodePath("../alta2")
+
+[node name="PhraseAlta3" type="Node" parent="Intermission" node_paths=PackedStringArray("reaction")]
+script = ExtResource("2_pfpjq")
+text = "And it’s funny watching them develop their theories."
+side = 1
+reaction = NodePath("../alta2")
+
+[node name="PhraseArya8" type="Node" parent="Intermission" node_paths=PackedStringArray("reaction")]
+script = ExtResource("2_pfpjq")
+text = "…"
+reaction = NodePath("../arya2")
+
+[node name="PhraseArya9" type="Node" parent="Intermission" node_paths=PackedStringArray("reaction")]
+script = ExtResource("2_pfpjq")
+text = "I think I have more questions right now than I’ve ever had."
+reaction = NodePath("../arya2")
+
+[node name="arya2" type="Sprite2D" parent="Intermission"]
+position = Vector2(199, 471)
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("3_vaxlr")
+
+[node name="alta2" type="Sprite2D" parent="Intermission"]
+position = Vector2(1107, 460)
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("4_4sr46")

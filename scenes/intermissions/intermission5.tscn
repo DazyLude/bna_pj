@@ -9,43 +9,43 @@
 
 [node name="Intermission" type="Node2D" parent="."]
 script = ExtResource("1_5iqfq")
-_next_level_id = 15
+_next_level_id = 22
 intermission_name = "intermission"
 
 [node name="PhraseAlta" type="Node" parent="Intermission" node_paths=PackedStringArray("reaction")]
 script = ExtResource("2_0fqn3")
 text = "Thanks for the help."
 side = 1
-reaction = NodePath("../alta")
+reaction = NodePath("../alta2")
 
 [node name="PhraseArya" type="Node" parent="Intermission" node_paths=PackedStringArray("reaction")]
 script = ExtResource("2_0fqn3")
 text = "Kinda had to do that."
-reaction = NodePath("../arya")
+reaction = NodePath("../arya2")
 
 [node name="PhraseArya2" type="Node" parent="Intermission" node_paths=PackedStringArray("reaction")]
 script = ExtResource("2_0fqn3")
 text = "Don’t sweat it."
-reaction = NodePath("../arya")
+reaction = NodePath("../arya2")
 
 [node name="PhraseAlta2" type="Node" parent="Intermission" node_paths=PackedStringArray("reaction")]
 script = ExtResource("2_0fqn3")
 text = "Don't worry, I won’t."
 side = 1
-reaction = NodePath("../alta")
+reaction = NodePath("../alta2")
 
 [node name="PhraseAlta3" type="Node" parent="Intermission" node_paths=PackedStringArray("reaction")]
 script = ExtResource("2_0fqn3")
 text = "Can’t even."
 side = 1
-reaction = NodePath("../alta")
+reaction = NodePath("../alta2")
 
-[node name="arya" type="Sprite2D" parent="Intermission"]
-position = Vector2(167, 505)
-scale = Vector2(0.2, 0.2)
+[node name="arya2" type="Sprite2D" parent="Intermission"]
+position = Vector2(199, 471)
+scale = Vector2(0.3, 0.3)
 texture = ExtResource("3_1horp")
 
-[node name="alta" type="Sprite2D" parent="Intermission"]
-position = Vector2(1092, 496)
-scale = Vector2(0.2, 0.2)
+[node name="alta2" type="Sprite2D" parent="Intermission"]
+position = Vector2(1107, 460)
+scale = Vector2(0.3, 0.3)
 texture = ExtResource("4_83mga")

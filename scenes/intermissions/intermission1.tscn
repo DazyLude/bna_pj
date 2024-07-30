@@ -9,7 +9,7 @@
 
 [node name="Intermission" type="Node2D" parent="."]
 script = ExtResource("1_lfqfy")
-_next_level_id = 11
+_next_level_id = 18
 intermission_name = "intermission"
 
 [node name="PhraseAlta" type="Node" parent="Intermission" node_paths=PackedStringArray("reaction")]
@@ -20,7 +20,7 @@ reaction = NodePath("../alta")
 
 [node name="PhraseArya" type="Node" parent="Intermission" node_paths=PackedStringArray("reaction")]
 script = ExtResource("2_7bxc1")
-text = "Not the absence of the wall between our apartments?"
+text = "And not the absence of the wall between our apartments?"
 reaction = NodePath("../arya")
 
 [node name="PhraseAlta2" type="Node" parent="Intermission" node_paths=PackedStringArray("reaction")]
@@ -31,21 +31,16 @@ reaction = NodePath("../alta")
 
 [node name="PhraseAlta3" type="Node" parent="Intermission" node_paths=PackedStringArray("reaction")]
 script = ExtResource("2_7bxc1")
-text = "On the bright side, they look like old ruins now, that fits me well."
+text = "On the bright side, they look like ancient ruins now, that fits me well."
 side = 1
 reaction = NodePath("../alta")
 
-[node name="PhraseArya2" type="Node" parent="Intermission" node_paths=PackedStringArray("reaction")]
-script = ExtResource("2_7bxc1")
-text = "I only hope that the bright side of these newly formed old ruins is not in ruins…"
-reaction = NodePath("../arya")
-
 [node name="arya" type="Sprite2D" parent="Intermission"]
-position = Vector2(167, 505)
-scale = Vector2(0.2, 0.2)
+position = Vector2(199, 471)
+scale = Vector2(0.3, 0.3)
 texture = ExtResource("3_uoxcu")
 
 [node name="alta" type="Sprite2D" parent="Intermission"]
-position = Vector2(1092, 496)
-scale = Vector2(0.2, 0.2)
+position = Vector2(1107, 460)
+scale = Vector2(0.3, 0.3)
 texture = ExtResource("4_70w24")

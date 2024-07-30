@@ -18,8 +18,10 @@ const bubble_control_height := 520.;
 const outer_side_margin := 320.;
 const bubble_width := 310;
 const bubble_padding := 5.;
+const bubble_gap := 10.;
 
-const font_size := 28;
+const font_size := 40;
+const line_spacing := -15;
 
 const bump_height := 20.;
 
@@ -36,7 +38,8 @@ func _ready() -> void:
 	add_child(bg);
 	
 	_main_ref = get_tree().root.get_node("Main") as MainScene;
-	_main_ref.get_node("UIContainer").get_child(0).visible = true;
+	if _main_ref != null:
+		_main_ref.get_node("UIContainer").get_child(0).visible = true;
 	
 	for child in get_children():
 		if child as Phrase != null:
@@ -64,7 +67,10 @@ func spawn_bubble(text: String) -> Node:
 	t_label.size.x = bubble_width - 2. * bubble_padding;
 	t_label.autowrap_mode = TextServer.AUTOWRAP_WORD;
 	
+	if text == ":)":
+		t_label.add_theme_font_override("font", preload("res://assets/fonts/OpenSans-VariableFont_wdth,wght.ttf"));
 	t_label.add_theme_font_size_override("font_size", font_size);
+	t_label.add_theme_constant_override("line_spacing", line_spacing);
 	
 	t_panel.add_child(t_label);
 	# this call is deferred because label parameters update not immidiately.
@@ -99,13 +105,13 @@ func spawn_right_bubble(text: String) -> Node:
 
 func adjust_height() -> void:
 	var bubble_total_height = bubbles.reduce(
-		func(accum, bubble): return accum + bubble.size.y,
+		func(accum, bubble): return accum + bubble.size.y + bubble_gap,
 		0.
 	);
 	var height_of_bubbles := 0.;
 	for bubble in bubbles:
-		bubble.position.y = bubble_control_height - bubble_total_height + height_of_bubbles;
-		height_of_bubbles += bubble.size.y;
+		bubble.position.y = bubble_control_height - bubble_total_height + height_of_bubbles + bubble_gap;
+		height_of_bubbles += bubble.size.y + bubble_gap;
 	
 
 func say_the_line(phrase: Phrase) -> void:

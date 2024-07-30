@@ -14,6 +14,13 @@ enum LevelID {
 	INTERMISSION_4,
 	INTERMISSION_5,
 	INTERMISSION_6,
+	INTERMISSION_7,
+	INTERMISSION_8,
+	INTERMISSION_9,
+	INTERMISSION_10,
+	INTERMISSION_11,
+	INTERMISSION_12,
+	INTERMISSION_13,
 	EPILOGUE,
 	
 	WIN_CONDITION_TUTORIAL,
@@ -22,12 +29,17 @@ enum LevelID {
 	SHADOWS_TUTORIAL,
 	FLIGHT_TUTORIAL,
 	STRENGTH_TUTORIAL,
+	MIRROR_TUTORIAL,
+	SOLAR_TUTORIAL,
 	
 	LEVEL_1,
+	LEVEL_2,
+	LEVEL_3,
+	LEVEL_4,
 	
-	MIRROR_TUTORIAL,
+	LEVEL_THE_FINAL,
 	
-	SOLAR_TUTORIAL,
+	DEJA_VU,
 }
 
 
@@ -64,6 +76,27 @@ func setup_scene(level_id: LevelID) -> void:
 		LevelID.INTERMISSION_6:
 			_current_level_resourse = preload("res://scenes/intermissions/intermission6.tscn");
 			_current_state = INTERMISSION;
+		LevelID.INTERMISSION_7:
+			_current_level_resourse = preload("res://scenes/intermissions/intermission7.tscn");
+			_current_state = INTERMISSION;
+		LevelID.INTERMISSION_8:
+			_current_level_resourse = preload("res://scenes/intermissions/intermission8.tscn");
+			_current_state = INTERMISSION;
+		LevelID.INTERMISSION_9:
+			_current_level_resourse = preload("res://scenes/intermissions/intermission9.tscn");
+			_current_state = INTERMISSION;
+		LevelID.INTERMISSION_10:
+			_current_level_resourse = preload("res://scenes/intermissions/intermission10.tscn");
+			_current_state = INTERMISSION;
+		LevelID.INTERMISSION_11:
+			_current_level_resourse = preload("res://scenes/intermissions/intermission11.tscn");
+			_current_state = INTERMISSION;
+		LevelID.INTERMISSION_12:
+			_current_level_resourse = preload("res://scenes/intermissions/intermission12.tscn");
+			_current_state = INTERMISSION;
+		LevelID.INTERMISSION_13:
+			_current_level_resourse = preload("res://scenes/intermissions/intermission13.tscn");
+			_current_state = INTERMISSION;
 		
 		LevelID.WIN_CONDITION_TUTORIAL:
 			_current_level_resourse = preload("res://scenes/levels/win_condition_tutorial.tscn");
@@ -83,19 +116,30 @@ func setup_scene(level_id: LevelID) -> void:
 		LevelID.STRENGTH_TUTORIAL:
 			_current_level_resourse = preload("res://scenes/levels/strength_tutorial.tscn");
 			_current_state = LEVEL;
-		
-		LevelID.LEVEL_1:
-			_current_level_resourse = preload("res://scenes/levels/level_1.tscn");
-			_current_state = LEVEL;
-		
 		LevelID.MIRROR_TUTORIAL:
 			_current_level_resourse = preload("res://scenes/levels/mirrors_tutorial.tscn");
 			_current_state = LEVEL;
-		
-		
-		
 		LevelID.SOLAR_TUTORIAL:
 			_current_level_resourse = preload("res://scenes/levels/solar_panels_tutorial.tscn");
+			_current_state = LEVEL;
+		
+		LevelID.DEJA_VU:
+			_current_level_resourse = preload("res://scenes/levels/shadows_tutorial_v2.tscn");
+			_current_state = LEVEL;
+		LevelID.LEVEL_1:
+			_current_level_resourse = preload("res://scenes/levels/level_1.tscn");
+			_current_state = LEVEL;
+		LevelID.LEVEL_2:
+			_current_level_resourse = preload("res://scenes/levels/level_2.tscn");
+			_current_state = LEVEL;
+		LevelID.LEVEL_3:
+			_current_level_resourse = preload("res://scenes/levels/level_3.tscn");
+			_current_state = LEVEL;
+		LevelID.LEVEL_4:
+			_current_level_resourse = preload("res://scenes/levels/level_4.tscn");
+			_current_state = LEVEL;
+		LevelID.LEVEL_THE_FINAL:
+			_current_level_resourse = preload("res://scenes/levels/level_the_final.tscn");
 			_current_state = LEVEL;
 
 

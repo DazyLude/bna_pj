@@ -11,12 +11,23 @@ var sound_mute := preload("res://assets/icons/sound-mute-alt-svgrepo-com.svg");
 func _ready() -> void:
 	_main_ref = get_tree().root.get_node("Main") as MainScene;
 	if _main_ref._current_state == _main_ref.LEVEL:
-		$LevelName.text = _main_ref._current_level.get_node("GameLevel").level_name;
+		var _level_ref : GameLevel = _main_ref._current_level.get_node("GameLevel");
+		$LevelName.text = _level_ref.level_name;
+		$ButtonsVBox/SkipButton.button_up.connect(
+			func():
+				_level_ref.go_next();
+				_continue();
+		);
 	else:
 		$LevelName.text = _main_ref._current_level.get_node("Intermission").intermission_name;
+		$ButtonsVBox/SkipButton.visible = false;
+	
 	($ButtonsVBox/ResumeButton as BaseButton).button_up.connect(_continue);
 	($ButtonsVBox/RestartButton as BaseButton).button_up.connect(_restart);
 	($ButtonsVBox/ExitButton as BaseButton).button_up.connect(_exit_to_the_menu);
+	
+	
+	
 	($Mute as Button).button_up.connect(_mute);
 
 

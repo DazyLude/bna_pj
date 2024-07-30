@@ -26,40 +26,52 @@ layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -102.0
+offset_left = -90.0
 offset_top = 246.0
-offset_right = 48.0
-offset_bottom = 416.0
+offset_right = 90.0
+offset_bottom = 476.0
 grow_horizontal = 2
 theme_override_constants/separation = 10
 
 [node name="ResumeButton" type="Button" parent="ButtonsVBox"]
 custom_minimum_size = Vector2(120, 50)
 layout_mode = 2
-theme_override_font_sizes/font_size = 24
+theme_override_font_sizes/font_size = 30
 text = "resume"
 
 [node name="RestartButton" type="Button" parent="ButtonsVBox"]
 custom_minimum_size = Vector2(120, 50)
 layout_mode = 2
-theme_override_font_sizes/font_size = 24
+theme_override_font_sizes/font_size = 30
 text = "restart level"
 
 [node name="ExitButton" type="Button" parent="ButtonsVBox"]
 custom_minimum_size = Vector2(120, 50)
 layout_mode = 2
-theme_override_font_sizes/font_size = 24
+theme_override_font_sizes/font_size = 30
 text = "exit to the menu"
 
+[node name="SkipButton" type="Button" parent="ButtonsVBox"]
+custom_minimum_size = Vector2(120, 50)
+layout_mode = 2
+tooltip_text = "skill issue"
+theme_override_font_sizes/font_size = 30
+text = "skip this level"
+
 [node name="Title" type="Label" parent="."]
-layout_mode = 0
-offset_left = 524.0
-offset_top = 135.0
-offset_right = 709.0
-offset_bottom = 218.0
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -92.5
+offset_top = 100.0
+offset_right = 92.5
+offset_bottom = 184.0
+grow_horizontal = 2
 theme_override_font_sizes/font_size = 60
 theme_override_styles/normal = ExtResource("2_e7ycr")
 text = "pause"
+horizontal_alignment = 1
 
 [node name="Mute" type="Button" parent="."]
 layout_mode = 0

@@ -1,0 +1,40 @@
+[gd_scene load_steps=5 format=3 uid="uid://wotel4k81b51"]
+
+[ext_resource type="Script" path="res://scripts/intermission.gd" id="1_q2hio"]
+[ext_resource type="Script" path="res://scripts/phrase.gd" id="2_qlkp0"]
+[ext_resource type="Texture2D" uid="uid://c0q713x2uynyv" path="res://assets/characters/arya_beeg.png" id="3_nd6qq"]
+[ext_resource type="Texture2D" uid="uid://n6k00kvfm7kk" path="res://assets/characters/alta_beeg.png" id="4_5iapp"]
+
+[node name="IntermissionScene" type="Node2D"]
+
+[node name="Intermission" type="Node2D" parent="."]
+script = ExtResource("1_q2hio")
+_next_level_id = 24
+intermission_name = "intermission"
+
+[node name="PhraseArya" type="Node" parent="Intermission" node_paths=PackedStringArray("reaction")]
+script = ExtResource("2_qlkp0")
+text = "How do you usually get around your side of the castle? There are boxes, and locked up gates everywhere…"
+reaction = NodePath("../arya2")
+
+[node name="PhraseAlta" type="Node" parent="Intermission" node_paths=PackedStringArray("reaction")]
+script = ExtResource("2_qlkp0")
+text = "Usually I just fly over them."
+side = 1
+reaction = NodePath("../alta2")
+
+[node name="PhraseAlta2" type="Node" parent="Intermission" node_paths=PackedStringArray("reaction")]
+script = ExtResource("2_qlkp0")
+text = "Didn’t expect guests anyway."
+side = 1
+reaction = NodePath("../alta2")
+
+[node name="arya2" type="Sprite2D" parent="Intermission"]
+position = Vector2(199, 471)
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("3_nd6qq")
+
+[node name="alta2" type="Sprite2D" parent="Intermission"]
+position = Vector2(1107, 460)
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("4_5iapp")

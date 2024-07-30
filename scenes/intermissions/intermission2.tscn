@@ -9,47 +9,47 @@
 
 [node name="Intermission" type="Node2D" parent="."]
 script = ExtResource("1_jdoi1")
-_next_level_id = 12
+_next_level_id = 19
 intermission_name = "intermission"
 
 [node name="PhraseArya" type="Node" parent="Intermission" node_paths=PackedStringArray("reaction")]
 script = ExtResource("2_maieh")
 text = "I don’t like moving boxes."
-reaction = NodePath("../arya")
+reaction = NodePath("../arya2")
 
 [node name="PhraseAlta" type="Node" parent="Intermission" node_paths=PackedStringArray("reaction")]
 script = ExtResource("2_maieh")
 text = "It had to be done, eventually."
 side = 1
-reaction = NodePath("../alta")
+reaction = NodePath("../alta2")
 
 [node name="PhraseArya2" type="Node" parent="Intermission" node_paths=PackedStringArray("reaction")]
 script = ExtResource("2_maieh")
 text = "…"
-reaction = NodePath("../arya")
+reaction = NodePath("../arya2")
 
 [node name="PhraseArya3" type="Node" parent="Intermission" node_paths=PackedStringArray("reaction")]
 script = ExtResource("2_maieh")
 text = "Now, if the security system fails because of a current missing-wall-induced power outage, that will end me for sure."
-reaction = NodePath("../arya")
+reaction = NodePath("../arya2")
 
 [node name="PhraseAlta2" type="Node" parent="Intermission" node_paths=PackedStringArray("reaction")]
 script = ExtResource("2_maieh")
 text = "That doesn’t sound so bad, actually."
 side = 1
-reaction = NodePath("../alta")
+reaction = NodePath("../alta2")
 
 [node name="PhraseArya4" type="Node" parent="Intermission" node_paths=PackedStringArray("reaction")]
 script = ExtResource("2_maieh")
 text = "Hey!"
-reaction = NodePath("../arya")
+reaction = NodePath("../arya2")
 
-[node name="arya" type="Sprite2D" parent="Intermission"]
-position = Vector2(167, 505)
-scale = Vector2(0.2, 0.2)
+[node name="arya2" type="Sprite2D" parent="Intermission"]
+position = Vector2(199, 471)
+scale = Vector2(0.3, 0.3)
 texture = ExtResource("3_ceab8")
 
-[node name="alta" type="Sprite2D" parent="Intermission"]
-position = Vector2(1092, 496)
-scale = Vector2(0.2, 0.2)
+[node name="alta2" type="Sprite2D" parent="Intermission"]
+position = Vector2(1107, 460)
+scale = Vector2(0.3, 0.3)
 texture = ExtResource("4_tbdty")
