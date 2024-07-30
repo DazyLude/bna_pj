@@ -34,10 +34,13 @@ func _ready() -> void:
 func connect_to_level(level_node: GameLevel) -> void:
 	_selected_character_update(level_node.selected_character);
 	level_node.changed_selected_character.connect(_selected_character_update);
+	$AryaChar.visible = true;
+	$AltaChar.visible = true;
 
 
 func disconnect_from_level(_level_node: GameLevel) -> void:
-	pass;
+	$AryaChar.visible = false;
+	$AltaChar.visible = false;
 
 
 func _show_pause_menu() -> void:
