@@ -16,19 +16,35 @@ script = ExtResource("2_wcv5x")
 side = 2
 
 [node name="arya" type="Sprite2D" parent="Intermission"]
-position = Vector2(167, 505)
+position = Vector2(82, 524)
 scale = Vector2(0.2, 0.2)
 texture = ExtResource("3_caeq4")
 
 [node name="alta" type="Sprite2D" parent="Intermission"]
-position = Vector2(1092, 496)
+position = Vector2(1207, 496)
 scale = Vector2(0.2, 0.2)
 texture = ExtResource("4_7npec")
 
+[node name="Panel" type="Panel" parent="."]
+offset_left = 158.0
+offset_top = 35.0
+offset_right = 1140.0
+offset_bottom = 701.0
+
 [node name="Label" type="Label" parent="."]
-offset_left = 499.0
-offset_top = 169.0
-offset_right = 799.0
-offset_bottom = 213.0
+offset_left = 172.0
+offset_top = 58.0
+offset_right = 1111.0
+offset_bottom = 685.0
 theme_override_font_sizes/font_size = 28
-text = "Thank you for playing!"
+text = "Thank you for playing our game!
+
+The castle broke in half because the construction contractor used cheap materials. When the girls found out about this, they broke into the contractor's house the next night. 
+
+What did they do to the contractor, you ask?
+
+Well, Alta is a vampire… so, obviously, Arya did the wrestling, and Alta took photos of that process from the angles available only to a sentient bat. They used the photos to motivate the next contractor to do a better job, and this time they’ve decided to leave a couple of doors between their parts of the castle.
+
+(press ESC to exit to the menu)"
+horizontal_alignment = 1
+autowrap_mode = 2

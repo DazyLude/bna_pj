@@ -1,0 +1,70 @@
+[gd_scene load_steps=5 format=3 uid="uid://bmuvkwg8xrkxf"]
+
+[ext_resource type="Script" path="res://scripts/intermission.gd" id="1_8c7jl"]
+[ext_resource type="Script" path="res://scripts/phrase.gd" id="2_b0dv4"]
+[ext_resource type="Texture2D" uid="uid://c0q713x2uynyv" path="res://assets/characters/arya_beeg.png" id="3_hx50d"]
+[ext_resource type="Texture2D" uid="uid://n6k00kvfm7kk" path="res://assets/characters/alta_beeg.png" id="4_1i6yb"]
+
+[node name="IntermissionScene" type="Node2D"]
+
+[node name="Intermission" type="Node2D" parent="."]
+script = ExtResource("1_8c7jl")
+_next_level_id = 27
+intermission_name = "intermission"
+
+[node name="PhraseArya" type="Node" parent="Intermission" node_paths=PackedStringArray("reaction")]
+script = ExtResource("2_b0dv4")
+text = "Mirrors?"
+reaction = NodePath("../arya2")
+
+[node name="PhraseArya2" type="Node" parent="Intermission" node_paths=PackedStringArray("reaction")]
+script = ExtResource("2_b0dv4")
+text = "At your side of the place?"
+reaction = NodePath("../arya2")
+
+[node name="PhraseArya3" type="Node" parent="Intermission" node_paths=PackedStringArray("reaction")]
+script = ExtResource("2_b0dv4")
+text = "What a pleasant surprise. Really. Didn’t know you care…"
+reaction = NodePath("../arya2")
+
+[node name="PhraseArya4" type="Node" parent="Intermission" node_paths=PackedStringArray("reaction")]
+script = ExtResource("2_b0dv4")
+text = "…"
+reaction = NodePath("../arya2")
+
+[node name="PhraseArya5" type="Node" parent="Intermission" node_paths=PackedStringArray("reaction")]
+script = ExtResource("2_b0dv4")
+text = "Wait."
+reaction = NodePath("../arya2")
+
+[node name="PhraseArya6" type="Node" parent="Intermission" node_paths=PackedStringArray("reaction")]
+script = ExtResource("2_b0dv4")
+text = "That doesn’t make any sense."
+reaction = NodePath("../arya2")
+
+[node name="PhraseArya7" type="Node" parent="Intermission" node_paths=PackedStringArray("reaction")]
+script = ExtResource("2_b0dv4")
+text = "Why do you even have them?"
+reaction = NodePath("../arya2")
+
+[node name="PhraseAlta" type="Node" parent="Intermission" node_paths=PackedStringArray("reaction")]
+script = ExtResource("2_b0dv4")
+text = "I like to remind myself of the emptiness that I see instead of the reflection from time to time."
+side = 1
+reaction = NodePath("../alta2")
+
+[node name="PhraseAlta2" type="Node" parent="Intermission" node_paths=PackedStringArray("reaction")]
+script = ExtResource("2_b0dv4")
+text = ":)"
+side = 1
+reaction = NodePath("../alta2")
+
+[node name="arya2" type="Sprite2D" parent="Intermission"]
+position = Vector2(199, 471)
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("3_hx50d")
+
+[node name="alta2" type="Sprite2D" parent="Intermission"]
+position = Vector2(1107, 460)
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("4_1i6yb")

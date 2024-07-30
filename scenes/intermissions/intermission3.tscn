@@ -9,59 +9,65 @@
 
 [node name="Intermission" type="Node2D" parent="."]
 script = ExtResource("1_m78ko")
-_next_level_id = 13
+_next_level_id = 20
 intermission_name = "intermission"
 
 [node name="PhraseAlta" type="Node" parent="Intermission" node_paths=PackedStringArray("reaction")]
 script = ExtResource("2_ex0cq")
 text = "Arya, I have a question."
 side = 1
-reaction = NodePath("../alta")
+reaction = NodePath("../alta2")
 
 [node name="PhraseArya" type="Node" parent="Intermission" node_paths=PackedStringArray("reaction")]
 script = ExtResource("2_ex0cq")
 text = "What's up?"
-reaction = NodePath("../arya")
+reaction = NodePath("../arya2")
 
 [node name="PhraseAlta2" type="Node" parent="Intermission" node_paths=PackedStringArray("reaction")]
 script = ExtResource("2_ex0cq")
 text = "Why was there a 1000 watt projector in your room?"
 side = 1
-reaction = NodePath("../alta")
+reaction = NodePath("../alta2")
 
 [node name="PhraseArya2" type="Node" parent="Intermission" node_paths=PackedStringArray("reaction")]
 script = ExtResource("2_ex0cq")
-text = "Well, you know, stuff…"
-reaction = NodePath("../arya")
+text = "Well, you know, for doing… stuff?.."
+reaction = NodePath("../arya2")
 
 [node name="PhraseAlta3" type="Node" parent="Intermission" node_paths=PackedStringArray("reaction")]
 script = ExtResource("2_ex0cq")
-text = "Is it to repel me, just in case?"
+text = "Is it just to repel me?"
 side = 1
-reaction = NodePath("../alta")
+reaction = NodePath("../alta2")
 
 [node name="PhraseArya3" type="Node" parent="Intermission" node_paths=PackedStringArray("reaction")]
 script = ExtResource("2_ex0cq")
 text = "I’d never!"
-reaction = NodePath("../arya")
+reaction = NodePath("../arya2")
 
 [node name="PhraseArya4" type="Node" parent="Intermission" node_paths=PackedStringArray("reaction")]
 script = ExtResource("2_ex0cq")
 text = "…heh"
-reaction = NodePath("../arya")
+reaction = NodePath("../arya2")
 
 [node name="PhraseAlta4" type="Node" parent="Intermission" node_paths=PackedStringArray("reaction")]
 script = ExtResource("2_ex0cq")
-text = "I hope the magical nature of boxes will help with these burning light beams."
+text = "And some of these projectors illuminate the place where the wall was."
 side = 1
-reaction = NodePath("../alta")
+reaction = NodePath("../alta2")
 
-[node name="arya" type="Sprite2D" parent="Intermission"]
-position = Vector2(167, 505)
-scale = Vector2(0.2, 0.2)
+[node name="PhraseAlta5" type="Node" parent="Intermission" node_paths=PackedStringArray("reaction")]
+script = ExtResource("2_ex0cq")
+text = "Quite convenient."
+side = 1
+reaction = NodePath("../alta2")
+
+[node name="arya2" type="Sprite2D" parent="Intermission"]
+position = Vector2(199, 471)
+scale = Vector2(0.3, 0.3)
 texture = ExtResource("3_xk5mr")
 
-[node name="alta" type="Sprite2D" parent="Intermission"]
-position = Vector2(1092, 496)
-scale = Vector2(0.2, 0.2)
+[node name="alta2" type="Sprite2D" parent="Intermission"]
+position = Vector2(1107, 460)
+scale = Vector2(0.3, 0.3)
 texture = ExtResource("4_yibic")

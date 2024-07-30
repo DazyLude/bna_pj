@@ -9,48 +9,48 @@
 
 [node name="Intermission" type="Node2D" parent="."]
 script = ExtResource("1_x31jb")
-_next_level_id = 16
+_next_level_id = 30
 intermission_name = "intermission"
 
 [node name="PhraseAlta" type="Node" parent="Intermission" node_paths=PackedStringArray("reaction")]
 script = ExtResource("2_lw0jm")
-text = "That was quite a display of strength."
+text = " That was quite a display of strength."
 side = 1
-reaction = NodePath("../alta")
+reaction = NodePath("../alta2")
 
 [node name="PhraseAlta2" type="Node" parent="Intermission" node_paths=PackedStringArray("reaction")]
 script = ExtResource("2_lw0jm")
 text = "Did you learn how to do that from our dad?"
 side = 1
-reaction = NodePath("../alta")
+reaction = NodePath("../alta2")
 
 [node name="PhraseArya" type="Node" parent="Intermission" node_paths=PackedStringArray("reaction")]
 script = ExtResource("2_lw0jm")
 text = "Ugh…"
-reaction = NodePath("../arya")
+reaction = NodePath("../arya2")
 
 [node name="PhraseArya2" type="Node" parent="Intermission" node_paths=PackedStringArray("reaction")]
 script = ExtResource("2_lw0jm")
 text = "Please just ignore that that has ever happened."
-reaction = NodePath("../arya")
+reaction = NodePath("../arya2")
 
 [node name="PhraseAlta3" type="Node" parent="Intermission" node_paths=PackedStringArray("reaction")]
 script = ExtResource("2_lw0jm")
 text = "Why? Our daddy told us not to be ashamed of our… peculiarities."
 side = 1
-reaction = NodePath("../alta")
+reaction = NodePath("../alta2")
 
 [node name="PhraseArya3" type="Node" parent="Intermission" node_paths=PackedStringArray("reaction")]
 script = ExtResource("2_lw0jm")
 text = "I already regret asking."
-reaction = NodePath("../arya")
+reaction = NodePath("../arya2")
 
-[node name="arya" type="Sprite2D" parent="Intermission"]
-position = Vector2(167, 505)
-scale = Vector2(0.2, 0.2)
+[node name="arya2" type="Sprite2D" parent="Intermission"]
+position = Vector2(199, 471)
+scale = Vector2(0.3, 0.3)
 texture = ExtResource("3_kg8k2")
 
-[node name="alta" type="Sprite2D" parent="Intermission"]
-position = Vector2(1092, 496)
-scale = Vector2(0.2, 0.2)
+[node name="alta2" type="Sprite2D" parent="Intermission"]
+position = Vector2(1107, 460)
+scale = Vector2(0.3, 0.3)
 texture = ExtResource("4_syxqi")

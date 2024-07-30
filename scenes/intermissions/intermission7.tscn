@@ -1,0 +1,34 @@
+[gd_scene load_steps=5 format=3 uid="uid://cjdgtllj74dxi"]
+
+[ext_resource type="Script" path="res://scripts/intermission.gd" id="1_wocjg"]
+[ext_resource type="Script" path="res://scripts/phrase.gd" id="2_wh36j"]
+[ext_resource type="Texture2D" uid="uid://c0q713x2uynyv" path="res://assets/characters/arya_beeg.png" id="3_tnh0d"]
+[ext_resource type="Texture2D" uid="uid://n6k00kvfm7kk" path="res://assets/characters/alta_beeg.png" id="4_lw7r3"]
+
+[node name="IntermissionScene" type="Node2D"]
+
+[node name="Intermission" type="Node2D" parent="."]
+script = ExtResource("1_wocjg")
+_next_level_id = 25
+intermission_name = "intermission"
+
+[node name="PhraseArya" type="Node" parent="Intermission" node_paths=PackedStringArray("reaction")]
+script = ExtResource("2_wh36j")
+text = "I almost got a feeling of deja vu back there."
+reaction = NodePath("../arya2")
+
+[node name="PhraseAlta" type="Node" parent="Intermission" node_paths=PackedStringArray("reaction")]
+script = ExtResource("2_wh36j")
+text = "And I got scared that the spotlights began multiplying."
+side = 1
+reaction = NodePath("../alta2")
+
+[node name="arya2" type="Sprite2D" parent="Intermission"]
+position = Vector2(199, 471)
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("3_tnh0d")
+
+[node name="alta2" type="Sprite2D" parent="Intermission"]
+position = Vector2(1107, 460)
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("4_lw7r3")

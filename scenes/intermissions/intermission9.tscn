@@ -1,0 +1,56 @@
+[gd_scene load_steps=5 format=3 uid="uid://bcec2pgda13qv"]
+
+[ext_resource type="Script" path="res://scripts/intermission.gd" id="1_fa151"]
+[ext_resource type="Script" path="res://scripts/phrase.gd" id="2_8r661"]
+[ext_resource type="Texture2D" uid="uid://c0q713x2uynyv" path="res://assets/characters/arya_beeg.png" id="3_rhuxr"]
+[ext_resource type="Texture2D" uid="uid://n6k00kvfm7kk" path="res://assets/characters/alta_beeg.png" id="4_xfnx0"]
+
+[node name="IntermissionScene" type="Node2D"]
+
+[node name="Intermission" type="Node2D" parent="."]
+script = ExtResource("1_fa151")
+_next_level_id = 23
+intermission_name = "intermission"
+
+[node name="PhraseArya" type="Node" parent="Intermission" node_paths=PackedStringArray("reaction")]
+script = ExtResource("2_8r661")
+text = "Alta, what was that abomination made of gates?"
+reaction = NodePath("../arya2")
+
+[node name="PhraseAlta" type="Node" parent="Intermission" node_paths=PackedStringArray("reaction")]
+script = ExtResource("2_8r661")
+text = "A mousetrap."
+side = 1
+reaction = NodePath("../alta2")
+
+[node name="PhraseArya2" type="Node" parent="Intermission" node_paths=PackedStringArray("reaction")]
+script = ExtResource("2_8r661")
+text = "Isn’t it a bit of an overkill?"
+reaction = NodePath("../arya2")
+
+[node name="PhraseArya3" type="Node" parent="Intermission" node_paths=PackedStringArray("reaction")]
+script = ExtResource("2_8r661")
+text = "And do you think this castle has mice? Haven’t seen any…"
+reaction = NodePath("../arya2")
+
+[node name="PhraseAlta2" type="Node" parent="Intermission" node_paths=PackedStringArray("reaction")]
+script = ExtResource("2_8r661")
+text = "No, not for the mice. Mice are cute."
+side = 1
+reaction = NodePath("../alta2")
+
+[node name="PhraseAlta3" type="Node" parent="Intermission" node_paths=PackedStringArray("reaction")]
+script = ExtResource("2_8r661")
+text = "For burglars."
+side = 1
+reaction = NodePath("../alta2")
+
+[node name="arya2" type="Sprite2D" parent="Intermission"]
+position = Vector2(199, 471)
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("3_rhuxr")
+
+[node name="alta2" type="Sprite2D" parent="Intermission"]
+position = Vector2(1107, 460)
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("4_xfnx0")

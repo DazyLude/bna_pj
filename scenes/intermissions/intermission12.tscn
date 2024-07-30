@@ -1,0 +1,62 @@
+[gd_scene load_steps=5 format=3 uid="uid://dmnlljgm0yon8"]
+
+[ext_resource type="Script" path="res://scripts/intermission.gd" id="1_t4ory"]
+[ext_resource type="Script" path="res://scripts/phrase.gd" id="2_tptjn"]
+[ext_resource type="Texture2D" uid="uid://c0q713x2uynyv" path="res://assets/characters/arya_beeg.png" id="3_wpljq"]
+[ext_resource type="Texture2D" uid="uid://n6k00kvfm7kk" path="res://assets/characters/alta_beeg.png" id="4_nrtto"]
+
+[node name="IntermissionScene" type="Node2D"]
+
+[node name="Intermission" type="Node2D" parent="."]
+script = ExtResource("1_t4ory")
+_next_level_id = 28
+intermission_name = "intermission"
+
+[node name="PhraseAlta" type="Node" parent="Intermission" node_paths=PackedStringArray("reaction")]
+script = ExtResource("2_tptjn")
+text = "Why does our castle have solar panels all over the place?"
+side = 1
+reaction = NodePath("../alta2")
+
+[node name="PhraseAlta4" type="Node" parent="Intermission" node_paths=PackedStringArray("reaction")]
+script = ExtResource("2_tptjn")
+text = "They look so anachronistic."
+side = 1
+reaction = NodePath("../alta2")
+
+[node name="PhraseArya" type="Node" parent="Intermission" node_paths=PackedStringArray("reaction")]
+script = ExtResource("2_tptjn")
+text = "I dunno, something our construction contractor said about “keeping up with the times” and “green energy”."
+reaction = NodePath("../arya2")
+
+[node name="PhraseArya2" type="Node" parent="Intermission" node_paths=PackedStringArray("reaction")]
+script = ExtResource("2_tptjn")
+text = "Didn’t listen."
+reaction = NodePath("../arya2")
+
+[node name="PhraseArya3" type="Node" parent="Intermission" node_paths=PackedStringArray("reaction")]
+script = ExtResource("2_tptjn")
+text = "Was more distracted with the idea of a castle keeping up with the times."
+reaction = NodePath("../arya2")
+
+[node name="PhraseAlta2" type="Node" parent="Intermission" node_paths=PackedStringArray("reaction")]
+script = ExtResource("2_tptjn")
+text = "The build cost wasn’t that high, now that I think about it."
+side = 1
+reaction = NodePath("../alta2")
+
+[node name="PhraseAlta3" type="Node" parent="Intermission" node_paths=PackedStringArray("reaction")]
+script = ExtResource("2_tptjn")
+text = "For a castle that is."
+side = 1
+reaction = NodePath("../alta2")
+
+[node name="arya2" type="Sprite2D" parent="Intermission"]
+position = Vector2(199, 471)
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("3_wpljq")
+
+[node name="alta2" type="Sprite2D" parent="Intermission"]
+position = Vector2(1107, 460)
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("4_nrtto")
