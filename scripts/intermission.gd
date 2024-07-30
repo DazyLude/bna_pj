@@ -168,3 +168,9 @@ func _process(delta: float) -> void:
 	
 	if Input.is_action_just_pressed("dialog_continue"):
 		say_the_next_line();
+		
+		if dialogue.size() == 1:
+			_main_ref.music_fadeout(false);
+			_main_ref.display_modal_component(
+				load("res://scenes/menus/main_menu.tscn").instantiate()
+			);

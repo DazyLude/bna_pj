@@ -10,6 +10,7 @@ var sound_mute := preload("res://assets/icons/sound-mute-alt-svgrepo-com.svg");
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	_main_ref = get_tree().root.get_node("Main") as MainScene;
+	
 	if _main_ref._current_state == _main_ref.LEVEL:
 		var _level_ref : GameLevel = _main_ref._current_level.get_node("GameLevel");
 		$LevelName.text = _level_ref.level_name;

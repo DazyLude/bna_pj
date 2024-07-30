@@ -30,36 +30,45 @@ layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -109.0
-offset_top = 261.0
-offset_right = 66.0
-offset_bottom = 431.0
+offset_left = -87.5
+offset_top = 200.0
+offset_right = 87.5
+offset_bottom = 370.0
 grow_horizontal = 2
 theme_override_constants/separation = 10
 
 [node name="NewGameButton" type="Button" parent="ButtonsVBox"]
 custom_minimum_size = Vector2(120, 50)
 layout_mode = 2
-theme_override_font_sizes/font_size = 24
+theme_override_font_sizes/font_size = 30
 text = "New Game"
 
 [node name="LoadLevelButton" type="Button" parent="ButtonsVBox"]
 custom_minimum_size = Vector2(120, 50)
 layout_mode = 2
-theme_override_font_sizes/font_size = 24
+theme_override_font_sizes/font_size = 30
 text = "Level Select"
 
 [node name="DisplayHelpButton" type="Button" parent="ButtonsVBox"]
 custom_minimum_size = Vector2(120, 50)
 layout_mode = 2
-theme_override_font_sizes/font_size = 24
+theme_override_font_sizes/font_size = 30
 text = "Show Controls"
 
 [node name="Title" type="Label" parent="."]
-layout_mode = 0
-offset_left = 430.0
-offset_top = 72.0
-offset_right = 786.0
-offset_bottom = 155.0
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -248.0
+offset_top = 100.0
+offset_right = 248.0
+offset_bottom = 184.0
+grow_horizontal = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 2
 theme_override_font_sizes/font_size = 60
-text = "TITEL DROP"
+text = "The Chasm Between Us"
+horizontal_alignment = 1
+vertical_alignment = 1

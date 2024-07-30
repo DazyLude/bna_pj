@@ -118,6 +118,7 @@ libraries = {
 }
 
 [node name="BlackRectangle" type="ColorRect" parent="Transition"]
+z_index = 5
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -127,6 +128,7 @@ mouse_filter = 2
 color = Color(0, 0, 0, 1)
 
 [node name="LevelName" type="Label" parent="Transition"]
+z_index = 5
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5

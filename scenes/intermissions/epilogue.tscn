@@ -9,6 +9,7 @@
 
 [node name="Intermission" type="Node2D" parent="."]
 script = ExtResource("1_ewl0k")
+_next_level_id = 16
 intermission_name = "Epilogue"
 
 [node name="Phrase" type="Node" parent="Intermission"]
@@ -45,6 +46,6 @@ What did they do to the contractor, you ask?
 
 Well, Alta is a vampire… so, obviously, Arya did the wrestling, and Alta took photos of that process from the angles available only to a sentient bat. They used the photos to motivate the next contractor to do a better job, and this time they’ve decided to leave a couple of doors between their parts of the castle.
 
-(press ESC to exit to the menu)"
+(press spacebar to exit to the menu)"
 horizontal_alignment = 1
 autowrap_mode = 2

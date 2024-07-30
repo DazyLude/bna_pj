@@ -29,13 +29,13 @@ layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -489.0
-offset_top = 148.0
-offset_right = 505.0
-offset_bottom = 645.0
+offset_left = -442.5
+offset_top = 250.0
+offset_right = 442.5
+offset_bottom = 549.0
 grow_horizontal = 2
 theme_override_constants/h_separation = 20
-theme_override_constants/v_separation = 40
+theme_override_constants/v_separation = 100
 columns = 7
 
 [node name="Level1" type="Button" parent="ButtonsGrid"]
@@ -60,7 +60,7 @@ theme_override_font_sizes/font_size = 24
 text = "Door 
 Stuck"
 
-[node name="Level4" type="Button" parent="ButtonsGrid"]
+[node name="shadows" type="Button" parent="ButtonsGrid"]
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
 theme_override_font_sizes/font_size = 24
@@ -72,39 +72,96 @@ Light"
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
 theme_override_font_sizes/font_size = 24
-text = "Why is it green
-if there is
-no green?"
+text = "Flight or Flight
+Responce"
 
 [node name="Level6" type="Button" parent="ButtonsGrid"]
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
 theme_override_font_sizes/font_size = 24
-text = "Flight or Flight
-Responce"
+text = "She just goes
+HAAAAAAAA"
 
 [node name="Level7" type="Button" parent="ButtonsGrid"]
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
 theme_override_font_sizes/font_size = 24
+text = "Deja Vu"
+
+[node name="Level8" type="Button" parent="ButtonsGrid"]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Heavylifting"
+
+[node name="Level9" type="Button" parent="ButtonsGrid"]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Mousetrap"
+
+[node name="Level10" type="Button" parent="ButtonsGrid"]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
 text = "Mirrors
-and
-Mirrors"
+and Mirrors"
+
+[node name="Level11" type="Button" parent="ButtonsGrid"]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "More
+Boxes"
+
+[node name="Level12" type="Button" parent="ButtonsGrid"]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Why Is It Green
+If There Is No Green"
+
+[node name="Level13" type="Button" parent="ButtonsGrid"]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Perpetuum
+Mobile"
+
+[node name="Level14" type="Button" parent="ButtonsGrid"]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "The Exit"
 
 [node name="Title" type="Label" parent="."]
-layout_mode = 0
-offset_left = 179.0
-offset_top = 51.0
-offset_right = 513.0
-offset_bottom = 134.0
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -131.5
+offset_top = 100.0
+offset_right = 131.5
+offset_bottom = 184.0
+grow_horizontal = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 2
 theme_override_font_sizes/font_size = 60
-text = "level select"
+text = "Level Select"
 
 [node name="BackButton" type="Button" parent="."]
-layout_mode = 0
-offset_left = 578.0
-offset_top = 629.0
-offset_right = 658.0
-offset_bottom = 682.0
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -40.0
+offset_top = -90.0
+offset_right = 40.0
+offset_bottom = -37.0
+grow_horizontal = 2
+grow_vertical = 0
 theme_override_font_sizes/font_size = 24
 text = "back"

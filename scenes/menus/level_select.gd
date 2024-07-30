@@ -17,18 +17,55 @@ func _ready() -> void:
 	($ButtonsGrid/Level3 as BaseButton).button_up.connect(
 		func(): _load_level(MainScene.LevelID.GATES_TUTORIAL)
 	);
-	($ButtonsGrid/Level4 as BaseButton).button_up.connect(
+	($ButtonsGrid/shadows as BaseButton).button_up.connect(
 		func(): _load_level(MainScene.LevelID.SHADOWS_TUTORIAL)
 	);
 	($ButtonsGrid/Level5 as BaseButton).button_up.connect(
-		func(): _load_level(MainScene.LevelID.SOLAR_TUTORIAL)
-	);
-	($ButtonsGrid/Level6 as BaseButton).button_up.connect(
 		func(): _load_level(MainScene.LevelID.FLIGHT_TUTORIAL)
 	);
+	($ButtonsGrid/Level6 as BaseButton).button_up.connect(
+		func(): _load_level(MainScene.LevelID.STRENGTH_TUTORIAL)
+	);
 	($ButtonsGrid/Level7 as BaseButton).button_up.connect(
+		func(): _load_level(MainScene.LevelID.DEJA_VU)
+	);
+	($ButtonsGrid/Level8 as BaseButton).button_up.connect(
+		func(): _load_level(MainScene.LevelID.LEVEL_1)
+	);
+	($ButtonsGrid/Level9 as BaseButton).button_up.connect(
+		func(): _load_level(MainScene.LevelID.LEVEL_2)
+	);
+	($ButtonsGrid/Level10 as BaseButton).button_up.connect(
 		func(): _load_level(MainScene.LevelID.MIRROR_TUTORIAL)
 	);
+	($ButtonsGrid/Level11 as BaseButton).button_up.connect(
+		func(): _load_level(MainScene.LevelID.LEVEL_3)
+	);
+	($ButtonsGrid/Level12 as BaseButton).button_up.connect(
+		func(): _load_level(MainScene.LevelID.SOLAR_TUTORIAL)
+	);
+	($ButtonsGrid/Level13 as BaseButton).button_up.connect(
+		func(): _load_level(MainScene.LevelID.LEVEL_4)
+	);
+	($ButtonsGrid/Level14 as BaseButton).button_up.connect(
+		func(): _load_level(MainScene.LevelID.LEVEL_THE_FINAL)
+	);
+	
+	
+
+	#FLIGHT_TUTORIAL,
+	#STRENGTH_TUTORIAL,
+	#MIRROR_TUTORIAL,
+	#SOLAR_TUTORIAL,
+	#
+	#LEVEL_1,
+	#LEVEL_2,
+	#LEVEL_3,
+	#LEVEL_4,
+	#
+	#LEVEL_THE_FINAL,
+	#
+	#DEJA_VU,
 	($BackButton as BaseButton).button_up.connect(_back_to_menu);
 
 
