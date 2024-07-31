@@ -122,7 +122,7 @@ func are_coords_lit(coords: Vector2i) -> bool:
 func _init(from: Vector2i, to: Vector2i, dir: Direction, type: TYPE, level: GameLevel) -> void:
 	start = from;
 	end = to;
-	self.direction = dir;
+	self.direction = Direction.from_num(dir.num);
 	self.btype = type;
 	
 	_level_ref = level;

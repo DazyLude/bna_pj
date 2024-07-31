@@ -261,13 +261,14 @@ var beams : Dictionary = {};
 var beam_sensitive : Dictionary = {};
 
 func calculate_beams(emitter: LevelObject, from: Vector2i) -> Dictionary:
-	var end = from;
 	var n_beams := {};
-	for direction in emitter._get_emission_directions() as Array[Direction]:
-		var type = emitter._get_emission_type(direction.num);
+	for dir_i in emitter._get_emission_directions() as Array[Direction]:
+		var end = from;
+		var type = emitter._get_emission_type(dir_i.num);
 		if type == Beam.TYPE.NONE:
 			continue;
-		var delta : Vector2i = direction.vec;
+		var delta : Vector2i = dir_i.vec;
+		
 		var length := 1;
 		while length <= Beam.MAX_LENGTH:
 			var potential_end = end + delta;
@@ -276,7 +277,8 @@ func calculate_beams(emitter: LevelObject, from: Vector2i) -> Dictionary:
 					length = Beam.MAX_LENGTH;
 			end = potential_end;
 			length += 1;
-		n_beams[direction.num] = Beam.new(from, end, direction, type, self);
+		n_beams[dir_i.num] = Beam.new(from, end, dir_i, type, self);
+	
 	return n_beams;
 
 
