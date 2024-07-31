@@ -169,7 +169,7 @@ enum {
 var transition_state = NONE;
 var transition_progress = 0.;
 const transition_speed = .75;
-const max_volume = -12.;
+const max_volume = -16.;
 const min_volume = -80.;
 var music_bus := AudioServer.get_bus_index(&"music");
 var main_music : AudioStream = preload(

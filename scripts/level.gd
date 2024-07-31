@@ -108,6 +108,8 @@ func move_character(direction_num: int) -> void:
 	tick_turn();
 	if check_win():
 		go_next();
+	if check_fall_from_grace():
+		_cancel();
 
 func save_state() -> void:
 	for coords in _objects_that_matter.keys():
@@ -139,13 +141,22 @@ func process_lights():
 		recursion_depth += 1;
 
 
+func check_fall_from_grace() -> bool:
+	var characters = get_objects_by_tags([LevelObject.TAGS.ARYA, LevelObject.TAGS.ALTA]);
+	for character in characters:
+		if character.stuck:
+			var coords = get_coords_of_an_object(character);
+			for obj in get_objects_by_coords(coords):
+				if obj as PitObject != null:
+					return true;
+	return false;
+
+
 func check_win() -> bool:
 	var characters = get_objects_by_tags([LevelObject.TAGS.ARYA, LevelObject.TAGS.ALTA]);
 	var everyone_ready = true;
 	for character in characters:
 		if character.stuck:
-			if character.has_tag(LevelObject.TAGS.ALTA):
-				_cancel();
 			return false;
 		var coords = get_coords_of_an_object(character);
 		var other_objects = get_objects_by_coords(coords);

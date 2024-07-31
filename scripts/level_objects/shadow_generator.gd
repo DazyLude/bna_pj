@@ -8,6 +8,18 @@ var shadowing : Dictionary = {};
 var atlas := AtlasTexture.new();
 
 
+func get_state() -> Dictionary:
+	var dict = super.get_state();
+	dict["shadowing"] = shadowing.duplicate();
+	
+	return dict;
+
+
+func set_state(state: Dictionary) -> void:
+	super.set_state(state);
+	shadowing = state["shadowing"];
+
+
 func _get_emission_directions() -> Array:
 	var result := []
 	for dir_num in shadowing.keys():

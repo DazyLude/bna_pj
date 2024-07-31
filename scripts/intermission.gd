@@ -31,6 +31,8 @@ var _main_ref : MainScene = null;
 
 
 func _ready() -> void:
+	get_viewport_rect().size.x
+	
 	var bg := Sprite2D.new();
 	bg.texture = preload("res://assets/background_inter.png");
 	bg.centered = false;
@@ -95,7 +97,9 @@ func spawn_left_bubble(text: String) -> Node:
 
 func spawn_right_bubble(text: String) -> Node:
 	var bubble = spawn_bubble(text);
-	bubble.position.x = get_window().get_viewport().size.x - (outer_side_margin + bubble_width);
+	var vp_rect = get_viewport_rect();
+	var unscaled = vp_rect.size.x - (outer_side_margin + bubble_width);
+	bubble.position.x = unscaled * vp_rect.size.x / 1280.;
 	bubble.position.y = bubble_control_height;
 	add_child(bubble);
 	bump_right();
