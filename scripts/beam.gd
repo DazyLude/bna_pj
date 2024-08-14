@@ -132,8 +132,10 @@ func _init(from: Vector2i, to: Vector2i, dir: Direction, type: TYPE, level: Game
 	match btype:
 		TYPE.LIGHT:
 			atlas.atlas = preload("res://assets/objects/light_trans_sh.png");
+			z_index = 1;
 		TYPE.SHADOW:
 			atlas.atlas = preload("res://assets/objects/dark_trans_sh.png");
+			z_index = 1;
 	atlas.region.size = Vector2(64., 64.);
 
 
